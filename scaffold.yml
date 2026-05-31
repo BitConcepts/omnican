@@ -11,7 +11,7 @@ description: >
   west module with ISO 15765-2 (ISOTP) from Zephyr as transport.
 license: Apache-2.0
 spec_version: "0.11.8"
-aee_phase: test_spec
+aee_phase: release
 vcs_platform: github
 branching_strategy: gitflow
 default_branch: main

@@ -17,3 +17,9 @@
 - **Type**: task
 - **Status**: complete
 - **Chain hash**: `dede1262338dce9c...`
+
+## 2026-05-31T18:48 — Release v0.1.0: all 7 AEE phases complete. CHANGELOG.md, docs/COMPLIANCE.md, SEAL-0003 milestone sealed. Governance baseline ready for protocol implementation.
+- **Author**: agent
+- **Type**: task
+- **Status**: complete
+- **Chain hash**: `bab59fbf54bc3beb...`

@@ -59,6 +59,8 @@ for r in reqs_raw:
         f"- **Status**: planned",
         f"- **Description**: {r['description']}",
         f"- **Source**: docs/ARCHITECTURE.md ## {r['component']}",
+        f"- **Platform**: embedded",
+        f"- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim",
         "",
     ]
 
