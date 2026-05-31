@@ -23,3 +23,9 @@
 - **Type**: task
 - **Status**: complete
 - **Chain hash**: `bab59fbf54bc3beb...`
+
+## 2026-05-31T18:59 — Architecture expanded to completion (921 lines): system Mermaid diagram, frame router dispatch table, CANopen NMT/SDO/PDO/Emergency/Heartbeat state machines, OD structure, J1939 29-bit ID layout, 64-bit NAME field, address claiming sequence, TP/ETP state machine, UDS session state machine, SecurityAccess flow, data transfer flow, OBD-II PID decode table, CANopen FD comparison table, ISOTP patch flow, full Kconfig reference (18 symbols), memory budget, integration guide. docs/STANDARDS.md created: normative registry for ISO 11898, CiA 301/1301, J1939/11/21/81, ISO 14229-1/3, J1979, ISO 15765-2/4 with edition pins.
+- **Author**: agent
+- **Type**: task
+- **Status**: complete
+- **Chain hash**: `b5ef52043b0e80c1...`
