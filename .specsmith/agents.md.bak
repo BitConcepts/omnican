@@ -1,0 +1,88 @@
+# omnican — Agent Governance
+
+## Project Summary
+- **Name**: OmniCAN v0.1.0
+- **Owner**: BitConcepts, LLC
+- **License**: Apache-2.0
+- **Language**: C (Zephyr RTOS west module)
+- **Build system**: CMake via `west build`
+- **Test framework**: Zephyr `ztest` (via `west twister`); `clang-format` for lint
+- **Verification tools**: `clang-format`, `west build`, `west twister`
+
+OmniCAN is a unified, multi-protocol CAN stack for Zephyr RTOS. All protocols share
+a common node context (`struct omnican_node`) and frame router. Protocols are
+independently enabled via Kconfig; unused modules compile to zero.
+
+## Repository Layout
+```
+omnican/
+  include/omnican/     — Public C headers (one per module + top-level omnican.h)
+  src/core/            — Frame router (auto-enabled when any protocol is active)
+  src/canopen/         — CANopen CiA 301 (NMT, SDO, PDO, Emergency, Heartbeat)
+  src/canopen_fd/      — CANopen FD CiA 1301 extensions
+  src/j1939/           — SAE J1939 (address claiming, PGN routing, TP/ETP)
+  src/uds/             — ISO 14229 UDS server+client (via Zephyr ISO-TP)
+  src/obd2/            — SAE J1979 OBD-II client (via Zephyr ISO-TP)
+  src/isotp_patch/     — Workaround for Zephyr ISOTP issue #86025
+  docs/                — Architecture, requirements, test spec, governance
+  CMakeLists.txt       — Module CMake entry; guards each src/ dir behind Kconfig
+  Kconfig              — All CONFIG_OMNICAN_* symbols defined here
+  west.yml             — West manifest: Zephyr v3.7.0 + CANopenNode (optional ref)
+  zephyr/module.yml    — Registers omnican as a Zephyr west module
+  scaffold.yml         — specsmith project metadata
+```
+
+## Kconfig Flags
+| Symbol | Default | Depends on |
+|---|---|---|
+| `CONFIG_OMNICAN` | n | `CAN`, selects `NET_BUF` |
+| `CONFIG_OMNICAN_CANOPEN` | n | `OMNICAN` |
+| `CONFIG_OMNICAN_CANOPEN_FD` | n | `OMNICAN_CANOPEN`, `CAN_FD_MODE` |
+| `CONFIG_OMNICAN_J1939` | n | `OMNICAN`, selects `CAN_ACCEPT_RTR` |
+| `CONFIG_OMNICAN_UDS` | n | `OMNICAN`, `ISOTP` |
+| `CONFIG_OMNICAN_OBD2` | n | `OMNICAN`, `ISOTP` |
+| `CONFIG_OMNICAN_FRAME_ROUTER` | auto | enabled when any protocol is on |
+| `CONFIG_OMNICAN_ISOTP_PATCH` | auto | `ISOTP` + UDS or OBD2 |
+
+## Core API Surface
+- `omnican_node_init()` — initialize shared node context (CAN device, bitrate, FD mode)
+- **CANopen**: `omnican_canopen_init/start/stop/process()`
+- **J1939**: `omnican_j1939_init()`, `omnican_j1939_claim_address()`, `omnican_j1939_send()`, `omnican_j1939_register_pgn()`
+- **UDS**: `omnican_uds_server_init()`, `omnican_uds_register_service()`
+- **OBD-II**: `omnican_obd2_client_init()`, `omnican_obd2_request_pid()`
+- All functions return `omnican_err_t` (0 = OK, negative = error code)
+
+## Build & Verify
+```sh
+# Configure for a target app that enables OmniCAN
+west build -b <board> app/
+
+# Run Zephyr unit tests
+west twister -T tests/ --integration
+
+# Lint / format check
+clang-format --dry-run --Werror include/omnican/*.h src/**/*.c
+```
+
+> **CI note**: `.github/workflows/ci.yml` currently contains Python-centric steps
+> (ruff, mypy, pytest) that do not match this embedded-C project and should be
+> replaced with a west/twister + clang-format pipeline.
+
+## Governance Rules
+1. Read AGENTS.md fully before starting any task.
+2. Log all changes in LEDGER.md (append-only).
+3. Map changes to requirements in docs/REQUIREMENTS.md.
+4. Verify against docs/TESTS.md.
+5. Never modify governance files (`docs/governance/`) without a proposal and human approval.
+6. All proposals follow: propose → approve → execute → verify → record.
+7. All code changes must keep `CMakeLists.txt` and `Kconfig` in sync.
+
+## Governance References
+- `docs/governance/RULES.md` — hard rules (H1–H3)
+- `docs/governance/ROLES.md` — human approves, agent proposes/executes
+- `docs/governance/SESSION-PROTOCOL.md` — propose → approve → execute → verify → record
+- `docs/governance/VERIFICATION.md` — run verification before marking complete
+- `docs/governance/LIFECYCLE.md` — specsmith phase/lifecycle
+- `docs/ARCHITECTURE.md` — architecture (stub; enrich as modules are implemented)
+- `docs/REQUIREMENTS.md` — requirements (stub; enrich as features are defined)
+- `docs/TESTS.md` — test spec (stub; enrich as tests are written)

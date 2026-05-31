@@ -1,10 +1,12 @@
 name: CI
+# OmniCAN — Zephyr RTOS west module (embedded C, Apache-2.0)
+# Verification: clang-format lint + west twister unit tests
 
 on:
   push:
-    branches: [main]
+    branches: [main, develop]
   pull_request:
-    branches: [main]
+    branches: [main, develop]
 
 concurrency:
   group: ci-${{ github.ref }}
@@ -13,55 +15,110 @@ concurrency:
 permissions:
   contents: read
 
+env:
+  ZEPHYR_VERSION: v3.7.0
+
 jobs:
+  # ---------------------------------------------------------------------------
+  # clang-format lint — enforces code style on all C/H files
+  # ---------------------------------------------------------------------------
   lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v6
-        with:
-          python-version: "3.12"
-          cache: pip
-      - run: pip install -e ".[dev]"
-      - run: ruff check
-      - run: ruff format --check .
 
-  typecheck:
+      - name: Install clang-format
+        run: sudo apt-get install -y clang-format
+
+      - name: Check formatting (dry-run)
+        run: |
+          find include src -name '*.[ch]' -print0 \
+            | xargs -0 clang-format --dry-run --Werror
+
+  # ---------------------------------------------------------------------------
+  # west build — verify the module compiles for each enabled protocol
+  # ---------------------------------------------------------------------------
+  build:
+    needs: lint
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v6
-        with:
-          python-version: "3.12"
-          cache: pip
-      - run: pip install -e ".[dev]"
-      - run: mypy src/omnican/
-
-  test:
-    needs: [lint, typecheck]
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
-        python-version: ["3.10", "3.12", "3.13"]
-    runs-on: ${{ matrix.os }}
+        # Each variant selects one or more protocols
+        config:
+          - name: canopen
+            extra_conf: CONFIG_OMNICAN_CANOPEN=y
+          - name: j1939
+            extra_conf: CONFIG_OMNICAN_J1939=y
+          - name: uds
+            extra_conf: CONFIG_OMNICAN_UDS=y CONFIG_ISOTP=y
+          - name: obd2
+            extra_conf: CONFIG_OMNICAN_OBD2=y CONFIG_ISOTP=y
+          - name: all-protocols
+            extra_conf: >-
+              CONFIG_OMNICAN_CANOPEN=y
+              CONFIG_OMNICAN_J1939=y
+              CONFIG_OMNICAN_UDS=y
+              CONFIG_OMNICAN_OBD2=y
+              CONFIG_ISOTP=y
+
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: ${{ matrix.python-version }}
-          cache: pip
-      - run: pip install -e ".[dev]"
-      - run: pytest --cov=omnican --cov-report=term-missing
 
-  security:
+      - name: Set up Python (for west)
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install west and Zephyr SDK dependencies
+        run: |
+          pip install west
+          sudo apt-get install -y \
+            ninja-build cmake device-tree-compiler \
+            gcc-arm-none-eabi
+
+      - name: west init & update
+        run: |
+          west init -l .
+          west update --narrow
+          west zephyr-export
+          pip install -r zephyr/scripts/requirements.txt
+
+      - name: Build — ${{ matrix.config.name }}
+        run: |
+          west build -b native_sim tests/build_check \
+            -- -DCONFIG_OMNICAN=y ${{ matrix.config.extra_conf }}
+
+  # ---------------------------------------------------------------------------
+  # west twister — run ztest unit tests
+  # ---------------------------------------------------------------------------
+  test:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v6
+
+      - name: Set up Python (for west)
+        uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-          cache: pip
-      - run: pip install -e .
-      - run: pip install pip-audit
-      - run: pip-audit
+
+      - name: Install west and Zephyr SDK
+        run: |
+          pip install west
+          sudo apt-get install -y \
+            ninja-build cmake device-tree-compiler \
+            gcc-arm-none-eabi
+
+      - name: west init & update
+        run: |
+          west init -l .
+          west update --narrow
+          west zephyr-export
+          pip install -r zephyr/scripts/requirements.txt
+
+      - name: Run ztest suite via twister
+        run: |
+          west twister -T tests/ --integration \
+            --platform native_sim \
+            -v --inline-logs

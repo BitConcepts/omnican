@@ -11,6 +11,7 @@ description: >
   west module with ISO 15765-2 (ISOTP) from Zephyr as transport.
 license: Apache-2.0
 spec_version: "0.11.8"
+aee_phase: architecture
 vcs_platform: github
 branching_strategy: gitflow
 default_branch: main
@@ -35,6 +36,7 @@ auxiliary_disciplines:
   - zephyr-rtos
 verification_tools:
   lint: clang-format
-  test: pytest + ztest
+  test: west twister
   build: west build
   format: clang-format
+type_confirmed: true
