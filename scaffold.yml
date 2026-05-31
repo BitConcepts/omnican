@@ -1,0 +1,40 @@
+name: omnican
+type: embedded-hardware
+language: c
+platforms:
+  - embedded
+  - zephyr
+description: >
+  OmniCAN — Unified multi-protocol CAN stack for Zephyr RTOS.
+  Supports CANopen (CiA 301), CANopen FD (CiA 1301), SAE J1939,
+  ISO 14229 / UDS, and SAE J1979 / OBD-II. Built as a clean Zephyr
+  west module with ISO 15765-2 (ISOTP) from Zephyr as transport.
+license: Apache-2.0
+spec_version: "0.11.8"
+vcs_platform: github
+branching_strategy: gitflow
+default_branch: main
+develop_branch: develop
+require_pr_reviews: true
+required_approvals: 1
+require_ci_pass: true
+allow_force_push: false
+git_init: false
+exec_shims: false
+shell_wrappers: true
+services: false
+community_files:
+  - contributing
+  - license
+  - security
+  - coc
+  - pr-template
+  - issue-templates
+auxiliary_disciplines:
+  - embedded-c
+  - zephyr-rtos
+verification_tools:
+  lint: clang-format
+  test: pytest + ztest
+  build: west build
+  format: clang-format

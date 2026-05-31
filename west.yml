@@ -1,0 +1,34 @@
+manifest:
+  version: "0.13"
+
+  self:
+    path: omnican
+    west-commands: scripts/west-commands.yml
+
+  defaults:
+    remote: zephyr
+
+  remotes:
+    - name: zephyr
+      url-base: https://github.com/zephyrproject-rtos
+    - name: bitconcepts
+      url-base: https://github.com/BitConcepts
+
+  projects:
+    # Zephyr RTOS (pinned to a stable release — update as needed)
+    - name: zephyr
+      remote: zephyr
+      revision: v3.7.0
+      import: true
+
+    # CANopenNode upstream — used as source reference for the CANopen module.
+    # OmniCAN does NOT vendor CANopenNode directly; instead src/canopen/
+    # contains a clean re-implementation guided by upstream.
+    # Kept here as a dependency reference for OD generation tools.
+    - name: CANopenNode
+      remote: zephyr
+      url: https://github.com/CANopenNode/CANopenNode
+      revision: master
+      path: modules/lib/canopennode
+      groups:
+        - optional

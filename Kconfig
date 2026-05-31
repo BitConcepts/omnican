@@ -1,0 +1,97 @@
+# SPDX-License-Identifier: Apache-2.0
+# OmniCAN — Unified multi-protocol CAN stack for Zephyr RTOS
+# Copyright (c) 2026 BitConcepts, LLC
+
+menuconfig OMNICAN
+	bool "OmniCAN multi-protocol CAN stack"
+	depends on CAN
+	select NET_BUF
+	help
+	  Enable OmniCAN — a unified multi-protocol CAN stack for Zephyr.
+	  Supports CANopen, CANopen FD, SAE J1939, ISO 14229 (UDS),
+	  and SAE J1979 (OBD-II).
+
+if OMNICAN
+
+# ---------------------------------------------------------------------------
+# Protocol modules
+# ---------------------------------------------------------------------------
+
+config OMNICAN_CANOPEN
+	bool "CANopen (CiA 301)"
+	default n
+	help
+	  Enable the CANopen protocol stack (CiA 301).
+	  Includes NMT, SDO server, PDO, Emergency, Heartbeat.
+
+config OMNICAN_CANOPEN_FD
+	bool "CANopen FD (CiA 1301)"
+	depends on OMNICAN_CANOPEN && CAN_FD_MODE
+	default n
+	help
+	  Enable CANopen FD extensions (CiA 1301) on top of CANopen.
+	  Requires CAN FD hardware and OMNICAN_CANOPEN.
+
+config OMNICAN_J1939
+	bool "SAE J1939"
+	select CAN_ACCEPT_RTR
+	default n
+	help
+	  Enable SAE J1939 support: address claiming (J1939/81),
+	  PGN routing (J1939/21), and Transport Protocol (J1939/21 TP/ETP).
+	  Uses 29-bit extended CAN identifiers.
+
+config OMNICAN_UDS
+	bool "ISO 14229 / UDS (Unified Diagnostic Services)"
+	depends on ISOTP
+	default n
+	help
+	  Enable ISO 14229 UDS server and client.
+	  Core services: 0x10 DiagnosticSessionControl,
+	  0x11 ECUReset, 0x22 ReadDataByIdentifier,
+	  0x27 SecurityAccess, 0x28 CommunicationControl,
+	  0x2E WriteDataByIdentifier, 0x31 RoutineControl,
+	  0x34/0x36/0x37 RequestDownload/TransferData/RequestTransferExit,
+	  0x3E TesterPresent, 0x85 ControlDTCSetting.
+	  Transport: Zephyr ISO-TP (ISO 15765-2).
+
+config OMNICAN_OBD2
+	bool "SAE J1979 / OBD-II"
+	depends on ISOTP
+	default n
+	help
+	  Enable OBD-II (SAE J1979) PID query/response support.
+	  Supports Mode 0x01..0x09. Transport: Zephyr ISO-TP (ISO 15765-4).
+
+# ---------------------------------------------------------------------------
+# Core frame router
+# ---------------------------------------------------------------------------
+
+config OMNICAN_FRAME_ROUTER
+	bool
+	default y if (OMNICAN_CANOPEN || OMNICAN_J1939 || OMNICAN_UDS || OMNICAN_OBD2)
+	help
+	  Internal: enable the CAN frame router when any protocol is active.
+
+# ---------------------------------------------------------------------------
+# ISOTP patch (Zephyr #86025 workaround)
+# ---------------------------------------------------------------------------
+
+config OMNICAN_ISOTP_PATCH
+	bool "Apply Zephyr ISOTP same-ID bind/send workaround"
+	depends on ISOTP && (OMNICAN_UDS || OMNICAN_OBD2)
+	default y if OMNICAN_UDS || OMNICAN_OBD2
+	help
+	  Enables the OmniCAN workaround for Zephyr ISOTP issue #86025:
+	  cannot bind and transmit on the same CAN ID. Required for
+	  standard UDS physical addressing (e.g. 0x7E0/0x7E8).
+
+# ---------------------------------------------------------------------------
+# Logging
+# ---------------------------------------------------------------------------
+
+module = OMNICAN
+module-str = OmniCAN
+source "$(ZEPHYR_BASE)/subsys/logging/Kconfig.template.log_config"
+
+endif # OMNICAN
