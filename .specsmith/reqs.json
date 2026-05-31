@@ -1,0 +1,443 @@
+[
+  {
+    "id": "CORE-NODE-REQ-001",
+    "component": "Core Node",
+    "description": "Provide `omnican_node_init()` to bind a Zephyr CAN device, set bitrate, and enable FD mode",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "CORE-NODE-REQ-002",
+    "component": "Core Node",
+    "description": "Return `OMNICAN_ERR_NODEV` from `omnican_node_init()` when the CAN device is not ready",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "CORE-NODE-REQ-003",
+    "component": "Core Node",
+    "description": "Define `omnican_proto_t` bitmask with one bit per protocol (CANOPEN, J1939, UDS, OBD2)",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "CORE-NODE-REQ-004",
+    "component": "Core Node",
+    "description": "Define `omnican_err_t` with codes OK, INVAL, NODEV, NOMEM, TIMEOUT, BUSY, PROTO, UNSUPPORTED, IO",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "CORE-NODE-REQ-005",
+    "component": "Core Node",
+    "description": "Register as a Zephyr west module via `zephyr/module.yml` so `west build` adds include/ to the build path",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "CORE-NODE-REQ-006",
+    "component": "Core Node",
+    "description": "Be buildable against Zephyr v3.7.0 with no patches to Zephyr itself",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "FRAME-ROUTER-REQ-007",
+    "component": "Frame Router",
+    "description": "Register exactly one CAN receive filter per enabled protocol",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "FRAME-ROUTER-REQ-008",
+    "component": "Frame Router",
+    "description": "Dispatch received frames to the correct protocol handler without blocking the CAN ISR",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "FRAME-ROUTER-REQ-009",
+    "component": "Frame Router",
+    "description": "Use a Zephyr system workqueue for all protocol callback dispatch",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "FRAME-ROUTER-REQ-010",
+    "component": "Frame Router",
+    "description": "Auto-enable via CONFIG_OMNICAN_FRAME_ROUTER when any protocol is active",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "CANOPEN-CIA-301-REQ-011",
+    "component": "CANopen CiA 301",
+    "description": "Implement the NMT state machine with states Initialising, Pre-Operational, Operational, and Stopped per CiA 301",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "CANOPEN-CIA-301-REQ-012",
+    "component": "CANopen CiA 301",
+    "description": "Transmit a Boot-Up message (NMT state 0x00) on transition from Initialising to Pre-Operational",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "CANOPEN-CIA-301-REQ-013",
+    "component": "CANopen CiA 301",
+    "description": "Respond to NMT master commands (Start, Stop, Pre-Operational, Reset Node, Reset Communication) on CAN ID 0x000",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "CANOPEN-CIA-301-REQ-014",
+    "component": "CANopen CiA 301",
+    "description": "Implement an SDO server supporting expedited, segmented, and block transfer modes per CiA 301",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "CANOPEN-CIA-301-REQ-015",
+    "component": "CANopen CiA 301",
+    "description": "Return SDO abort code 0x05040000 on SDO timeout",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "CANOPEN-CIA-301-REQ-016",
+    "component": "CANopen CiA 301",
+    "description": "Support TPDO and RPDO with event-driven and synchronisation-triggered transmission modes",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "CANOPEN-CIA-301-REQ-017",
+    "component": "CANopen CiA 301",
+    "description": "Support compile-time PDO mappings via the Object Dictionary",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "CANOPEN-CIA-301-REQ-018",
+    "component": "CANopen CiA 301",
+    "description": "Produce Emergency messages (CAN ID 0x80 + node_id) with 16-bit error code and 8-byte error register per CiA 301",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "CANOPEN-CIA-301-REQ-019",
+    "component": "CANopen CiA 301",
+    "description": "Produce Heartbeat messages at a Kconfig-configurable interval (default 1000 ms) per CiA 301",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "CANOPEN-CIA-301-REQ-020",
+    "component": "CANopen CiA 301",
+    "description": "Support Heartbeat consumer monitoring of remote nodes with error event on timeout",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "CANOPEN-CIA-301-REQ-021",
+    "component": "CANopen CiA 301",
+    "description": "Represent the Object Dictionary as a static C array generated from an OD descriptor with no heap allocation",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "CANOPEN-CIA-301-REQ-022",
+    "component": "CANopen CiA 301",
+    "description": "Write recommended delay to next `omnican_canopen_process()` call in microseconds via `*next_us`",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "CANOPEN-CIA-301-REQ-023",
+    "component": "CANopen CiA 301",
+    "description": "Run the CANopen process loop in a dedicated Zephyr thread with configurable stack size and priority",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "J1939-REQ-024",
+    "component": "J1939",
+    "description": "Use 29-bit extended CAN identifiers and reject 11-bit standard ID frames",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "J1939-REQ-025",
+    "component": "J1939",
+    "description": "Implement the address-claiming procedure per J1939/81 with 250 ms contention window and 64-bit NAME priority",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "J1939-REQ-026",
+    "component": "J1939",
+    "description": "Prevent PGN transmission until address claiming succeeds",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "J1939-REQ-027",
+    "component": "J1939",
+    "description": "Return OMNICAN_ERR_BUSY and set addr to NULL when address claiming fails",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "J1939-REQ-028",
+    "component": "J1939",
+    "description": "Support a static PGN routing table populated via `omnican_j1939_register_pgn()` with callback and user-data",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "J1939-REQ-029",
+    "component": "J1939",
+    "description": "Invoke PGN callbacks from the system workqueue with source address, data pointer, and length",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "J1939-REQ-030",
+    "component": "J1939",
+    "description": "Implement J1939 Transport Protocol (TP) for 9-1785 byte messages using BAM and CMDT modes",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "J1939-REQ-031",
+    "component": "J1939",
+    "description": "Implement Extended Transport Protocol (ETP) for messages larger than 1785 bytes",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "J1939-REQ-032",
+    "component": "J1939",
+    "description": "Maintain TP/ETP session state in static context with configurable maximum simultaneous sessions",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "UDS-ISO-14229-REQ-033",
+    "component": "UDS ISO 14229",
+    "description": "Use Zephyr ISO-TP for all UDS message transport with ISOTP patch when CONFIG_OMNICAN_ISOTP_PATCH=y",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "UDS-ISO-14229-REQ-034",
+    "component": "UDS ISO 14229",
+    "description": "Implement DiagnosticSessionControl (SID 0x10) and enforce service availability per active session",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "UDS-ISO-14229-REQ-035",
+    "component": "UDS ISO 14229",
+    "description": "Maintain an S3 timer (default 5000 ms) and revert to Default session on expiry",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "UDS-ISO-14229-REQ-036",
+    "component": "UDS ISO 14229",
+    "description": "Reset the S3 timer on TesterPresent (SID 0x3E)",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "UDS-ISO-14229-REQ-037",
+    "component": "UDS ISO 14229",
+    "description": "Support SID 0x10 DiagnosticSessionControl",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "UDS-ISO-14229-REQ-038",
+    "component": "UDS ISO 14229",
+    "description": "Support SID 0x11 ECUReset with hardReset, softReset, and keyOffOnReset sub-functions",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "UDS-ISO-14229-REQ-039",
+    "component": "UDS ISO 14229",
+    "description": "Support SID 0x22 ReadDataByIdentifier",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "UDS-ISO-14229-REQ-040",
+    "component": "UDS ISO 14229",
+    "description": "Support SID 0x27 SecurityAccess with application-supplied seed/key callback",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "UDS-ISO-14229-REQ-041",
+    "component": "UDS ISO 14229",
+    "description": "Support SID 0x28 CommunicationControl",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "UDS-ISO-14229-REQ-042",
+    "component": "UDS ISO 14229",
+    "description": "Support SID 0x2E WriteDataByIdentifier",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "UDS-ISO-14229-REQ-043",
+    "component": "UDS ISO 14229",
+    "description": "Support SID 0x31 RoutineControl with start, stop, and requestResults",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "UDS-ISO-14229-REQ-044",
+    "component": "UDS ISO 14229",
+    "description": "Support SID 0x34 RequestDownload",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "UDS-ISO-14229-REQ-045",
+    "component": "UDS ISO 14229",
+    "description": "Support SID 0x36 TransferData",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "UDS-ISO-14229-REQ-046",
+    "component": "UDS ISO 14229",
+    "description": "Support SID 0x37 RequestTransferExit",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "UDS-ISO-14229-REQ-047",
+    "component": "UDS ISO 14229",
+    "description": "Support SID 0x85 ControlDTCSetting",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "UDS-ISO-14229-REQ-048",
+    "component": "UDS ISO 14229",
+    "description": "Return NRC 0x11 (serviceNotSupported) for unregistered SIDs",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "UDS-ISO-14229-REQ-049",
+    "component": "UDS ISO 14229",
+    "description": "Never use a hardcoded SecurityAccess seed/key algorithm; always use an application callback",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "UDS-ISO-14229-REQ-050",
+    "component": "UDS ISO 14229",
+    "description": "Lock the session and return NRC 0x36 after exceeding CONFIG_OMNICAN_UDS_MAX_AUTH_ATTEMPTS failed SecurityAccess attempts",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "OBD-II-J1979-REQ-051",
+    "component": "OBD-II J1979",
+    "description": "Transmit PID requests on CAN ID 0x7DF and collect responses from 0x7E8-0x7EF within configurable timeout",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "OBD-II-J1979-REQ-052",
+    "component": "OBD-II J1979",
+    "description": "Support OBD-II service modes 0x01 through 0x09",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "OBD-II-J1979-REQ-053",
+    "component": "OBD-II J1979",
+    "description": "Provide callback-based non-blocking PID request/response model",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "OBD-II-J1979-REQ-054",
+    "component": "OBD-II J1979",
+    "description": "Support Mode 0x01 PIDs: 0x00 (supported), 0x01 (monitor status), 0x04 (engine load), 0x05 (coolant), 0x0C (RPM), 0x0D (speed), 0x11 (throttle)",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "CANOPEN-FD-CIA-1301-REQ-055",
+    "component": "CANopen FD CiA 1301",
+    "description": "Extend CANopen module with CiA 1301 FD features; require CONFIG_OMNICAN_CANOPEN=y and CONFIG_CAN_FD_MODE=y",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "CANOPEN-FD-CIA-1301-REQ-056",
+    "component": "CANopen FD CiA 1301",
+    "description": "Support CAN FD data payloads of up to 64 bytes for higher-throughput PDO transfers",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "CANOPEN-FD-CIA-1301-REQ-057",
+    "component": "CANopen FD CiA 1301",
+    "description": "Maintain backward compatibility with classical 8-byte CANopen nodes when FD is not negotiated",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "ISOTP-PATCH-REQ-058",
+    "component": "ISOTP Patch",
+    "description": "Implement a workaround for Zephyr issue #86025 using separate TX/RX socket contexts with a forwarding shim",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "ISOTP-PATCH-REQ-059",
+    "component": "ISOTP Patch",
+    "description": "Default CONFIG_OMNICAN_ISOTP_PATCH to y when CONFIG_OMNICAN_UDS or CONFIG_OMNICAN_OBD2 is enabled",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "MEMORY-AND-THREADING-REQ-060",
+    "component": "Memory and Threading",
+    "description": "Never use dynamic heap allocation (k_malloc, malloc); all state statically allocated or via net_buf pools",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "MEMORY-AND-THREADING-REQ-061",
+    "component": "Memory and Threading",
+    "description": "Handle CAN frame data via Zephyr net_buf from a pool sized by CONFIG_OMNICAN_NET_BUF_COUNT (default 16)",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "MEMORY-AND-THREADING-REQ-062",
+    "component": "Memory and Threading",
+    "description": "All protocol context structures shall be opaque to the caller but caller-allocated",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "MEMORY-AND-THREADING-REQ-063",
+    "component": "Memory and Threading",
+    "description": "All protocol handlers execute in a Zephyr workqueue context, not the CAN ISR",
+    "status": "Draft",
+    "priority": "Medium"
+  }
+]

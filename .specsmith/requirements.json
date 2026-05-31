@@ -1,0 +1,506 @@
+[
+  {
+    "id": "REQ-CORE-001",
+    "title": "REQ-CORE-001",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-CORE-002",
+    "title": "REQ-CORE-002",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-CORE-003",
+    "title": "REQ-CORE-003",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-CORE-004",
+    "title": "REQ-CORE-004",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-CORE-005",
+    "title": "REQ-CORE-005",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-CORE-006",
+    "title": "REQ-CORE-006",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-ROUTER-001",
+    "title": "REQ-ROUTER-001",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-ROUTER-002",
+    "title": "REQ-ROUTER-002",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-ROUTER-003",
+    "title": "REQ-ROUTER-003",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-ROUTER-004",
+    "title": "REQ-ROUTER-004",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-CO-001",
+    "title": "REQ-CO-001",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-CO-002",
+    "title": "REQ-CO-002",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-CO-003",
+    "title": "REQ-CO-003",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-CO-004",
+    "title": "REQ-CO-004",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-CO-005",
+    "title": "REQ-CO-005",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-CO-006",
+    "title": "REQ-CO-006",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-CO-007",
+    "title": "REQ-CO-007",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-CO-008",
+    "title": "REQ-CO-008",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-CO-009",
+    "title": "REQ-CO-009",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-CO-010",
+    "title": "REQ-CO-010",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-CO-011",
+    "title": "REQ-CO-011",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-CO-012",
+    "title": "REQ-CO-012",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-CO-013",
+    "title": "REQ-CO-013",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-JNET-001",
+    "title": "REQ-JNET-001",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-JNET-002",
+    "title": "REQ-JNET-002",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-JNET-003",
+    "title": "REQ-JNET-003",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-JNET-004",
+    "title": "REQ-JNET-004",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-JNET-005",
+    "title": "REQ-JNET-005",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-JNET-006",
+    "title": "REQ-JNET-006",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-JNET-007",
+    "title": "REQ-JNET-007",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-JNET-008",
+    "title": "REQ-JNET-008",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-JNET-009",
+    "title": "REQ-JNET-009",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-UDS-001",
+    "title": "REQ-UDS-001",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-UDS-002",
+    "title": "REQ-UDS-002",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-UDS-003",
+    "title": "REQ-UDS-003",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-UDS-004",
+    "title": "REQ-UDS-004",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-UDS-005",
+    "title": "REQ-UDS-005",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-UDS-006",
+    "title": "REQ-UDS-006",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-UDS-007",
+    "title": "REQ-UDS-007",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-UDS-008",
+    "title": "REQ-UDS-008",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-UDS-009",
+    "title": "REQ-UDS-009",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-UDS-010",
+    "title": "REQ-UDS-010",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-UDS-011",
+    "title": "REQ-UDS-011",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-UDS-012",
+    "title": "REQ-UDS-012",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-UDS-013",
+    "title": "REQ-UDS-013",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-UDS-014",
+    "title": "REQ-UDS-014",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-UDS-015",
+    "title": "REQ-UDS-015",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-UDS-016",
+    "title": "REQ-UDS-016",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-UDS-017",
+    "title": "REQ-UDS-017",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-UDS-018",
+    "title": "REQ-UDS-018",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-OBD-001",
+    "title": "REQ-OBD-001",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-OBD-002",
+    "title": "REQ-OBD-002",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-OBD-003",
+    "title": "REQ-OBD-003",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-OBD-004",
+    "title": "REQ-OBD-004",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-COFD-001",
+    "title": "REQ-COFD-001",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-COFD-002",
+    "title": "REQ-COFD-002",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-COFD-003",
+    "title": "REQ-COFD-003",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-ISOTP-001",
+    "title": "REQ-ISOTP-001",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-ISOTP-002",
+    "title": "REQ-ISOTP-002",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-MEM-001",
+    "title": "REQ-MEM-001",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-MEM-002",
+    "title": "REQ-MEM-002",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-MEM-003",
+    "title": "REQ-MEM-003",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-MEM-004",
+    "title": "REQ-MEM-004",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  }
+]
