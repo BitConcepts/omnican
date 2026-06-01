@@ -8,8 +8,7 @@
 
 LOG_MODULE_REGISTER(omnican_uds, CONFIG_OMNICAN_LOG_LEVEL);
 
-int omnican_uds_server_init(struct omnican_uds_server *srv,
-			    struct omnican_node *base,
+int omnican_uds_server_init(struct omnican_uds_server *srv, struct omnican_node *base,
 			    const struct omnican_uds_server_cfg *cfg)
 {
 	if (!srv || !base || !cfg) {
@@ -17,15 +16,13 @@ int omnican_uds_server_init(struct omnican_uds_server *srv,
 	}
 
 	base->protos |= OMNICAN_PROTO_UDS;
-	LOG_INF("UDS server init: rx=0x%03x tx=0x%03x ecu=0x%02x",
-		cfg->rx_can_id, cfg->tx_can_id, cfg->ecu_addr);
+	LOG_INF("UDS server init: rx=0x%03x tx=0x%03x ecu=0x%02x", cfg->rx_can_id, cfg->tx_can_id,
+		cfg->ecu_addr);
 	return OMNICAN_OK;
 }
 
-int omnican_uds_register_service(struct omnican_uds_server *srv,
-				 uint8_t sid,
-				 omnican_uds_service_cb_t cb,
-				 void *user_data)
+int omnican_uds_register_service(struct omnican_uds_server *srv, uint8_t sid,
+				 omnican_uds_service_cb_t cb, void *user_data)
 {
 	ARG_UNUSED(sid);
 	ARG_UNUSED(cb);

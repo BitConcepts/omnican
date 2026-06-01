@@ -23,15 +23,15 @@ extern "C" {
 
 /** OmniCAN return codes */
 typedef enum {
-	OMNICAN_OK              =  0,  /**< Success */
-	OMNICAN_ERR_INVAL       = -1,  /**< Invalid argument */
-	OMNICAN_ERR_NODEV       = -2,  /**< CAN device not ready */
-	OMNICAN_ERR_NOMEM       = -3,  /**< Out of memory */
-	OMNICAN_ERR_TIMEOUT     = -4,  /**< Operation timed out */
-	OMNICAN_ERR_BUSY        = -5,  /**< Resource busy */
-	OMNICAN_ERR_PROTO       = -6,  /**< Protocol error */
-	OMNICAN_ERR_UNSUPPORTED = -7,  /**< Unsupported operation */
-	OMNICAN_ERR_IO          = -8,  /**< Hardware I/O error */
+	OMNICAN_OK = 0, /**< Success */
+	OMNICAN_ERR_INVAL = -1, /**< Invalid argument */
+	OMNICAN_ERR_NODEV = -2, /**< CAN device not ready */
+	OMNICAN_ERR_NOMEM = -3, /**< Out of memory */
+	OMNICAN_ERR_TIMEOUT = -4, /**< Operation timed out */
+	OMNICAN_ERR_BUSY = -5, /**< Resource busy */
+	OMNICAN_ERR_PROTO = -6, /**< Protocol error */
+	OMNICAN_ERR_UNSUPPORTED = -7, /**< Unsupported operation */
+	OMNICAN_ERR_IO = -8, /**< Hardware I/O error */
 } omnican_err_t;
 
 /**
@@ -41,7 +41,7 @@ typedef enum {
  */
 typedef enum {
 	OMNICAN_FRAME_CLASSIC = 0, /**< Classical CAN (max 8 data bytes) */
-	OMNICAN_FRAME_FD      = 1, /**< CAN FD (max 64 data bytes) */
+	OMNICAN_FRAME_FD = 1, /**< CAN FD (max 64 data bytes) */
 } omnican_frame_type_t;
 
 /**
@@ -50,11 +50,11 @@ typedef enum {
  * Used by the frame router to identify which protocol owns a received frame.
  */
 typedef enum {
-	OMNICAN_PROTO_NONE     = 0x00,
-	OMNICAN_PROTO_CANOPEN  = 0x01,
-	OMNICAN_PROTO_J1939    = 0x02,
-	OMNICAN_PROTO_UDS      = 0x04,
-	OMNICAN_PROTO_OBD2     = 0x08,
+	OMNICAN_PROTO_NONE = 0x00,
+	OMNICAN_PROTO_CANOPEN = 0x01,
+	OMNICAN_PROTO_J1939 = 0x02,
+	OMNICAN_PROTO_UDS = 0x04,
+	OMNICAN_PROTO_OBD2 = 0x08,
 } omnican_proto_t;
 
 /**
@@ -65,9 +65,9 @@ typedef enum {
  */
 struct omnican_node {
 	const struct device *can_dev; /**< Zephyr CAN device */
-	uint32_t             bitrate; /**< Nominal bitrate in kbps */
-	bool                 fd_mode; /**< True if CAN FD is active */
-	omnican_proto_t      protos;  /**< Bitmask of enabled protocols */
+	uint32_t bitrate; /**< Nominal bitrate in kbps */
+	bool fd_mode; /**< True if CAN FD is active */
+	omnican_proto_t protos; /**< Bitmask of enabled protocols */
 };
 
 /**
@@ -81,9 +81,7 @@ struct omnican_node {
  * @retval OMNICAN_OK        Success.
  * @retval OMNICAN_ERR_NODEV Device not ready.
  */
-int omnican_node_init(struct omnican_node *node,
-		      const struct device *can_dev,
-		      uint32_t bitrate,
+int omnican_node_init(struct omnican_node *node, const struct device *can_dev, uint32_t bitrate,
 		      bool fd_mode);
 
 /** @} */ /* omnican_core */

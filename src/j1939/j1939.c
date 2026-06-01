@@ -8,8 +8,7 @@
 
 LOG_MODULE_REGISTER(omnican_j1939, CONFIG_OMNICAN_LOG_LEVEL);
 
-int omnican_j1939_init(struct omnican_j1939_node *j1939,
-		       struct omnican_node *base,
+int omnican_j1939_init(struct omnican_j1939_node *j1939, struct omnican_node *base,
 		       const uint8_t name[8])
 {
 	if (!j1939 || !base || !name) {
@@ -25,8 +24,7 @@ int omnican_j1939_init(struct omnican_j1939_node *j1939,
 	return OMNICAN_OK;
 }
 
-int omnican_j1939_claim_address(struct omnican_j1939_node *j1939,
-				omnican_j1939_addr_t desired_addr,
+int omnican_j1939_claim_address(struct omnican_j1939_node *j1939, omnican_j1939_addr_t desired_addr,
 				uint32_t timeout_ms)
 {
 	ARG_UNUSED(timeout_ms);
@@ -41,10 +39,8 @@ int omnican_j1939_claim_address(struct omnican_j1939_node *j1939,
 	return OMNICAN_OK;
 }
 
-int omnican_j1939_send(struct omnican_j1939_node *j1939,
-		       omnican_j1939_pgn_t pgn,
-		       omnican_j1939_addr_t dst,
-		       const uint8_t *data, size_t len)
+int omnican_j1939_send(struct omnican_j1939_node *j1939, omnican_j1939_pgn_t pgn,
+		       omnican_j1939_addr_t dst, const uint8_t *data, size_t len)
 {
 	ARG_UNUSED(pgn);
 	ARG_UNUSED(dst);
@@ -58,10 +54,8 @@ int omnican_j1939_send(struct omnican_j1939_node *j1939,
 	return OMNICAN_ERR_UNSUPPORTED; /* pending */
 }
 
-int omnican_j1939_register_pgn(struct omnican_j1939_node *j1939,
-			       omnican_j1939_pgn_t pgn,
-			       omnican_j1939_rx_cb_t cb,
-			       void *user_data)
+int omnican_j1939_register_pgn(struct omnican_j1939_node *j1939, omnican_j1939_pgn_t pgn,
+			       omnican_j1939_rx_cb_t cb, void *user_data)
 {
 	ARG_UNUSED(pgn);
 	ARG_UNUSED(cb);

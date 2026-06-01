@@ -37,41 +37,41 @@ extern "C" {
  */
 
 /** UDS service IDs */
-#define OMNICAN_UDS_SID_SESSION_CTRL   0x10U
-#define OMNICAN_UDS_SID_ECU_RESET      0x11U
-#define OMNICAN_UDS_SID_READ_DID       0x22U
-#define OMNICAN_UDS_SID_SEC_ACCESS     0x27U
-#define OMNICAN_UDS_SID_COMM_CTRL      0x28U
-#define OMNICAN_UDS_SID_WRITE_DID      0x2EU
-#define OMNICAN_UDS_SID_ROUTINE_CTRL   0x31U
-#define OMNICAN_UDS_SID_REQ_DOWNLOAD   0x34U
-#define OMNICAN_UDS_SID_TRANSFER_DATA  0x36U
-#define OMNICAN_UDS_SID_REQ_XFER_EXIT  0x37U
+#define OMNICAN_UDS_SID_SESSION_CTRL 0x10U
+#define OMNICAN_UDS_SID_ECU_RESET 0x11U
+#define OMNICAN_UDS_SID_READ_DID 0x22U
+#define OMNICAN_UDS_SID_SEC_ACCESS 0x27U
+#define OMNICAN_UDS_SID_COMM_CTRL 0x28U
+#define OMNICAN_UDS_SID_WRITE_DID 0x2EU
+#define OMNICAN_UDS_SID_ROUTINE_CTRL 0x31U
+#define OMNICAN_UDS_SID_REQ_DOWNLOAD 0x34U
+#define OMNICAN_UDS_SID_TRANSFER_DATA 0x36U
+#define OMNICAN_UDS_SID_REQ_XFER_EXIT 0x37U
 #define OMNICAN_UDS_SID_TESTER_PRESENT 0x3EU
-#define OMNICAN_UDS_SID_CTRL_DTC       0x85U
+#define OMNICAN_UDS_SID_CTRL_DTC 0x85U
 
 /** UDS session types */
 typedef enum {
-	OMNICAN_UDS_SESSION_DEFAULT    = 0x01,
-	OMNICAN_UDS_SESSION_PROG       = 0x02,
-	OMNICAN_UDS_SESSION_EXTENDED   = 0x03,
+	OMNICAN_UDS_SESSION_DEFAULT = 0x01,
+	OMNICAN_UDS_SESSION_PROG = 0x02,
+	OMNICAN_UDS_SESSION_EXTENDED = 0x03,
 } omnican_uds_session_t;
 
 /** UDS negative response codes */
-#define OMNICAN_UDS_NRC_GENERAL_REJECT        0x10U
+#define OMNICAN_UDS_NRC_GENERAL_REJECT 0x10U
 #define OMNICAN_UDS_NRC_SERVICE_NOT_SUPPORTED 0x11U
-#define OMNICAN_UDS_NRC_CONDITIONS_NOT_MET    0x22U
-#define OMNICAN_UDS_NRC_REQUEST_OUT_OF_RANGE  0x31U
+#define OMNICAN_UDS_NRC_CONDITIONS_NOT_MET 0x22U
+#define OMNICAN_UDS_NRC_REQUEST_OUT_OF_RANGE 0x31U
 #define OMNICAN_UDS_NRC_SECURITY_ACCESS_DENIED 0x33U
-#define OMNICAN_UDS_NRC_RESPONSE_PENDING      0x78U
+#define OMNICAN_UDS_NRC_RESPONSE_PENDING 0x78U
 
 /**
  * @brief UDS server configuration.
  */
 struct omnican_uds_server_cfg {
-	uint32_t rx_can_id;  /**< Request CAN ID  (e.g. 0x7E0) */
-	uint32_t tx_can_id;  /**< Response CAN ID (e.g. 0x7E8) */
-	uint8_t  ecu_addr;   /**< ECU logical address          */
+	uint32_t rx_can_id; /**< Request CAN ID  (e.g. 0x7E0) */
+	uint32_t tx_can_id; /**< Response CAN ID (e.g. 0x7E8) */
+	uint8_t ecu_addr; /**< ECU logical address          */
 };
 
 /**
@@ -88,8 +88,7 @@ struct omnican_uds_server;
  *
  * @retval OMNICAN_OK on success.
  */
-int omnican_uds_server_init(struct omnican_uds_server *srv,
-			    struct omnican_node *base,
+int omnican_uds_server_init(struct omnican_uds_server *srv, struct omnican_node *base,
 			    const struct omnican_uds_server_cfg *cfg);
 
 /**
@@ -106,18 +105,14 @@ int omnican_uds_server_init(struct omnican_uds_server *srv,
  *
  * @return 0 on positive response; negative NRC on failure.
  */
-typedef int (*omnican_uds_service_cb_t)(uint8_t sid,
-					const uint8_t *req_data, size_t req_len,
-					uint8_t *resp_data, size_t *resp_len,
-					void *user_data);
+typedef int (*omnican_uds_service_cb_t)(uint8_t sid, const uint8_t *req_data, size_t req_len,
+					uint8_t *resp_data, size_t *resp_len, void *user_data);
 
 /**
  * @brief Register a handler for a UDS service ID.
  */
-int omnican_uds_register_service(struct omnican_uds_server *srv,
-				 uint8_t sid,
-				 omnican_uds_service_cb_t cb,
-				 void *user_data);
+int omnican_uds_register_service(struct omnican_uds_server *srv, uint8_t sid,
+				 omnican_uds_service_cb_t cb, void *user_data);
 
 /** @} */ /* omnican_uds */
 

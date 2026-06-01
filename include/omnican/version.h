@@ -10,7 +10,7 @@
 #define OMNICAN_VERSION_MINOR 1
 #define OMNICAN_VERSION_PATCH 0
 
-#define OMNICAN_VERSION \
+#define OMNICAN_VERSION                                                                            \
 	((OMNICAN_VERSION_MAJOR << 16) | (OMNICAN_VERSION_MINOR << 8) | OMNICAN_VERSION_PATCH)
 
 #define OMNICAN_VERSION_STRING "0.1.0"

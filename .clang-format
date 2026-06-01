@@ -1,0 +1,29 @@
+---
+# OmniCAN — clang-format configuration
+# Based on Zephyr RTOS coding style (Linux kernel style with minor adjustments)
+# Reference: https://docs.zephyrproject.org/latest/contribute/coding_guidelines.html
+BasedOnStyle: LLVM
+IndentWidth: 8
+UseTab: ForContinuationAndIndentation
+TabWidth: 8
+ColumnLimit: 100
+BreakBeforeBraces: Linux
+AllowShortFunctionsOnASingleLine: None
+AllowShortIfStatementsOnASingleLine: false
+AllowShortLoopsOnASingleLine: false
+AlignConsecutiveAssignments: false
+AlignConsecutiveMacros: false
+AlignTrailingComments: false
+AlignConsecutiveDeclarations: false
+BinPackArguments: true
+BinPackParameters: true
+ContinuationIndentWidth: 8
+IndentCaseLabels: false
+IndentGotoLabels: false
+SpaceBeforeParens: ControlStatements
+SpacesInParentheses: false
+SpacesInSquareBrackets: false
+DerivePointerAlignment: false
+PointerAlignment: Right
+SortIncludes: false
+---

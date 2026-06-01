@@ -9,9 +9,7 @@
 
 LOG_MODULE_REGISTER(omnican_core, CONFIG_OMNICAN_LOG_LEVEL);
 
-int omnican_node_init(struct omnican_node *node,
-		      const struct device *can_dev,
-		      uint32_t bitrate,
+int omnican_node_init(struct omnican_node *node, const struct device *can_dev, uint32_t bitrate,
 		      bool fd_mode)
 {
 	if (!node || !can_dev) {
@@ -26,10 +24,9 @@ int omnican_node_init(struct omnican_node *node,
 	node->can_dev = can_dev;
 	node->bitrate = bitrate;
 	node->fd_mode = fd_mode;
-	node->protos  = OMNICAN_PROTO_NONE;
+	node->protos = OMNICAN_PROTO_NONE;
 
-	LOG_INF("OmniCAN node initialised: bitrate=%u kbps, fd=%d",
-		bitrate, (int)fd_mode);
+	LOG_INF("OmniCAN node initialised: bitrate=%u kbps, fd=%d", bitrate, (int)fd_mode);
 
 	return OMNICAN_OK;
 }

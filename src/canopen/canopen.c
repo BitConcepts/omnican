@@ -36,9 +36,7 @@ void omnican_canopen_stop(struct omnican_node *node)
 	LOG_INF("CANopen stop");
 }
 
-void omnican_canopen_process(struct omnican_node *node,
-			     uint32_t elapsed_us,
-			     uint32_t *next_us)
+void omnican_canopen_process(struct omnican_node *node, uint32_t elapsed_us, uint32_t *next_us)
 {
 	ARG_UNUSED(node);
 	ARG_UNUSED(elapsed_us);

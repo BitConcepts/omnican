@@ -55,9 +55,7 @@ void omnican_canopen_stop(struct omnican_node *node);
  * @param elapsed_us    Microseconds elapsed since last call.
  * @param next_us       Output: recommended delay until next call.
  */
-void omnican_canopen_process(struct omnican_node *node,
-			     uint32_t elapsed_us,
-			     uint32_t *next_us);
+void omnican_canopen_process(struct omnican_node *node, uint32_t elapsed_us, uint32_t *next_us);
 
 /** @} */ /* omnican_canopen */
 

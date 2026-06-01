@@ -8,8 +8,7 @@
 
 LOG_MODULE_REGISTER(omnican_obd2, CONFIG_OMNICAN_LOG_LEVEL);
 
-int omnican_obd2_client_init(struct omnican_obd2_client *client,
-			     struct omnican_node *base)
+int omnican_obd2_client_init(struct omnican_obd2_client *client, struct omnican_node *base)
 {
 	if (!client || !base) {
 		return OMNICAN_ERR_INVAL;
@@ -20,11 +19,8 @@ int omnican_obd2_client_init(struct omnican_obd2_client *client,
 	return OMNICAN_OK;
 }
 
-int omnican_obd2_request_pid(struct omnican_obd2_client *client,
-			     uint8_t mode, uint8_t pid,
-			     omnican_obd2_response_cb_t cb,
-			     void *user_data,
-			     uint32_t timeout_ms)
+int omnican_obd2_request_pid(struct omnican_obd2_client *client, uint8_t mode, uint8_t pid,
+			     omnican_obd2_response_cb_t cb, void *user_data, uint32_t timeout_ms)
 {
 	ARG_UNUSED(mode);
 	ARG_UNUSED(pid);

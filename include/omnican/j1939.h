@@ -25,8 +25,8 @@ extern "C" {
  */
 
 /** J1939 address constants */
-#define OMNICAN_J1939_ADDR_NULL    0xFEU  /**< NULL (unclaimed) address */
-#define OMNICAN_J1939_ADDR_GLOBAL  0xFFU  /**< Global (broadcast) address */
+#define OMNICAN_J1939_ADDR_NULL 0xFEU /**< NULL (unclaimed) address */
+#define OMNICAN_J1939_ADDR_GLOBAL 0xFFU /**< Global (broadcast) address */
 
 /** J1939 source address type */
 typedef uint8_t omnican_j1939_addr_t;
@@ -38,9 +38,9 @@ typedef uint32_t omnican_j1939_pgn_t;
  * @brief J1939 node context.
  */
 struct omnican_j1939_node {
-	struct omnican_node    *base;       /**< OmniCAN base node */
-	omnican_j1939_addr_t    addr;       /**< Claimed source address */
-	uint8_t                 name[8];    /**< 64-bit NAME for address claiming */
+	struct omnican_node *base; /**< OmniCAN base node */
+	omnican_j1939_addr_t addr; /**< Claimed source address */
+	uint8_t name[8]; /**< 64-bit NAME for address claiming */
 };
 
 /**
@@ -52,8 +52,7 @@ struct omnican_j1939_node {
  *
  * @retval OMNICAN_OK on success.
  */
-int omnican_j1939_init(struct omnican_j1939_node *j1939,
-		       struct omnican_node *base,
+int omnican_j1939_init(struct omnican_j1939_node *j1939, struct omnican_node *base,
 		       const uint8_t name[8]);
 
 /**
@@ -66,8 +65,7 @@ int omnican_j1939_init(struct omnican_j1939_node *j1939,
  * @retval OMNICAN_OK  Address claimed successfully.
  * @retval OMNICAN_ERR_BUSY  Address in use by higher-priority node.
  */
-int omnican_j1939_claim_address(struct omnican_j1939_node *j1939,
-				omnican_j1939_addr_t desired_addr,
+int omnican_j1939_claim_address(struct omnican_j1939_node *j1939, omnican_j1939_addr_t desired_addr,
 				uint32_t timeout_ms);
 
 /**
@@ -81,26 +79,20 @@ int omnican_j1939_claim_address(struct omnican_j1939_node *j1939,
  *
  * @retval OMNICAN_OK on success.
  */
-int omnican_j1939_send(struct omnican_j1939_node *j1939,
-		       omnican_j1939_pgn_t pgn,
-		       omnican_j1939_addr_t dst,
-		       const uint8_t *data, size_t len);
+int omnican_j1939_send(struct omnican_j1939_node *j1939, omnican_j1939_pgn_t pgn,
+		       omnican_j1939_addr_t dst, const uint8_t *data, size_t len);
 
 /**
  * @brief PGN receive callback type.
  */
-typedef void (*omnican_j1939_rx_cb_t)(omnican_j1939_pgn_t pgn,
-				      omnican_j1939_addr_t src,
-				      const uint8_t *data, size_t len,
-				      void *user_data);
+typedef void (*omnican_j1939_rx_cb_t)(omnican_j1939_pgn_t pgn, omnican_j1939_addr_t src,
+				      const uint8_t *data, size_t len, void *user_data);
 
 /**
  * @brief Register a receive callback for a specific PGN.
  */
-int omnican_j1939_register_pgn(struct omnican_j1939_node *j1939,
-			       omnican_j1939_pgn_t pgn,
-			       omnican_j1939_rx_cb_t cb,
-			       void *user_data);
+int omnican_j1939_register_pgn(struct omnican_j1939_node *j1939, omnican_j1939_pgn_t pgn,
+			       omnican_j1939_rx_cb_t cb, void *user_data);
 
 /** @} */ /* omnican_j1939 */
 

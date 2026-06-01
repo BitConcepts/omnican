@@ -41,3 +41,5 @@ verification_tools:
   build: west build
   format: clang-format
 type_confirmed: true
+accepted_warnings:
+  - type-mismatch  # Scanner cannot distinguish Zephyr west modules from generic C/CMake projects; embedded-hardware is correct
