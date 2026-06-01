@@ -3,7 +3,7 @@ manifest:
 
   self:
     path: omnican
-    west-commands: scripts/west-commands.yml
+    # west-commands: scripts/west-commands.yml  # Uncomment when custom commands exist
 
   defaults:
     remote: zephyr
@@ -26,7 +26,6 @@ manifest:
     # contains a clean re-implementation guided by upstream.
     # Kept here as a dependency reference for OD generation tools.
     - name: CANopenNode
-      remote: zephyr
       url: https://github.com/CANopenNode/CANopenNode
       revision: master
       path: modules/lib/canopennode
@@ -38,7 +37,6 @@ manifest:
     # and ISO 11783-7 auxiliary valve messaging. Not vendored directly;
     # used as reference during OmniCAN src/j1939/ implementation.
     - name: Open-SAE-J1939
-      remote: bitconcepts
       url: https://github.com/DanielMartensson/Open-SAE-J1939
       revision: main
       path: modules/lib/open-sae-j1939
@@ -46,7 +44,7 @@ manifest:
         - optional
         - j1939-ref
 
-    # AgIsoStack++ — MIT-licensed C++ ISOBUS reference library.
+    # AgIsoStack++ — MIT-licensed C++ ISOBUS (ISO 11783) reference library.
     # Used as PROTOCOL REFERENCE ONLY during OmniCAN Phase 6 development.
     # NOT integrated into Zephyr: uses C++11 STL (std::vector, std::shared_ptr),
     # POSIX threads (std::thread), and dynamic allocation — incompatible with
@@ -54,7 +52,6 @@ manifest:
     # native Zephyr C re-implementation using AgIsoStack++ as reference.
     # Fetch locally for reference: west update --group isobus-ref
     - name: AgIsoStack
-      remote: bitconcepts
       url: https://github.com/Open-Agriculture/AgIsoStack-plus-plus
       revision: main
       path: modules/lib/agisostack

@@ -1,6 +1,15 @@
 name: CI
 # OmniCAN — Zephyr RTOS west module (embedded C, Apache-2.0)
-# Verification: clang-format lint + west twister unit tests
+#
+# GOVERNANCE BASELINE (v0.1.0)
+# This release is the architecture + governance scaffold — protocol
+# implementation begins in Phase 2. CI currently runs:
+#   lint   — clang-format enforces code style on all C/H files (always active)
+#   build  — west build per protocol variant (enabled when tests/build_check/ exists)
+#   test   — west twister ztest suite (enabled when tests/ has test cases)
+#
+# Build and test jobs will be activated when Phase 2 (J1939) implementation
+# lands. See docs/FEATURES.md for implementation status.
 
 on:
   push:
@@ -21,6 +30,7 @@ env:
 jobs:
   # ---------------------------------------------------------------------------
   # clang-format lint — enforces code style on all C/H files
+  # Always active — all commits must be formatted.
   # ---------------------------------------------------------------------------
   lint:
     runs-on: ubuntu-latest
@@ -37,14 +47,15 @@ jobs:
 
   # ---------------------------------------------------------------------------
   # west build — verify the module compiles for each enabled protocol
+  # Activated when tests/build_check/CMakeLists.txt exists (Phase 2+).
   # ---------------------------------------------------------------------------
   build:
     needs: lint
+    if: ${{ hashFiles('tests/build_check/CMakeLists.txt') != '' }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        # Each variant selects one or more protocols
         config:
           - name: canopen
             extra_conf: CONFIG_OMNICAN_CANOPEN=y
@@ -91,9 +102,11 @@ jobs:
 
   # ---------------------------------------------------------------------------
   # west twister — run ztest unit tests
+  # Activated when tests/ directory has test cases (Phase 2+).
   # ---------------------------------------------------------------------------
   test:
     needs: build
+    if: ${{ hashFiles('tests/build_check/CMakeLists.txt') != '' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
