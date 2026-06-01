@@ -46,10 +46,13 @@ manifest:
         - optional
         - j1939-ref
 
-    # AgIsoStack++ — MIT-licensed C++ ISOBUS (ISO 11783) reference library.
-    # Primary reference and integration point for OmniCAN Phase 6 (ISOBUS).
-    # Virtual Terminal, Task Controller, ISB, implement messaging, NMEA2000.
-    # Enable for Phase 6 development by adding the 'isobus' group.
+    # AgIsoStack++ — MIT-licensed C++ ISOBUS reference library.
+    # Used as PROTOCOL REFERENCE ONLY during OmniCAN Phase 6 development.
+    # NOT integrated into Zephyr: uses C++11 STL (std::vector, std::shared_ptr),
+    # POSIX threads (std::thread), and dynamic allocation — incompatible with
+    # OmniCAN's static-allocation, zero-overhead model. OmniCAN Phase 6 is a
+    # native Zephyr C re-implementation using AgIsoStack++ as reference.
+    # Fetch locally for reference: west update --group isobus-ref
     - name: AgIsoStack
       remote: bitconcepts
       url: https://github.com/Open-Agriculture/AgIsoStack-plus-plus
@@ -57,4 +60,4 @@ manifest:
       path: modules/lib/agisostack
       groups:
         - optional
-        - isobus
+        - isobus-ref

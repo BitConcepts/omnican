@@ -53,3 +53,9 @@
 - **Type**: task
 - **Status**: complete
 - **Chain hash**: `b3bdfe017ecd294c...`
+
+## 2026-06-01T06:55 — ISOBUS integration decision: native Zephyr C, NOT AgIsoStack++ wrapper. AgIsoStack++ uses C++11 STL (std::vector, std::shared_ptr), POSIX threads (std::thread), dynamic allocation — incompatible with OmniCAN static-allocation model. CAN_STACK_DISABLE_THREADS=ON still requires STL+heap. Bare-metal ARM Cortex-M freestanding not supported (open issue #639, Dec 2025). AgIsoStack++ used as REFERENCE ONLY (protocol state machines, VT upload sequence, TC DDOP format). Phase 6 written from scratch in C with k_thread/k_work, static alloc, zephyr/drivers/can.h — same patterns as Phases 1-5. west.yml group renamed isobus-ref.
+- **Author**: agent
+- **Type**: task
+- **Status**: complete
+- **Chain hash**: `f6e014c52e883a62...`

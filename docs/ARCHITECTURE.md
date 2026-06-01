@@ -184,15 +184,24 @@ Protocol implementation is phased:
 - Support cross-protocol error propagation: an `omnican_error_cb_t` global hook that receives errors from any enabled protocol with protocol ID, error code, and context
 
 ### ISOBUS ISO 11783 (Phase 6 — CONFIG_OMNICAN_ISOBUS)
-- Build on OmniCAN's J1939 Phase 2 layer (address claiming, TP/ETP, PGN routing) as the ISO 11783 data-link foundation
-- Implement Working Set (WS) management: Working Set Master election, Working Set Member announcement per ISO 11783-5
-- Implement Virtual Terminal (VT) client per ISO 11783-6: object pool upload, soft-key handling, alarm messages, data mask navigation
-- Implement Task Controller (TC) client per ISO 11783-10: Device Descriptor Object Pool (DDOP), process data exchange, section control
-- Implement ISOBUS Shortcut Button (ISB) per ISO 11783-7 §B.5: single-button emergency stop broadcast
-- Support ISO 11783-7 Implement Messages: auxiliary valve commands, general-purpose valve commands, auxiliary valve estimated flow, guidance speed/direction
-- Reference implementation: AgIsoStack++ (github.com/Open-Agriculture/AgIsoStack-plus-plus, MIT). Port or wrap for Zephyr compatibility via `CONFIG_OMNICAN_ISOBUS_BACKEND` selecting native Zephyr or AgIsoStack++ bridge
-- Provide `omnican_isobus_vt_client_init()`, `omnican_isobus_tc_client_init()` APIs following the same `omnican_node` anchor pattern
-- Enable via `CONFIG_OMNICAN_ISOBUS=y`; requires `CONFIG_OMNICAN_J1939=y`
+
+Implementation strategy: **native Zephyr C** (not a wrapper around AgIsoStack++).
+AgIsoStack++ requires C++11 STL (std::vector, std::shared_ptr), POSIX threads, and a heap
+— all incompatible with OmniCAN's static-allocation, zero-overhead-when-disabled model.
+AgIsoStack++ is used exclusively as a **reference implementation** to understand protocol
+state machines, message formats, and edge cases; OmniCAN Phase 6 is written from scratch
+in C following the same patterns as Phases 1–5.
+
+- Build on OmniCAN's J1939 Phase 2 layer (address claiming, TP/ETP, PGN routing) as the ISO 11783 data-link foundation; no separate CAN driver abstraction needed
+- Implement Working Set (WS) management: Working Set Master election, Working Set Member announcement per ISO 11783-5, using static context allocation
+- Implement Virtual Terminal (VT) client per ISO 11783-6: object pool upload via TP/ETP, soft-key event dispatch, alarm message handling, data mask navigation via Kconfig-selected static object pool storage
+- Implement Task Controller (TC) client per ISO 11783-10: Device Descriptor Object Pool (DDOP) serialisation, process data value exchange, section control state machine
+- Implement ISOBUS Shortcut Button (ISB) per ISO 11783-7 §B.5: single-button emergency stop broadcast (PGN 0xFD02)
+- Support ISO 11783-7 Implement Messages: auxiliary valve commands (valve 0–15), general-purpose valve commands, auxiliary valve estimated flow, guidance speed and direction messages
+- Provide `omnican_isobus_vt_client_init()`, `omnican_isobus_tc_client_init()`, `omnican_isobus_ws_init()` APIs following the same `omnican_node` anchor pattern as all other OmniCAN modules
+- Use Zephyr `k_thread` for VT/TC periodic update loops, `k_work` for PGN dispatch; no `std::thread` or POSIX primitives
+- Enable via `CONFIG_OMNICAN_ISOBUS=y`; requires `CONFIG_OMNICAN_J1939=y`; compiles to zero when disabled
+- Reference implementations consulted during development: AgIsoStack++ (protocol state machines, VT upload sequence, TC DDOP format), Open-SAE-J1939 (ISO 11783-7 auxiliary valve layer, already in C)
 
 ### ISOTP Patch
 - Implement a workaround for Zephyr issue #86025 using separate TX/RX socket contexts with a forwarding shim
