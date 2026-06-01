@@ -255,346 +255,598 @@
 ### TEST-042
 - Covers: REQ-JNET-009
 - **Type**: Unit
-- **Description**: Verify maintain tp/etp session state in static context with configurable maximum simultaneous sessions
+- **Description**: Verify explicitly implement etp.cm (pgn 0xc800) and etp.dt (pgn 0xc700) as separate etp connection management and data transfer pgns
 - **Status**: Pending
 
 ### TEST-043
 - Covers: REQ-JNET-010
 - **Type**: Unit
-- **Description**: Verify provide `omnican_j1939_address_result_cb_t` callback reporting address claim success, failure, or address-lost events
+- **Description**: Verify maintain tp/etp session state in static context with configurable maximum simultaneous sessions
 - **Status**: Pending
 
 ### TEST-044
 - Covers: REQ-JNET-011
 - **Type**: Unit
-- **Description**: Verify provide `omnican_j1939_tp_progress_cb_t` callback reporting bytes transferred during active tp/etp sessions
+- **Description**: Verify implement rqst (pgn 0xea00) to request any pgn from a remote device (mandatory for dm request/response)
 - **Status**: Pending
 
 ### TEST-045
 - Covers: REQ-JNET-012
 - **Type**: Unit
-- **Description**: Verify provide `omnican_j1939_tp_complete_cb_t` callback on tp/etp session completion or abort with status
+- **Description**: Verify implement ackm (pgn 0xe800) to send positive, negative, busy, and cannot-respond acknowledgments (mandatory per j1939/21)
 - **Status**: Pending
 
 ### TEST-046
 - Covers: REQ-JNET-013
 - **Type**: Unit
-- **Description**: Verify support j1939 diagnostic pgn reception: dm1 (pgn 0xfeca, active dtcs) and dm11 (pgn 0xfed3, clear active dtcs) via the pgn routing table
+- **Description**: Verify support proprietary a (pgn 0xef00, peer-to-peer) and proprietary b (pgn 0xff00, broadcast) via the pgn routing table for manufacturer-specific messages
 - **Status**: Pending
 
 ### TEST-047
 - Covers: REQ-JNET-014
 - **Type**: Unit
-- **Description**: Verify support configurable maximum tp/etp single-transfer payload via config_omnican_j1939_tp_max_payload (default 1785 bytes for tp, unlimited for etp)
+- **Description**: Verify provide `omnican_j1939_address_result_cb_t` callback reporting address claim success, failure, or address-lost events
 - **Status**: Pending
 
 ### TEST-048
+- Covers: REQ-JNET-015
+- **Type**: Unit
+- **Description**: Verify provide `omnican_j1939_tp_progress_cb_t` callback reporting bytes transferred during active tp/etp sessions
+- **Status**: Pending
+
+### TEST-049
+- Covers: REQ-JNET-016
+- **Type**: Unit
+- **Description**: Verify provide `omnican_j1939_tp_complete_cb_t` callback on tp/etp session completion or abort with status
+- **Status**: Pending
+
+### TEST-050
+- Covers: REQ-JNET-017
+- **Type**: Unit
+- **Description**: Verify support configurable maximum tp/etp single-transfer payload via config_omnican_j1939_tp_max_payload (default 1785 bytes for tp, unlimited for etp)
+- **Status**: Pending
+
+### TEST-051
+- Covers: REQ-JDTC-001
+- **Type**: Unit
+- **Description**: Verify implement 4-byte j1939 dtc encode/decode: spn (19-bit) in bytes 1-3 bits [7:5], fmi (5-bit) in byte 3 bits [4:0], cm (1-bit) in byte 4 bit [7], oc (7-bit) in byte 4 bits [6:0] per j1939/73
+- **Status**: Pending
+
+### TEST-052
+- Covers: REQ-JDTC-002
+- **Type**: Unit
+- **Description**: Verify define all 32 fmi (failure mode identifier) codes 0-31 per j1939/73 §4.3.2
+- **Status**: Pending
+
+### TEST-053
+- Covers: REQ-JDTC-003
+- **Type**: Unit
+- **Description**: Verify provide `omnican_j1939_dtc_encode(uint32_t spn, uint8_t fmi, uint8_t oc, bool cm, uint8_t out[4])` api
+- **Status**: Pending
+
+### TEST-054
+- Covers: REQ-JDTC-004
+- **Type**: Unit
+- **Description**: Verify provide `omnican_j1939_dtc_decode(const uint8_t in[4], uint32_t *spn, uint8_t *fmi, uint8_t *oc, bool *cm)` api
+- **Status**: Pending
+
+### TEST-055
+- Covers: REQ-JDTC-005
+- **Type**: Unit
+- **Description**: Verify provide `omnican_j1939_fmi_string(uint8_t fmi)` to return human-readable fmi description
+- **Status**: Pending
+
+### TEST-056
+- Covers: REQ-JDM-001
+- **Type**: Unit
+- **Description**: Verify implement dm1 (pgn 0xfeca) with correct 2-byte lamp status header: mil [7:6], stop lamp [5:4], amber warning [3:2], protect [1:0] per j1939/73, plus repeated 4-byte dtc records
+- **Status**: Pending
+
+### TEST-057
+- Covers: REQ-JDM-002
+- **Type**: Unit
+- **Description**: Verify implement dm2 (pgn 0xfecb) previously active dtcs with same frame format as dm1
+- **Status**: Pending
+
+### TEST-058
+- Covers: REQ-JDM-003
+- **Type**: Unit
+- **Description**: Verify implement dm3 (pgn 0xfecc) clear/reset previously active dtcs (mandatory request handling)
+- **Status**: Pending
+
+### TEST-059
+- Covers: REQ-JDM-004
+- **Type**: Unit
+- **Description**: Verify implement dm5 (pgn 0xfece) diagnostic readiness with active/previously active dtc counts and supported/completed monitor bits
+- **Status**: Pending
+
+### TEST-060
+- Covers: REQ-JDM-005
+- **Type**: Unit
+- **Description**: Verify implement dm6 (pgn 0xfecf) emission-related pending dtcs
+- **Status**: Pending
+
+### TEST-061
+- Covers: REQ-JDM-006
+- **Type**: Unit
+- **Description**: Verify implement dm11 (pgn 0xfed3) clear/reset active dtcs (mandatory request handling)
+- **Status**: Pending
+
+### TEST-062
+- Covers: REQ-JDM-007
+- **Type**: Unit
+- **Description**: Verify implement dm12 (pgn 0xfed4) emission-related mil-on dtcs
+- **Status**: Pending
+
+### TEST-063
+- Covers: REQ-JDM-008
+- **Type**: Unit
+- **Description**: Verify implement dm22 (pgn 0xc300) individual clear/reset of specific active and previously active dtcs by spn/fmi
+- **Status**: Pending
+
+### TEST-064
+- Covers: REQ-JDM-009
+- **Type**: Unit
+- **Description**: Verify provide `omnican_j1939_dm1_cb_t` callback delivering lamp status and decoded dtc list when dm1 is received
+- **Status**: Pending
+
+### TEST-065
+- Covers: REQ-JDM-010
+- **Type**: Unit
+- **Description**: Verify provide `omnican_j1939_dm_request(struct omnican_j1939_node *, uint8_t dm_num, omnican_j1939_addr_t dest)` to request a specific dm from a device
+- **Status**: Pending
+
+### TEST-066
+- Covers: REQ-JDME-001
+- **Type**: Unit
+- **Description**: Verify implement dm4 (pgn 0xfecd) freeze frame parameters capture and reporting when config_omnican_j1939_dm_extended=y
+- **Status**: Pending
+
+### TEST-067
+- Covers: REQ-JDME-002
+- **Type**: Unit
+- **Description**: Verify implement dm13 (pgn 0xdf00) stop/start broadcast control when config_omnican_j1939_dm_extended=y
+- **Status**: Pending
+
+### TEST-068
+- Covers: REQ-JDME-003
+- **Type**: Unit
+- **Description**: Verify implement dm20 (pgn 0xc200) monitor performance ratio reporting when config_omnican_j1939_dm_extended=y
+- **Status**: Pending
+
+### TEST-069
+- Covers: REQ-JDME-004
+- **Type**: Unit
+- **Description**: Verify implement dm21 (pgn 0xc100) diagnostic readiness 2 when config_omnican_j1939_dm_extended=y
+- **Status**: Pending
+
+### TEST-070
+- Covers: REQ-JDME-005
+- **Type**: Unit
+- **Description**: Verify implement dm25 (pgn 0xfdb7) expanded freeze frame with spn-indexed data when config_omnican_j1939_dm_extended=y
+- **Status**: Pending
+
+### TEST-071
+- Covers: REQ-JDME-006
+- **Type**: Unit
+- **Description**: Verify implement dm26 (pgn 0xfdb8) diagnostic readiness 3 when config_omnican_j1939_dm_extended=y
+- **Status**: Pending
+
+### TEST-072
+- Covers: REQ-JDME-007
+- **Type**: Unit
+- **Description**: Verify implement dm27 (pgn 0xfd82) all pending dtcs when config_omnican_j1939_dm_extended=y
+- **Status**: Pending
+
+### TEST-073
+- Covers: REQ-JDME-008
+- **Type**: Unit
+- **Description**: Verify implement dm28 (pgn 0xfd80) emission-related permanent dtcs when config_omnican_j1939_dm_extended=y
+- **Status**: Pending
+
+### TEST-074
+- Covers: REQ-JDME-009
+- **Type**: Unit
+- **Description**: Verify implement dm29 (pgn 0x9e00) dtc counts when config_omnican_j1939_dm_extended=y
+- **Status**: Pending
+
+### TEST-075
+- Covers: REQ-JDME-010
+- **Type**: Unit
+- **Description**: Verify implement dm30 (pgn 0xa400) scaled test results by spn when config_omnican_j1939_dm_extended=y
+- **Status**: Pending
+
+### TEST-076
+- Covers: REQ-JDME-011
+- **Type**: Unit
+- **Description**: Verify implement dm31 (pgn 0xa300) dtc-to-lamp association when config_omnican_j1939_dm_extended=y
+- **Status**: Pending
+
+### TEST-077
+- Covers: REQ-JSLOT-001
+- **Type**: Unit
+- **Description**: Verify provide a compiled-in slot decode table derived from j1939da dec2024 (426 slots) when config_omnican_j1939_slot_table=y
+- **Status**: Pending
+
+### TEST-078
+- Covers: REQ-JSLOT-002
+- **Type**: Unit
+- **Description**: Verify provide `omnican_j1939_spn_decode(uint32_t spn, const uint8_t *raw, size_t raw_len, double *value, const char **unit)` api for converting raw spn bytes to engineering units
+- **Status**: Pending
+
+### TEST-079
+- Covers: REQ-JSLOT-003
+- **Type**: Unit
+- **Description**: Verify support configurable spn subset inclusion via config_omnican_j1939_spn_include list to manage flash usage
+- **Status**: Pending
+
+### TEST-080
+- Covers: REQ-JDA-001
+- **Type**: Unit
+- **Description**: Verify provide compiled-in manufacturer id lookup table from j1939da b10 (1,509 entries) when config_omnican_j1939_mfr_table=y
+- **Status**: Pending
+
+### TEST-081
+- Covers: REQ-JDA-002
+- **Type**: Unit
+- **Description**: Verify provide `omnican_j1939_mfr_name(uint16_t mfr_id)` returning manufacturer name string
+- **Status**: Pending
+
+### TEST-082
+- Covers: REQ-JDA-003
+- **Type**: Unit
+- **Description**: Verify provide global preferred source address table from j1939da b2 when config_omnican_j1939_ig_addresses=y
+- **Status**: Pending
+
+### TEST-083
+- Covers: REQ-JDA-004
+- **Type**: Unit
+- **Description**: Verify provide name function lookup from j1939da b11/b12 when config_omnican_j1939_ig_addresses=y
+- **Status**: Pending
+
+### TEST-084
 - Covers: REQ-UDS-001
 - **Type**: Unit
 - **Description**: Verify use zephyr iso-tp for all uds message transport with isotp patch when config_omnican_isotp_patch=y
 - **Status**: Pending
 
-### TEST-049
+### TEST-085
 - Covers: REQ-UDS-002
 - **Type**: Unit
 - **Description**: Verify implement diagnosticsessioncontrol (sid 0x10) and enforce service availability per active session
 - **Status**: Pending
 
-### TEST-050
+### TEST-086
 - Covers: REQ-UDS-003
 - **Type**: Unit
 - **Description**: Verify maintain an s3 timer (default 5000 ms) and revert to default session on expiry
 - **Status**: Pending
 
-### TEST-051
+### TEST-087
 - Covers: REQ-UDS-004
 - **Type**: Unit
 - **Description**: Verify reset the s3 timer on testerpresent (sid 0x3e)
 - **Status**: Pending
 
-### TEST-052
+### TEST-088
 - Covers: REQ-UDS-005
 - **Type**: Unit
 - **Description**: Verify support sid 0x10 diagnosticsessioncontrol
 - **Status**: Pending
 
-### TEST-053
+### TEST-089
 - Covers: REQ-UDS-006
 - **Type**: Unit
 - **Description**: Verify support sid 0x11 ecureset with hardreset, softreset, and keyoffonreset sub-functions
 - **Status**: Pending
 
-### TEST-054
+### TEST-090
 - Covers: REQ-UDS-007
 - **Type**: Unit
 - **Description**: Verify support sid 0x22 readdatabyidentifier with multi-did requests (multiple dids in one 0x22 request)
 - **Status**: Pending
 
-### TEST-055
+### TEST-091
 - Covers: REQ-UDS-008
 - **Type**: Unit
 - **Description**: Verify support sid 0x27 securityaccess with application-supplied seed/key callback
 - **Status**: Pending
 
-### TEST-056
+### TEST-092
 - Covers: REQ-UDS-009
 - **Type**: Unit
 - **Description**: Verify support sid 0x28 communicationcontrol with all sub-functions: enablerxandtx (0x00), enablerxanddisabletx (0x01), disablerxandenabletx (0x02), disablerxandtx (0x03)
 - **Status**: Pending
 
-### TEST-057
+### TEST-093
 - Covers: REQ-UDS-010
 - **Type**: Unit
 - **Description**: Verify support sid 0x2e writedatabyidentifier with application-supplied write validation callback before applying data
 - **Status**: Pending
 
-### TEST-058
+### TEST-094
 - Covers: REQ-UDS-011
 - **Type**: Unit
 - **Description**: Verify support sid 0x31 routinecontrol with application-supplied start, stop, and requestresults executor callbacks per routine id
 - **Status**: Pending
 
-### TEST-059
+### TEST-095
 - Covers: REQ-UDS-012
 - **Type**: Unit
 - **Description**: Verify support sid 0x34 requestdownload
 - **Status**: Pending
 
-### TEST-060
+### TEST-096
 - Covers: REQ-UDS-013
 - **Type**: Unit
 - **Description**: Verify support sid 0x36 transferdata
 - **Status**: Pending
 
-### TEST-061
+### TEST-097
 - Covers: REQ-UDS-014
 - **Type**: Unit
 - **Description**: Verify support sid 0x37 requesttransferexit
 - **Status**: Pending
 
-### TEST-062
+### TEST-098
 - Covers: REQ-UDS-015
 - **Type**: Unit
 - **Description**: Verify support sid 0x85 controldtcsetting with application callback to enable or disable dtc storage
 - **Status**: Pending
 
-### TEST-063
+### TEST-099
 - Covers: REQ-UDS-016
 - **Type**: Unit
 - **Description**: Verify return nrc 0x11 (servicenotsupported) for unregistered sids
 - **Status**: Pending
 
-### TEST-064
+### TEST-100
 - Covers: REQ-UDS-017
 - **Type**: Unit
 - **Description**: Verify never use a hardcoded securityaccess seed/key algorithm; always use an application callback
 - **Status**: Pending
 
-### TEST-065
+### TEST-101
 - Covers: REQ-UDS-018
 - **Type**: Unit
 - **Description**: Verify lock the session and return nrc 0x36 after exceeding config_omnican_uds_max_auth_attempts failed securityaccess attempts
 - **Status**: Pending
 
-### TEST-066
+### TEST-102
 - Covers: REQ-UDS-019
 - **Type**: Unit
 - **Description**: Verify support suppresspositiveresponse sub-function bit (0x80) per iso 14229-1 §7.5.2.2
 - **Status**: Pending
 
-### TEST-067
+### TEST-103
 - Covers: REQ-UDS-020
 - **Type**: Unit
 - **Description**: Verify implement nrc 0x78 (responsepending) when a service handler cannot respond within p2server_max and requires p2starserver_max time
 - **Status**: Pending
 
-### TEST-068
+### TEST-104
 - Covers: REQ-UDS-021
 - **Type**: Unit
 - **Description**: Verify support manufacturer-specific did range (0xf200–0xfeff) via application-registered did handler callbacks with read and write hooks
 - **Status**: Pending
 
-### TEST-069
+### TEST-105
 - Covers: REQ-UDS-022
 - **Type**: Unit
 - **Description**: Verify implement mandatory ecu identification dids: 0xf186 (activesession), 0xf18b (ecumanufacturingdate), 0xf18c (ecuserialnumber), 0xf190 (vin), 0xf195 (systemsupplierecusoftwareversion)
 - **Status**: Pending
 
-### TEST-070
+### TEST-106
 - Covers: REQ-UDS-023
 - **Type**: Unit
 - **Description**: Verify support functional addressing via can id 0x7df for uds broadcast service requests (testerpresent, diagnosticsessioncontrol)
 - **Status**: Pending
 
-### TEST-071
+### TEST-107
 - Covers: REQ-UDS-024
 - **Type**: Unit
 - **Description**: Verify provide `omnican_uds_session_change_cb_t` callback on every session transition with old and new session type
 - **Status**: Pending
 
-### TEST-072
+### TEST-108
 - Covers: REQ-UDS-025
 - **Type**: Unit
 - **Description**: Verify provide `omnican_uds_security_change_cb_t` callback on security access level grant or revocation
 - **Status**: Pending
 
-### TEST-073
+### TEST-109
 - Covers: REQ-UDS-026
 - **Type**: Unit
 - **Description**: Verify provide `omnican_uds_pre_reset_cb_t` callback before ecureset execution allowing application to flush state
 - **Status**: Pending
 
-### TEST-074
+### TEST-110
 - Covers: REQ-UDS-027
 - **Type**: Unit
 - **Description**: Verify support manufacturer-specific nrc values 0x80–0xfe via application nrc provider callback registered per sid
 - **Status**: Pending
 
-### TEST-075
+### TEST-111
 - Covers: REQ-UDS-028
 - **Type**: Unit
 - **Description**: Verify provide `omnican_uds_transfer_progress_cb_t` callback during 0x36 transferdata reporting block sequence and bytes transferred
 - **Status**: Pending
 
-### TEST-076
+### TEST-112
 - Covers: REQ-OBD-001
 - **Type**: Unit
 - **Description**: Verify transmit pid requests on can id 0x7df and collect responses from 0x7e8-0x7ef within configurable timeout
 - **Status**: Pending
 
-### TEST-077
+### TEST-113
 - Covers: REQ-OBD-002
 - **Type**: Unit
 - **Description**: Verify support obd-ii service modes 0x01 through 0x09
 - **Status**: Pending
 
-### TEST-078
+### TEST-114
 - Covers: REQ-OBD-003
 - **Type**: Unit
 - **Description**: Verify provide callback-based non-blocking pid request/response model
 - **Status**: Pending
 
-### TEST-079
+### TEST-115
 - Covers: REQ-OBD-004
 - **Type**: Unit
 - **Description**: Verify support mode 0x01 pids: 0x00 (supported), 0x01 (monitor status), 0x04 (engine load), 0x05 (coolant temp), 0x0c (rpm), 0x0d (vehicle speed), 0x11 (throttle position)
 - **Status**: Pending
 
-### TEST-080
+### TEST-116
 - Covers: REQ-OBD-005
 - **Type**: Unit
 - **Description**: Verify support mode 0x01 pid support bitmap queries (pids 0x00, 0x20, 0x40, 0x60, 0x80, 0xa0, 0xc0) to enumerate ecu-supported pids
 - **Status**: Pending
 
-### TEST-081
+### TEST-117
 - Covers: REQ-OBD-006
 - **Type**: Unit
 - **Description**: Verify support mode 0x01 extended pids: 0x14–0x1b (o2 sensor voltage/trim), 0x1c (obd standard), 0x21 (distance since mil on), 0x2f (fuel level), 0x31 (distance since codes cleared), 0x33 (barometric pressure), 0x46 (ambient air temperature), 0x49 (accelerator position), 0x51 (fuel type), 0x5c (engine oil temperature)
 - **Status**: Pending
 
-### TEST-082
+### TEST-118
 - Covers: REQ-OBD-007
 - **Type**: Unit
 - **Description**: Verify support mode 0x02 (freeze frame) pid requests using the same pid set as mode 0x01 with frame number sub-byte
 - **Status**: Pending
 
-### TEST-083
+### TEST-119
 - Covers: REQ-OBD-008
 - **Type**: Unit
 - **Description**: Verify retrieve mode 0x03 stored dtcs and mode 0x07 pending dtcs as decoded fault codes per sae j2012 (p/c/b/u + 4-digit hex)
 - **Status**: Pending
 
-### TEST-084
+### TEST-120
 - Covers: REQ-OBD-009
 - **Type**: Unit
 - **Description**: Verify support mode 0x04 clear all emission-related dtcs with application completion callback
 - **Status**: Pending
 
-### TEST-085
+### TEST-121
 - Covers: REQ-OBD-010
 - **Type**: Unit
 - **Description**: Verify support mode 0x06 on-board monitoring test results (obdmid and obdmid test results) via callback
 - **Status**: Pending
 
-### TEST-086
+### TEST-122
 - Covers: REQ-OBD-011
 - **Type**: Unit
 - **Description**: Verify support mode 0x09 vehicle information: infotype 0x02 (vin), 0x04 (calibration id), 0x06 (cvn), 0x0a (ecu name)
 - **Status**: Pending
 
-### TEST-087
+### TEST-123
 - Covers: REQ-OBD-012
 - **Type**: Unit
 - **Description**: Verify aggregate responses from multiple ecus for broadcast requests and deliver each ecu response individually via per-ecu callback
 - **Status**: Pending
 
-### TEST-088
+### TEST-124
 - Covers: REQ-OBD-013
 - **Type**: Unit
 - **Description**: Verify support ecu-specific physical addressing: send to 0x7e0–0x7e7 and receive from the corresponding 0x7e8–0x7ef response can id
 - **Status**: Pending
 
-### TEST-089
+### TEST-125
 - Covers: REQ-OBD-014
 - **Type**: Unit
 - **Description**: Verify provide `omnican_obd2_dtc_cb_t` callback delivering decoded dtc records (fault code, status byte) from mode 0x03/0x07 responses
 - **Status**: Pending
 
-### TEST-090
+### TEST-126
 - Covers: REQ-OBD-015
 - **Type**: Unit
 - **Description**: Verify provide `omnican_obd2_timeout_cb_t` callback when a pid request receives no response within the configured timeout
 - **Status**: Pending
 
-### TEST-091
+### TEST-127
 - Covers: REQ-COFD-001
 - **Type**: Unit
 - **Description**: Verify extend canopen module with cia 1301 fd features; require config_omnican_canopen=y and config_can_fd_mode=y
 - **Status**: Pending
 
-### TEST-092
+### TEST-128
 - Covers: REQ-COFD-002
 - **Type**: Unit
 - **Description**: Verify support can fd data payloads of up to 64 bytes for higher-throughput pdo transfers
 - **Status**: Pending
 
-### TEST-093
+### TEST-129
 - Covers: REQ-COFD-003
 - **Type**: Unit
 - **Description**: Verify maintain backward compatibility with classical 8-byte canopen nodes when fd is not negotiated
 - **Status**: Pending
 
-### TEST-094
+### TEST-130
+- Covers: REQ-MPROTO-001
+- **Type**: Unit
+- **Description**: Verify support simultaneous operation of j1939 (29-bit) and uds (11-bit) on the same can bus without filter conflicts by distinguishing frame types at the zephyr can driver level
+- **Status**: Pending
+
+### TEST-131
+- Covers: REQ-MPROTO-002
+- **Type**: Unit
+- **Description**: Verify support simultaneous operation of canopen (11-bit) and uds (11-bit) using non-overlapping can id ranges: canopen 0x000-0x5ff is below uds 0x7df/0x7e0-0x7ef; document this co-existence guarantee
+- **Status**: Pending
+
+### TEST-132
+- Covers: REQ-MPROTO-003
+- **Type**: Unit
+- **Description**: Verify support simultaneous operation of canopen (11-bit) and j1939 (29-bit) via frame type distinction with no id conflict
+- **Status**: Pending
+
+### TEST-133
+- Covers: REQ-MPROTO-004
+- **Type**: Unit
+- **Description**: Verify enforce a policy when obd-ii and uds are both enabled: uds holds exclusive ownership of can id 0x7df for functional addressing; obd-ii client shall use physical addressing (0x7e0-0x7e7) when uds is co-active, or disable obd-ii functional broadcast
+- **Status**: Pending
+
+### TEST-134
+- Covers: REQ-MPROTO-005
+- **Type**: Unit
+- **Description**: Verify provide a `docs/multiprotocol.md` integration guide documenting supported combinations, can id allocation maps, and kconfig compatibility matrix for all 4-protocol combinations
+- **Status**: Pending
+
+### TEST-135
+- Covers: REQ-MPROTO-006
+- **Type**: Unit
+- **Description**: Verify support cross-protocol error propagation: an `omnican_error_cb_t` global hook that receives errors from any enabled protocol with protocol id, error code, and context
+- **Status**: Pending
+
+### TEST-136
 - Covers: REQ-ISOTP-001
 - **Type**: Unit
 - **Description**: Verify implement a workaround for zephyr issue #86025 using separate tx/rx socket contexts with a forwarding shim
 - **Status**: Pending
 
-### TEST-095
+### TEST-137
 - Covers: REQ-ISOTP-002
 - **Type**: Unit
 - **Description**: Verify default config_omnican_isotp_patch to y when config_omnican_uds or config_omnican_obd2 is enabled
 - **Status**: Pending
 
-### TEST-096
+### TEST-138
 - Covers: REQ-MEM-001
 - **Type**: Unit
 - **Description**: Verify never use dynamic heap allocation (k_malloc, malloc); all state statically allocated or via net_buf pools
 - **Status**: Pending
 
-### TEST-097
+### TEST-139
 - Covers: REQ-MEM-002
 - **Type**: Unit
 - **Description**: Verify handle can frame data via zephyr net_buf from a pool sized by config_omnican_net_buf_count (default 16)
 - **Status**: Pending
 
-### TEST-098
+### TEST-140
 - Covers: REQ-MEM-003
 - **Type**: Unit
 - **Description**: Verify all protocol context structures shall be opaque to the caller but caller-allocated
 - **Status**: Pending
 
-### TEST-099
+### TEST-141
 - Covers: REQ-MEM-004
 - **Type**: Unit
 - **Description**: Verify all protocol handlers execute in a zephyr workqueue context, not the can isr

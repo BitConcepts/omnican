@@ -127,11 +127,12 @@ parts; only those directly implemented by OmniCAN are marked **normative**.
 | **SAE J1939 APR2009** | Serial Control and Communications Heavy Duty Vehicle Network — Top Level Document | APR2009 | **Overview and roadmap**. Defines the J1939 family structure. |
 | **SAE J1939/11 MAY2006** | Physical Layer — 250Kbps, Shielded Twisted Pair | MAY2006 | Physical layer at 250 kbps; implemented by hardware/BSP |
 | SAE J1939/15 AUG2008 | Reduced Physical Layer — 250Kbps, Unshielded Twisted Pair | AUG2008 | Alternate physical layer (informative) |
-| **SAE J1939/21 DEC2010** | Data Link Layer | DEC2010 | **Primary normative reference**. 29-bit extended CAN ID structure, PGN definition, TP (9–1785 bytes), ETP, broadcast/peer-to-peer addressing |
+| **SAE J1939/21 DEC2010** | Data Link Layer | DEC2010 | **Primary normative reference**. 29-bit extended CAN ID structure, PGN definition, TP (9–1785 bytes), ETP (>1785 bytes), RQST (0xEA00), ACKM (0xE800), broadcast/peer-to-peer addressing |
 | SAE J1939/31 APR2004 | Network Layer | APR2004 | Multi-segment network bridging (not in scope for v0.x) |
+| **SAE J1939/73 APR2011** | Application Layer — Diagnostics | APR2011 | **Normative**. DM1–DM35 diagnostic messages; SPN/FMI/OC/CM 4-byte DTC encoding; lamp status byte; FMI code table (32 codes); diagnostic readiness; freeze frame; memory access (DM14–16) |
 | **SAE J1939/81 MAY2003** | Network Management | MAY2003 | **Normative**. Address claiming algorithm (J1939/81 §4.2), 64-bit NAME priority, 250 ms contention window |
 | SAE J1939/71 MAR2011 | Vehicle Application Layer | MAR2011 | PGN definitions for common vehicle signals (informative for OmniCAN routing) |
-| SAE J1939/73 APR2011 | Application Layer — Diagnostics | APR2011 | DM1–DM11 diagnostic messages (future scope) |
+| **SAE J1939DA DEC2024** | Digital Annex of Serial Control and Communications Heavy Duty Vehicle Network Data | DEC2024 | **Normative reference for DA**. 3,193 PGNs, ~8,000 SPNs, 426 SLOTs, 62 DM messages (DM1–DM60), 1,509 manufacturer IDs, industry group preferred addresses (B2–B7), NAME functions (B11/B12). See `docs/J1939DA_GAP.md` for full gap analysis. |
 
 ### 3.2 29-bit CAN Identifier Layout (J1939/21 §5.2)
 

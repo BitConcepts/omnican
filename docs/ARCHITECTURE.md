@@ -65,12 +65,58 @@ Protocol implementation is phased:
 - Invoke PGN callbacks from the system workqueue with source address, data pointer, and length
 - Implement J1939 Transport Protocol (TP) for 9-1785 byte messages using BAM and CMDT modes
 - Implement Extended Transport Protocol (ETP) for messages larger than 1785 bytes
+- Explicitly implement ETP.CM (PGN 0xC800) and ETP.DT (PGN 0xC700) as separate ETP connection management and data transfer PGNs
 - Maintain TP/ETP session state in static context with configurable maximum simultaneous sessions
+- Implement RQST (PGN 0xEA00) to request any PGN from a remote device (mandatory for DM request/response)
+- Implement ACKM (PGN 0xE800) to send positive, negative, busy, and cannot-respond acknowledgments (mandatory per J1939/21)
+- Support Proprietary A (PGN 0xEF00, peer-to-peer) and Proprietary B (PGN 0xFF00, broadcast) via the PGN routing table for manufacturer-specific messages
 - Provide `omnican_j1939_address_result_cb_t` callback reporting address claim success, failure, or address-lost events
 - Provide `omnican_j1939_tp_progress_cb_t` callback reporting bytes transferred during active TP/ETP sessions
 - Provide `omnican_j1939_tp_complete_cb_t` callback on TP/ETP session completion or abort with status
-- Support J1939 diagnostic PGN reception: DM1 (PGN 0xFECA, active DTCs) and DM11 (PGN 0xFED3, clear active DTCs) via the PGN routing table
 - Support configurable maximum TP/ETP single-transfer payload via CONFIG_OMNICAN_J1939_TP_MAX_PAYLOAD (default 1785 bytes for TP, unlimited for ETP)
+
+### J1939 DTC and SPN
+- Implement 4-byte J1939 DTC encode/decode: SPN (19-bit) in bytes 1-3 bits [7:5], FMI (5-bit) in byte 3 bits [4:0], CM (1-bit) in byte 4 bit [7], OC (7-bit) in byte 4 bits [6:0] per J1939/73
+- Define all 32 FMI (Failure Mode Identifier) codes 0-31 per J1939/73 §4.3.2
+- Provide `omnican_j1939_dtc_encode(uint32_t spn, uint8_t fmi, uint8_t oc, bool cm, uint8_t out[4])` API
+- Provide `omnican_j1939_dtc_decode(const uint8_t in[4], uint32_t *spn, uint8_t *fmi, uint8_t *oc, bool *cm)` API
+- Provide `omnican_j1939_fmi_string(uint8_t fmi)` to return human-readable FMI description
+
+### J1939 Diagnostics (mandatory DM set)
+- Implement DM1 (PGN 0xFECA) with correct 2-byte lamp status header: MIL [7:6], Stop Lamp [5:4], Amber Warning [3:2], Protect [1:0] per J1939/73, plus repeated 4-byte DTC records
+- Implement DM2 (PGN 0xFECB) previously active DTCs with same frame format as DM1
+- Implement DM3 (PGN 0xFECC) clear/reset previously active DTCs (mandatory request handling)
+- Implement DM5 (PGN 0xFECE) diagnostic readiness with active/previously active DTC counts and supported/completed monitor bits
+- Implement DM6 (PGN 0xFECF) emission-related pending DTCs
+- Implement DM11 (PGN 0xFED3) clear/reset active DTCs (mandatory request handling)
+- Implement DM12 (PGN 0xFED4) emission-related MIL-on DTCs
+- Implement DM22 (PGN 0xC300) individual clear/reset of specific active and previously active DTCs by SPN/FMI
+- Provide `omnican_j1939_dm1_cb_t` callback delivering lamp status and decoded DTC list when DM1 is received
+- Provide `omnican_j1939_dm_request(struct omnican_j1939_node *, uint8_t dm_num, omnican_j1939_addr_t dest)` to request a specific DM from a device
+
+### J1939 Diagnostics (extended DM set — via CONFIG_OMNICAN_J1939_DM_EXTENDED)
+- Implement DM4 (PGN 0xFECD) freeze frame parameters capture and reporting when CONFIG_OMNICAN_J1939_DM_EXTENDED=y
+- Implement DM13 (PGN 0xDF00) stop/start broadcast control when CONFIG_OMNICAN_J1939_DM_EXTENDED=y
+- Implement DM20 (PGN 0xC200) monitor performance ratio reporting when CONFIG_OMNICAN_J1939_DM_EXTENDED=y
+- Implement DM21 (PGN 0xC100) diagnostic readiness 2 when CONFIG_OMNICAN_J1939_DM_EXTENDED=y
+- Implement DM25 (PGN 0xFDB7) expanded freeze frame with SPN-indexed data when CONFIG_OMNICAN_J1939_DM_EXTENDED=y
+- Implement DM26 (PGN 0xFDB8) diagnostic readiness 3 when CONFIG_OMNICAN_J1939_DM_EXTENDED=y
+- Implement DM27 (PGN 0xFD82) all pending DTCs when CONFIG_OMNICAN_J1939_DM_EXTENDED=y
+- Implement DM28 (PGN 0xFD80) emission-related permanent DTCs when CONFIG_OMNICAN_J1939_DM_EXTENDED=y
+- Implement DM29 (PGN 0x9E00) DTC counts when CONFIG_OMNICAN_J1939_DM_EXTENDED=y
+- Implement DM30 (PGN 0xA400) scaled test results by SPN when CONFIG_OMNICAN_J1939_DM_EXTENDED=y
+- Implement DM31 (PGN 0xA300) DTC-to-lamp association when CONFIG_OMNICAN_J1939_DM_EXTENDED=y
+
+### J1939 SLOT and SPN Decoding (optional — CONFIG_OMNICAN_J1939_SLOT_TABLE)
+- Provide a compiled-in SLOT decode table derived from J1939DA DEC2024 (426 SLOTs) when CONFIG_OMNICAN_J1939_SLOT_TABLE=y
+- Provide `omnican_j1939_spn_decode(uint32_t spn, const uint8_t *raw, size_t raw_len, double *value, const char **unit)` API for converting raw SPN bytes to engineering units
+- Support configurable SPN subset inclusion via CONFIG_OMNICAN_J1939_SPN_INCLUDE list to manage flash usage
+
+### J1939 DA Reference Tables (optional)
+- Provide compiled-in manufacturer ID lookup table from J1939DA B10 (1,509 entries) when CONFIG_OMNICAN_J1939_MFR_TABLE=y
+- Provide `omnican_j1939_mfr_name(uint16_t mfr_id)` returning manufacturer name string
+- Provide global preferred source address table from J1939DA B2 when CONFIG_OMNICAN_J1939_IG_ADDRESSES=y
+- Provide NAME function lookup from J1939DA B11/B12 when CONFIG_OMNICAN_J1939_IG_ADDRESSES=y
 
 ### UDS ISO 14229
 - Use Zephyr ISO-TP for all UDS message transport with ISOTP patch when CONFIG_OMNICAN_ISOTP_PATCH=y
@@ -123,6 +169,14 @@ Protocol implementation is phased:
 - Extend CANopen module with CiA 1301 FD features; require CONFIG_OMNICAN_CANOPEN=y and CONFIG_CAN_FD_MODE=y
 - Support CAN FD data payloads of up to 64 bytes for higher-throughput PDO transfers
 - Maintain backward compatibility with classical 8-byte CANopen nodes when FD is not negotiated
+
+### Multi-Protocol Co-Existence
+- Support simultaneous operation of J1939 (29-bit) and UDS (11-bit) on the same CAN bus without filter conflicts by distinguishing frame types at the Zephyr CAN driver level
+- Support simultaneous operation of CANopen (11-bit) and UDS (11-bit) using non-overlapping CAN ID ranges: CANopen 0x000-0x5FF is below UDS 0x7DF/0x7E0-0x7EF; document this co-existence guarantee
+- Support simultaneous operation of CANopen (11-bit) and J1939 (29-bit) via frame type distinction with no ID conflict
+- Enforce a policy when OBD-II and UDS are both enabled: UDS holds exclusive ownership of CAN ID 0x7DF for functional addressing; OBD-II client shall use physical addressing (0x7E0-0x7E7) when UDS is co-active, or disable OBD-II functional broadcast
+- Provide a `docs/MULTIPROTOCOL.md` integration guide documenting supported combinations, CAN ID allocation maps, and Kconfig compatibility matrix for all 4-protocol combinations
+- Support cross-protocol error propagation: an `omnican_error_cb_t` global hook that receives errors from any enabled protocol with protocol ID, error code, and context
 
 ### ISOTP Patch
 - Implement a workaround for Zephyr issue #86025 using separate TX/RX socket contexts with a forwarding shim

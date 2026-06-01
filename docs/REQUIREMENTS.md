@@ -345,6 +345,14 @@ Component codes: CORE, ROUTER, CO (CANopen), JNET (J1939), UDS, OBD (OBD-II), CO
 - **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
 
 ### REQ-JNET-009
+- **Title**: Explicitly implement ETP.CM (PGN 0xC800) and ETP.DT (PGN 0xC700) as separate ETP
+- **Status**: planned
+- **Description**: Explicitly implement ETP.CM (PGN 0xC800) and ETP.DT (PGN 0xC700) as separate ETP connection management and data transfer PGNs
+- **Source**: docs/ARCHITECTURE.md ## J1939
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-JNET-010
 - **Title**: Maintain TP/ETP session state in static context with configurable maximum simult
 - **Status**: planned
 - **Description**: Maintain TP/ETP session state in static context with configurable maximum simultaneous sessions
@@ -352,7 +360,31 @@ Component codes: CORE, ROUTER, CO (CANopen), JNET (J1939), UDS, OBD (OBD-II), CO
 - **Platform**: embedded
 - **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
 
-### REQ-JNET-010
+### REQ-JNET-011
+- **Title**: Implement RQST (PGN 0xEA00) to request any PGN from a remote device (mandatory f
+- **Status**: planned
+- **Description**: Implement RQST (PGN 0xEA00) to request any PGN from a remote device (mandatory for DM request/response)
+- **Source**: docs/ARCHITECTURE.md ## J1939
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-JNET-012
+- **Title**: Implement ACKM (PGN 0xE800) to send positive, negative, busy, and cannot-respond
+- **Status**: planned
+- **Description**: Implement ACKM (PGN 0xE800) to send positive, negative, busy, and cannot-respond acknowledgments (mandatory per J1939/21)
+- **Source**: docs/ARCHITECTURE.md ## J1939
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-JNET-013
+- **Title**: Support Proprietary A (PGN 0xEF00, peer-to-peer) and Proprietary B (PGN 0xFF00, 
+- **Status**: planned
+- **Description**: Support Proprietary A (PGN 0xEF00, peer-to-peer) and Proprietary B (PGN 0xFF00, broadcast) via the PGN routing table for manufacturer-specific messages
+- **Source**: docs/ARCHITECTURE.md ## J1939
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-JNET-014
 - **Title**: Provide `omnican_j1939_address_result_cb_t` callback reporting address claim suc
 - **Status**: planned
 - **Description**: Provide `omnican_j1939_address_result_cb_t` callback reporting address claim success, failure, or address-lost events
@@ -360,7 +392,7 @@ Component codes: CORE, ROUTER, CO (CANopen), JNET (J1939), UDS, OBD (OBD-II), CO
 - **Platform**: embedded
 - **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
 
-### REQ-JNET-011
+### REQ-JNET-015
 - **Title**: Provide `omnican_j1939_tp_progress_cb_t` callback reporting bytes transferred du
 - **Status**: planned
 - **Description**: Provide `omnican_j1939_tp_progress_cb_t` callback reporting bytes transferred during active TP/ETP sessions
@@ -368,7 +400,7 @@ Component codes: CORE, ROUTER, CO (CANopen), JNET (J1939), UDS, OBD (OBD-II), CO
 - **Platform**: embedded
 - **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
 
-### REQ-JNET-012
+### REQ-JNET-016
 - **Title**: Provide `omnican_j1939_tp_complete_cb_t` callback on TP/ETP session completion o
 - **Status**: planned
 - **Description**: Provide `omnican_j1939_tp_complete_cb_t` callback on TP/ETP session completion or abort with status
@@ -376,19 +408,275 @@ Component codes: CORE, ROUTER, CO (CANopen), JNET (J1939), UDS, OBD (OBD-II), CO
 - **Platform**: embedded
 - **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
 
-### REQ-JNET-013
-- **Title**: Support J1939 diagnostic PGN reception: DM1 (PGN 0xFECA, active DTCs) and DM11 (
-- **Status**: planned
-- **Description**: Support J1939 diagnostic PGN reception: DM1 (PGN 0xFECA, active DTCs) and DM11 (PGN 0xFED3, clear active DTCs) via the PGN routing table
-- **Source**: docs/ARCHITECTURE.md ## J1939
-- **Platform**: embedded
-- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
-
-### REQ-JNET-014
+### REQ-JNET-017
 - **Title**: Support configurable maximum TP/ETP single-transfer payload via CONFIG_OMNICAN_J
 - **Status**: planned
 - **Description**: Support configurable maximum TP/ETP single-transfer payload via CONFIG_OMNICAN_J1939_TP_MAX_PAYLOAD (default 1785 bytes for TP, unlimited for ETP)
 - **Source**: docs/ARCHITECTURE.md ## J1939
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-JDTC-001
+- **Title**: Implement 4-byte J1939 DTC encode/decode: SPN (19-bit) in bytes 1-3 bits [7:5], 
+- **Status**: planned
+- **Description**: Implement 4-byte J1939 DTC encode/decode: SPN (19-bit) in bytes 1-3 bits [7:5], FMI (5-bit) in byte 3 bits [4:0], CM (1-bit) in byte 4 bit [7], OC (7-bit) in byte 4 bits [6:0] per J1939/73
+- **Source**: docs/ARCHITECTURE.md ## J1939 DTC and SPN
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-JDTC-002
+- **Title**: Define all 32 FMI (Failure Mode Identifier) codes 0-31 per J1939/73 §4.3.2
+- **Status**: planned
+- **Description**: Define all 32 FMI (Failure Mode Identifier) codes 0-31 per J1939/73 §4.3.2
+- **Source**: docs/ARCHITECTURE.md ## J1939 DTC and SPN
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-JDTC-003
+- **Title**: Provide `omnican_j1939_dtc_encode(uint32_t spn, uint8_t fmi, uint8_t oc, bool cm
+- **Status**: planned
+- **Description**: Provide `omnican_j1939_dtc_encode(uint32_t spn, uint8_t fmi, uint8_t oc, bool cm, uint8_t out[4])` API
+- **Source**: docs/ARCHITECTURE.md ## J1939 DTC and SPN
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-JDTC-004
+- **Title**: Provide `omnican_j1939_dtc_decode(const uint8_t in[4], uint32_t *spn, uint8_t *f
+- **Status**: planned
+- **Description**: Provide `omnican_j1939_dtc_decode(const uint8_t in[4], uint32_t *spn, uint8_t *fmi, uint8_t *oc, bool *cm)` API
+- **Source**: docs/ARCHITECTURE.md ## J1939 DTC and SPN
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-JDTC-005
+- **Title**: Provide `omnican_j1939_fmi_string(uint8_t fmi)` to return human-readable FMI des
+- **Status**: planned
+- **Description**: Provide `omnican_j1939_fmi_string(uint8_t fmi)` to return human-readable FMI description
+- **Source**: docs/ARCHITECTURE.md ## J1939 DTC and SPN
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-JDM-001
+- **Title**: Implement DM1 (PGN 0xFECA) with correct 2-byte lamp status header: MIL [7:6], St
+- **Status**: planned
+- **Description**: Implement DM1 (PGN 0xFECA) with correct 2-byte lamp status header: MIL [7:6], Stop Lamp [5:4], Amber Warning [3:2], Protect [1:0] per J1939/73, plus repeated 4-byte DTC records
+- **Source**: docs/ARCHITECTURE.md ## J1939 Diagnostics (mandatory DM set)
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-JDM-002
+- **Title**: Implement DM2 (PGN 0xFECB) previously active DTCs with same frame format as DM1
+- **Status**: planned
+- **Description**: Implement DM2 (PGN 0xFECB) previously active DTCs with same frame format as DM1
+- **Source**: docs/ARCHITECTURE.md ## J1939 Diagnostics (mandatory DM set)
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-JDM-003
+- **Title**: Implement DM3 (PGN 0xFECC) clear/reset previously active DTCs (mandatory request
+- **Status**: planned
+- **Description**: Implement DM3 (PGN 0xFECC) clear/reset previously active DTCs (mandatory request handling)
+- **Source**: docs/ARCHITECTURE.md ## J1939 Diagnostics (mandatory DM set)
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-JDM-004
+- **Title**: Implement DM5 (PGN 0xFECE) diagnostic readiness with active/previously active DT
+- **Status**: planned
+- **Description**: Implement DM5 (PGN 0xFECE) diagnostic readiness with active/previously active DTC counts and supported/completed monitor bits
+- **Source**: docs/ARCHITECTURE.md ## J1939 Diagnostics (mandatory DM set)
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-JDM-005
+- **Title**: Implement DM6 (PGN 0xFECF) emission-related pending DTCs
+- **Status**: planned
+- **Description**: Implement DM6 (PGN 0xFECF) emission-related pending DTCs
+- **Source**: docs/ARCHITECTURE.md ## J1939 Diagnostics (mandatory DM set)
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-JDM-006
+- **Title**: Implement DM11 (PGN 0xFED3) clear/reset active DTCs (mandatory request handling)
+- **Status**: planned
+- **Description**: Implement DM11 (PGN 0xFED3) clear/reset active DTCs (mandatory request handling)
+- **Source**: docs/ARCHITECTURE.md ## J1939 Diagnostics (mandatory DM set)
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-JDM-007
+- **Title**: Implement DM12 (PGN 0xFED4) emission-related MIL-on DTCs
+- **Status**: planned
+- **Description**: Implement DM12 (PGN 0xFED4) emission-related MIL-on DTCs
+- **Source**: docs/ARCHITECTURE.md ## J1939 Diagnostics (mandatory DM set)
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-JDM-008
+- **Title**: Implement DM22 (PGN 0xC300) individual clear/reset of specific active and previo
+- **Status**: planned
+- **Description**: Implement DM22 (PGN 0xC300) individual clear/reset of specific active and previously active DTCs by SPN/FMI
+- **Source**: docs/ARCHITECTURE.md ## J1939 Diagnostics (mandatory DM set)
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-JDM-009
+- **Title**: Provide `omnican_j1939_dm1_cb_t` callback delivering lamp status and decoded DTC
+- **Status**: planned
+- **Description**: Provide `omnican_j1939_dm1_cb_t` callback delivering lamp status and decoded DTC list when DM1 is received
+- **Source**: docs/ARCHITECTURE.md ## J1939 Diagnostics (mandatory DM set)
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-JDM-010
+- **Title**: Provide `omnican_j1939_dm_request(struct omnican_j1939_node *, uint8_t dm_num, o
+- **Status**: planned
+- **Description**: Provide `omnican_j1939_dm_request(struct omnican_j1939_node *, uint8_t dm_num, omnican_j1939_addr_t dest)` to request a specific DM from a device
+- **Source**: docs/ARCHITECTURE.md ## J1939 Diagnostics (mandatory DM set)
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-JDME-001
+- **Title**: Implement DM4 (PGN 0xFECD) freeze frame parameters capture and reporting when CO
+- **Status**: planned
+- **Description**: Implement DM4 (PGN 0xFECD) freeze frame parameters capture and reporting when CONFIG_OMNICAN_J1939_DM_EXTENDED=y
+- **Source**: docs/ARCHITECTURE.md ## J1939 Diagnostics (extended DM set — via CONFIG_OMNICAN_J1939_DM_EXTENDED)
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-JDME-002
+- **Title**: Implement DM13 (PGN 0xDF00) stop/start broadcast control when CONFIG_OMNICAN_J19
+- **Status**: planned
+- **Description**: Implement DM13 (PGN 0xDF00) stop/start broadcast control when CONFIG_OMNICAN_J1939_DM_EXTENDED=y
+- **Source**: docs/ARCHITECTURE.md ## J1939 Diagnostics (extended DM set — via CONFIG_OMNICAN_J1939_DM_EXTENDED)
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-JDME-003
+- **Title**: Implement DM20 (PGN 0xC200) monitor performance ratio reporting when CONFIG_OMNI
+- **Status**: planned
+- **Description**: Implement DM20 (PGN 0xC200) monitor performance ratio reporting when CONFIG_OMNICAN_J1939_DM_EXTENDED=y
+- **Source**: docs/ARCHITECTURE.md ## J1939 Diagnostics (extended DM set — via CONFIG_OMNICAN_J1939_DM_EXTENDED)
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-JDME-004
+- **Title**: Implement DM21 (PGN 0xC100) diagnostic readiness 2 when CONFIG_OMNICAN_J1939_DM_
+- **Status**: planned
+- **Description**: Implement DM21 (PGN 0xC100) diagnostic readiness 2 when CONFIG_OMNICAN_J1939_DM_EXTENDED=y
+- **Source**: docs/ARCHITECTURE.md ## J1939 Diagnostics (extended DM set — via CONFIG_OMNICAN_J1939_DM_EXTENDED)
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-JDME-005
+- **Title**: Implement DM25 (PGN 0xFDB7) expanded freeze frame with SPN-indexed data when CON
+- **Status**: planned
+- **Description**: Implement DM25 (PGN 0xFDB7) expanded freeze frame with SPN-indexed data when CONFIG_OMNICAN_J1939_DM_EXTENDED=y
+- **Source**: docs/ARCHITECTURE.md ## J1939 Diagnostics (extended DM set — via CONFIG_OMNICAN_J1939_DM_EXTENDED)
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-JDME-006
+- **Title**: Implement DM26 (PGN 0xFDB8) diagnostic readiness 3 when CONFIG_OMNICAN_J1939_DM_
+- **Status**: planned
+- **Description**: Implement DM26 (PGN 0xFDB8) diagnostic readiness 3 when CONFIG_OMNICAN_J1939_DM_EXTENDED=y
+- **Source**: docs/ARCHITECTURE.md ## J1939 Diagnostics (extended DM set — via CONFIG_OMNICAN_J1939_DM_EXTENDED)
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-JDME-007
+- **Title**: Implement DM27 (PGN 0xFD82) all pending DTCs when CONFIG_OMNICAN_J1939_DM_EXTEND
+- **Status**: planned
+- **Description**: Implement DM27 (PGN 0xFD82) all pending DTCs when CONFIG_OMNICAN_J1939_DM_EXTENDED=y
+- **Source**: docs/ARCHITECTURE.md ## J1939 Diagnostics (extended DM set — via CONFIG_OMNICAN_J1939_DM_EXTENDED)
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-JDME-008
+- **Title**: Implement DM28 (PGN 0xFD80) emission-related permanent DTCs when CONFIG_OMNICAN_
+- **Status**: planned
+- **Description**: Implement DM28 (PGN 0xFD80) emission-related permanent DTCs when CONFIG_OMNICAN_J1939_DM_EXTENDED=y
+- **Source**: docs/ARCHITECTURE.md ## J1939 Diagnostics (extended DM set — via CONFIG_OMNICAN_J1939_DM_EXTENDED)
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-JDME-009
+- **Title**: Implement DM29 (PGN 0x9E00) DTC counts when CONFIG_OMNICAN_J1939_DM_EXTENDED=y
+- **Status**: planned
+- **Description**: Implement DM29 (PGN 0x9E00) DTC counts when CONFIG_OMNICAN_J1939_DM_EXTENDED=y
+- **Source**: docs/ARCHITECTURE.md ## J1939 Diagnostics (extended DM set — via CONFIG_OMNICAN_J1939_DM_EXTENDED)
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-JDME-010
+- **Title**: Implement DM30 (PGN 0xA400) scaled test results by SPN when CONFIG_OMNICAN_J1939
+- **Status**: planned
+- **Description**: Implement DM30 (PGN 0xA400) scaled test results by SPN when CONFIG_OMNICAN_J1939_DM_EXTENDED=y
+- **Source**: docs/ARCHITECTURE.md ## J1939 Diagnostics (extended DM set — via CONFIG_OMNICAN_J1939_DM_EXTENDED)
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-JDME-011
+- **Title**: Implement DM31 (PGN 0xA300) DTC-to-lamp association when CONFIG_OMNICAN_J1939_DM
+- **Status**: planned
+- **Description**: Implement DM31 (PGN 0xA300) DTC-to-lamp association when CONFIG_OMNICAN_J1939_DM_EXTENDED=y
+- **Source**: docs/ARCHITECTURE.md ## J1939 Diagnostics (extended DM set — via CONFIG_OMNICAN_J1939_DM_EXTENDED)
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-JSLOT-001
+- **Title**: Provide a compiled-in SLOT decode table derived from J1939DA DEC2024 (426 SLOTs)
+- **Status**: planned
+- **Description**: Provide a compiled-in SLOT decode table derived from J1939DA DEC2024 (426 SLOTs) when CONFIG_OMNICAN_J1939_SLOT_TABLE=y
+- **Source**: docs/ARCHITECTURE.md ## J1939 SLOT and SPN Decoding (optional — CONFIG_OMNICAN_J1939_SLOT_TABLE)
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-JSLOT-002
+- **Title**: Provide `omnican_j1939_spn_decode(uint32_t spn, const uint8_t *raw, size_t raw_l
+- **Status**: planned
+- **Description**: Provide `omnican_j1939_spn_decode(uint32_t spn, const uint8_t *raw, size_t raw_len, double *value, const char **unit)` API for converting raw SPN bytes to engineering units
+- **Source**: docs/ARCHITECTURE.md ## J1939 SLOT and SPN Decoding (optional — CONFIG_OMNICAN_J1939_SLOT_TABLE)
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-JSLOT-003
+- **Title**: Support configurable SPN subset inclusion via CONFIG_OMNICAN_J1939_SPN_INCLUDE l
+- **Status**: planned
+- **Description**: Support configurable SPN subset inclusion via CONFIG_OMNICAN_J1939_SPN_INCLUDE list to manage flash usage
+- **Source**: docs/ARCHITECTURE.md ## J1939 SLOT and SPN Decoding (optional — CONFIG_OMNICAN_J1939_SLOT_TABLE)
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-JDA-001
+- **Title**: Provide compiled-in manufacturer ID lookup table from J1939DA B10 (1,509 entries
+- **Status**: planned
+- **Description**: Provide compiled-in manufacturer ID lookup table from J1939DA B10 (1,509 entries) when CONFIG_OMNICAN_J1939_MFR_TABLE=y
+- **Source**: docs/ARCHITECTURE.md ## J1939 DA Reference Tables (optional)
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-JDA-002
+- **Title**: Provide `omnican_j1939_mfr_name(uint16_t mfr_id)` returning manufacturer name st
+- **Status**: planned
+- **Description**: Provide `omnican_j1939_mfr_name(uint16_t mfr_id)` returning manufacturer name string
+- **Source**: docs/ARCHITECTURE.md ## J1939 DA Reference Tables (optional)
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-JDA-003
+- **Title**: Provide global preferred source address table from J1939DA B2 when CONFIG_OMNICA
+- **Status**: planned
+- **Description**: Provide global preferred source address table from J1939DA B2 when CONFIG_OMNICAN_J1939_IG_ADDRESSES=y
+- **Source**: docs/ARCHITECTURE.md ## J1939 DA Reference Tables (optional)
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-JDA-004
+- **Title**: Provide NAME function lookup from J1939DA B11/B12 when CONFIG_OMNICAN_J1939_IG_A
+- **Status**: planned
+- **Description**: Provide NAME function lookup from J1939DA B11/B12 when CONFIG_OMNICAN_J1939_IG_ADDRESSES=y
+- **Source**: docs/ARCHITECTURE.md ## J1939 DA Reference Tables (optional)
 - **Platform**: embedded
 - **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
 
@@ -757,6 +1045,54 @@ Component codes: CORE, ROUTER, CO (CANopen), JNET (J1939), UDS, OBD (OBD-II), CO
 - **Status**: planned
 - **Description**: Maintain backward compatibility with classical 8-byte CANopen nodes when FD is not negotiated
 - **Source**: docs/ARCHITECTURE.md ## CANopen FD CiA 1301
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-MPROTO-001
+- **Title**: Support simultaneous operation of J1939 (29-bit) and UDS (11-bit) on the same CA
+- **Status**: planned
+- **Description**: Support simultaneous operation of J1939 (29-bit) and UDS (11-bit) on the same CAN bus without filter conflicts by distinguishing frame types at the Zephyr CAN driver level
+- **Source**: docs/ARCHITECTURE.md ## Multi-Protocol Co-Existence
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-MPROTO-002
+- **Title**: Support simultaneous operation of CANopen (11-bit) and UDS (11-bit) using non-ov
+- **Status**: planned
+- **Description**: Support simultaneous operation of CANopen (11-bit) and UDS (11-bit) using non-overlapping CAN ID ranges: CANopen 0x000-0x5FF is below UDS 0x7DF/0x7E0-0x7EF; document this co-existence guarantee
+- **Source**: docs/ARCHITECTURE.md ## Multi-Protocol Co-Existence
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-MPROTO-003
+- **Title**: Support simultaneous operation of CANopen (11-bit) and J1939 (29-bit) via frame 
+- **Status**: planned
+- **Description**: Support simultaneous operation of CANopen (11-bit) and J1939 (29-bit) via frame type distinction with no ID conflict
+- **Source**: docs/ARCHITECTURE.md ## Multi-Protocol Co-Existence
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-MPROTO-004
+- **Title**: Enforce a policy when OBD-II and UDS are both enabled: UDS holds exclusive owner
+- **Status**: planned
+- **Description**: Enforce a policy when OBD-II and UDS are both enabled: UDS holds exclusive ownership of CAN ID 0x7DF for functional addressing; OBD-II client shall use physical addressing (0x7E0-0x7E7) when UDS is co-active, or disable OBD-II functional broadcast
+- **Source**: docs/ARCHITECTURE.md ## Multi-Protocol Co-Existence
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-MPROTO-005
+- **Title**: Provide a `docs/MULTIPROTOCOL.md` integration guide documenting supported combin
+- **Status**: planned
+- **Description**: Provide a `docs/MULTIPROTOCOL.md` integration guide documenting supported combinations, CAN ID allocation maps, and Kconfig compatibility matrix for all 4-protocol combinations
+- **Source**: docs/ARCHITECTURE.md ## Multi-Protocol Co-Existence
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-MPROTO-006
+- **Title**: Support cross-protocol error propagation: an `omnican_error_cb_t` global hook th
+- **Status**: planned
+- **Description**: Support cross-protocol error propagation: an `omnican_error_cb_t` global hook that receives errors from any enabled protocol with protocol ID, error code, and context
+- **Source**: docs/ARCHITECTURE.md ## Multi-Protocol Co-Existence
 - **Platform**: embedded
 - **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
 

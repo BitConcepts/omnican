@@ -35,3 +35,9 @@
 - **Type**: task
 - **Status**: complete
 - **Chain hash**: `c64a9b7484399f7d...`
+
+## 2026-06-01T04:23 — J1939DA DEC2024 gap analysis + multi-protocol expansion: 141 REQs/141 tests (was 99). Added: J1939/73 as normative + J1939DA DEC2024 as normative reference. Multi-protocol co-existence (J1939+UDS, CANopen+UDS, CANopen+J1939, OBD2+UDS conflict policy, cross-protocol error hook). J1939 RQST (0xEA00) + ACKM (0xE800) mandatory. ETP.CM/ETP.DT explicit. PropA/PropB routing. DTC 4-byte SPN/FMI/OC/CM encode/decode with 32 FMI codes. DM mandatory set: DM1 (lamp status corrected), DM2, DM3, DM5, DM6, DM12, DM22 + dm_request(). DM extended set (DM4, DM13, DM20-21, DM25-31) via Kconfig. SLOT decode API (426 SLOTs). Manufacturer ID table (1,509). IG address/NAME function tables. docs/J1939DA_GAP.md: complete gap report. docs/STANDARDS.md: J1939/73 now normative. SEAL-0005 audit gate.
+- **Author**: agent
+- **Type**: task
+- **Status**: complete
+- **Chain hash**: `d7c795af9bc803be...`

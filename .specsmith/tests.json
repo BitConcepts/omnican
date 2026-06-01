@@ -289,405 +289,699 @@
   {
     "id": "TEST-042",
     "requirement_id": "J1939-REQ-042",
-    "description": "Verify maintain tp/etp session state in static context with configurable maximum simultaneous sessions",
+    "description": "Verify explicitly implement etp.cm (pgn 0xc800) and etp.dt (pgn 0xc700) as separate etp connection management and data transfer pgns",
     "type": "Unit",
     "status": "Pending"
   },
   {
     "id": "TEST-043",
     "requirement_id": "J1939-REQ-043",
-    "description": "Verify provide `omnican_j1939_address_result_cb_t` callback reporting address claim success, failure, or address-lost events",
+    "description": "Verify maintain tp/etp session state in static context with configurable maximum simultaneous sessions",
     "type": "Unit",
     "status": "Pending"
   },
   {
     "id": "TEST-044",
     "requirement_id": "J1939-REQ-044",
-    "description": "Verify provide `omnican_j1939_tp_progress_cb_t` callback reporting bytes transferred during active tp/etp sessions",
+    "description": "Verify implement rqst (pgn 0xea00) to request any pgn from a remote device (mandatory for dm request/response)",
     "type": "Unit",
     "status": "Pending"
   },
   {
     "id": "TEST-045",
     "requirement_id": "J1939-REQ-045",
-    "description": "Verify provide `omnican_j1939_tp_complete_cb_t` callback on tp/etp session completion or abort with status",
+    "description": "Verify implement ackm (pgn 0xe800) to send positive, negative, busy, and cannot-respond acknowledgments (mandatory per j1939/21)",
     "type": "Unit",
     "status": "Pending"
   },
   {
     "id": "TEST-046",
     "requirement_id": "J1939-REQ-046",
-    "description": "Verify support j1939 diagnostic pgn reception: dm1 (pgn 0xfeca, active dtcs) and dm11 (pgn 0xfed3, clear active dtcs) via the pgn routing table",
+    "description": "Verify support proprietary a (pgn 0xef00, peer-to-peer) and proprietary b (pgn 0xff00, broadcast) via the pgn routing table for manufacturer-specific messages",
     "type": "Unit",
     "status": "Pending"
   },
   {
     "id": "TEST-047",
     "requirement_id": "J1939-REQ-047",
-    "description": "Verify support configurable maximum tp/etp single-transfer payload via config_omnican_j1939_tp_max_payload (default 1785 bytes for tp, unlimited for etp)",
+    "description": "Verify provide `omnican_j1939_address_result_cb_t` callback reporting address claim success, failure, or address-lost events",
     "type": "Unit",
     "status": "Pending"
   },
   {
     "id": "TEST-048",
-    "requirement_id": "UDS-ISO-14229-REQ-048",
-    "description": "Verify use zephyr iso-tp for all uds message transport with isotp patch when config_omnican_isotp_patch=y",
+    "requirement_id": "J1939-REQ-048",
+    "description": "Verify provide `omnican_j1939_tp_progress_cb_t` callback reporting bytes transferred during active tp/etp sessions",
     "type": "Unit",
     "status": "Pending"
   },
   {
     "id": "TEST-049",
-    "requirement_id": "UDS-ISO-14229-REQ-049",
-    "description": "Verify implement diagnosticsessioncontrol (sid 0x10) and enforce service availability per active session",
+    "requirement_id": "J1939-REQ-049",
+    "description": "Verify provide `omnican_j1939_tp_complete_cb_t` callback on tp/etp session completion or abort with status",
     "type": "Unit",
     "status": "Pending"
   },
   {
     "id": "TEST-050",
-    "requirement_id": "UDS-ISO-14229-REQ-050",
-    "description": "Verify maintain an s3 timer (default 5000 ms) and revert to default session on expiry",
+    "requirement_id": "J1939-REQ-050",
+    "description": "Verify support configurable maximum tp/etp single-transfer payload via config_omnican_j1939_tp_max_payload (default 1785 bytes for tp, unlimited for etp)",
     "type": "Unit",
     "status": "Pending"
   },
   {
     "id": "TEST-051",
-    "requirement_id": "UDS-ISO-14229-REQ-051",
-    "description": "Verify reset the s3 timer on testerpresent (sid 0x3e)",
+    "requirement_id": "J1939-DTC-AND-SPN-REQ-051",
+    "description": "Verify implement 4-byte j1939 dtc encode/decode: spn (19-bit) in bytes 1-3 bits [7:5], fmi (5-bit) in byte 3 bits [4:0], cm (1-bit) in byte 4 bit [7], oc (7-bit) in byte 4 bits [6:0] per j1939/73",
     "type": "Unit",
     "status": "Pending"
   },
   {
     "id": "TEST-052",
-    "requirement_id": "UDS-ISO-14229-REQ-052",
-    "description": "Verify support sid 0x10 diagnosticsessioncontrol",
+    "requirement_id": "J1939-DTC-AND-SPN-REQ-052",
+    "description": "Verify define all 32 fmi (failure mode identifier) codes 0-31 per j1939/73 \u00a74.3.2",
     "type": "Unit",
     "status": "Pending"
   },
   {
     "id": "TEST-053",
-    "requirement_id": "UDS-ISO-14229-REQ-053",
-    "description": "Verify support sid 0x11 ecureset with hardreset, softreset, and keyoffonreset sub-functions",
+    "requirement_id": "J1939-DTC-AND-SPN-REQ-053",
+    "description": "Verify provide `omnican_j1939_dtc_encode(uint32_t spn, uint8_t fmi, uint8_t oc, bool cm, uint8_t out[4])` api",
     "type": "Unit",
     "status": "Pending"
   },
   {
     "id": "TEST-054",
-    "requirement_id": "UDS-ISO-14229-REQ-054",
-    "description": "Verify support sid 0x22 readdatabyidentifier with multi-did requests (multiple dids in one 0x22 request)",
+    "requirement_id": "J1939-DTC-AND-SPN-REQ-054",
+    "description": "Verify provide `omnican_j1939_dtc_decode(const uint8_t in[4], uint32_t *spn, uint8_t *fmi, uint8_t *oc, bool *cm)` api",
     "type": "Unit",
     "status": "Pending"
   },
   {
     "id": "TEST-055",
-    "requirement_id": "UDS-ISO-14229-REQ-055",
-    "description": "Verify support sid 0x27 securityaccess with application-supplied seed/key callback",
+    "requirement_id": "J1939-DTC-AND-SPN-REQ-055",
+    "description": "Verify provide `omnican_j1939_fmi_string(uint8_t fmi)` to return human-readable fmi description",
     "type": "Unit",
     "status": "Pending"
   },
   {
     "id": "TEST-056",
-    "requirement_id": "UDS-ISO-14229-REQ-056",
-    "description": "Verify support sid 0x28 communicationcontrol with all sub-functions: enablerxandtx (0x00), enablerxanddisabletx (0x01), disablerxandenabletx (0x02), disablerxandtx (0x03)",
+    "requirement_id": "J1939-DIAGNOSTICS-(MANDATORY-DM-SET)-REQ-056",
+    "description": "Verify implement dm1 (pgn 0xfeca) with correct 2-byte lamp status header: mil [7:6], stop lamp [5:4], amber warning [3:2], protect [1:0] per j1939/73, plus repeated 4-byte dtc records",
     "type": "Unit",
     "status": "Pending"
   },
   {
     "id": "TEST-057",
-    "requirement_id": "UDS-ISO-14229-REQ-057",
-    "description": "Verify support sid 0x2e writedatabyidentifier with application-supplied write validation callback before applying data",
+    "requirement_id": "J1939-DIAGNOSTICS-(MANDATORY-DM-SET)-REQ-057",
+    "description": "Verify implement dm2 (pgn 0xfecb) previously active dtcs with same frame format as dm1",
     "type": "Unit",
     "status": "Pending"
   },
   {
     "id": "TEST-058",
-    "requirement_id": "UDS-ISO-14229-REQ-058",
-    "description": "Verify support sid 0x31 routinecontrol with application-supplied start, stop, and requestresults executor callbacks per routine id",
+    "requirement_id": "J1939-DIAGNOSTICS-(MANDATORY-DM-SET)-REQ-058",
+    "description": "Verify implement dm3 (pgn 0xfecc) clear/reset previously active dtcs (mandatory request handling)",
     "type": "Unit",
     "status": "Pending"
   },
   {
     "id": "TEST-059",
-    "requirement_id": "UDS-ISO-14229-REQ-059",
-    "description": "Verify support sid 0x34 requestdownload",
+    "requirement_id": "J1939-DIAGNOSTICS-(MANDATORY-DM-SET)-REQ-059",
+    "description": "Verify implement dm5 (pgn 0xfece) diagnostic readiness with active/previously active dtc counts and supported/completed monitor bits",
     "type": "Unit",
     "status": "Pending"
   },
   {
     "id": "TEST-060",
-    "requirement_id": "UDS-ISO-14229-REQ-060",
-    "description": "Verify support sid 0x36 transferdata",
+    "requirement_id": "J1939-DIAGNOSTICS-(MANDATORY-DM-SET)-REQ-060",
+    "description": "Verify implement dm6 (pgn 0xfecf) emission-related pending dtcs",
     "type": "Unit",
     "status": "Pending"
   },
   {
     "id": "TEST-061",
-    "requirement_id": "UDS-ISO-14229-REQ-061",
-    "description": "Verify support sid 0x37 requesttransferexit",
+    "requirement_id": "J1939-DIAGNOSTICS-(MANDATORY-DM-SET)-REQ-061",
+    "description": "Verify implement dm11 (pgn 0xfed3) clear/reset active dtcs (mandatory request handling)",
     "type": "Unit",
     "status": "Pending"
   },
   {
     "id": "TEST-062",
-    "requirement_id": "UDS-ISO-14229-REQ-062",
-    "description": "Verify support sid 0x85 controldtcsetting with application callback to enable or disable dtc storage",
+    "requirement_id": "J1939-DIAGNOSTICS-(MANDATORY-DM-SET)-REQ-062",
+    "description": "Verify implement dm12 (pgn 0xfed4) emission-related mil-on dtcs",
     "type": "Unit",
     "status": "Pending"
   },
   {
     "id": "TEST-063",
-    "requirement_id": "UDS-ISO-14229-REQ-063",
-    "description": "Verify return nrc 0x11 (servicenotsupported) for unregistered sids",
+    "requirement_id": "J1939-DIAGNOSTICS-(MANDATORY-DM-SET)-REQ-063",
+    "description": "Verify implement dm22 (pgn 0xc300) individual clear/reset of specific active and previously active dtcs by spn/fmi",
     "type": "Unit",
     "status": "Pending"
   },
   {
     "id": "TEST-064",
-    "requirement_id": "UDS-ISO-14229-REQ-064",
-    "description": "Verify never use a hardcoded securityaccess seed/key algorithm; always use an application callback",
+    "requirement_id": "J1939-DIAGNOSTICS-(MANDATORY-DM-SET)-REQ-064",
+    "description": "Verify provide `omnican_j1939_dm1_cb_t` callback delivering lamp status and decoded dtc list when dm1 is received",
     "type": "Unit",
     "status": "Pending"
   },
   {
     "id": "TEST-065",
-    "requirement_id": "UDS-ISO-14229-REQ-065",
-    "description": "Verify lock the session and return nrc 0x36 after exceeding config_omnican_uds_max_auth_attempts failed securityaccess attempts",
+    "requirement_id": "J1939-DIAGNOSTICS-(MANDATORY-DM-SET)-REQ-065",
+    "description": "Verify provide `omnican_j1939_dm_request(struct omnican_j1939_node *, uint8_t dm_num, omnican_j1939_addr_t dest)` to request a specific dm from a device",
     "type": "Unit",
     "status": "Pending"
   },
   {
     "id": "TEST-066",
-    "requirement_id": "UDS-ISO-14229-REQ-066",
-    "description": "Verify support suppresspositiveresponse sub-function bit (0x80) per iso 14229-1 \u00a77.5.2.2",
+    "requirement_id": "J1939-DIAGNOSTICS-(EXTENDED-DM-SET-\u2014-VIA-CONFIG_OMNICAN_J1939_DM_EXTENDED)-REQ-066",
+    "description": "Verify implement dm4 (pgn 0xfecd) freeze frame parameters capture and reporting when config_omnican_j1939_dm_extended=y",
     "type": "Unit",
     "status": "Pending"
   },
   {
     "id": "TEST-067",
-    "requirement_id": "UDS-ISO-14229-REQ-067",
-    "description": "Verify implement nrc 0x78 (responsepending) when a service handler cannot respond within p2server_max and requires p2starserver_max time",
+    "requirement_id": "J1939-DIAGNOSTICS-(EXTENDED-DM-SET-\u2014-VIA-CONFIG_OMNICAN_J1939_DM_EXTENDED)-REQ-067",
+    "description": "Verify implement dm13 (pgn 0xdf00) stop/start broadcast control when config_omnican_j1939_dm_extended=y",
     "type": "Unit",
     "status": "Pending"
   },
   {
     "id": "TEST-068",
-    "requirement_id": "UDS-ISO-14229-REQ-068",
-    "description": "Verify support manufacturer-specific did range (0xf200\u20130xfeff) via application-registered did handler callbacks with read and write hooks",
+    "requirement_id": "J1939-DIAGNOSTICS-(EXTENDED-DM-SET-\u2014-VIA-CONFIG_OMNICAN_J1939_DM_EXTENDED)-REQ-068",
+    "description": "Verify implement dm20 (pgn 0xc200) monitor performance ratio reporting when config_omnican_j1939_dm_extended=y",
     "type": "Unit",
     "status": "Pending"
   },
   {
     "id": "TEST-069",
-    "requirement_id": "UDS-ISO-14229-REQ-069",
-    "description": "Verify implement mandatory ecu identification dids: 0xf186 (activesession), 0xf18b (ecumanufacturingdate), 0xf18c (ecuserialnumber), 0xf190 (vin), 0xf195 (systemsupplierecusoftwareversion)",
+    "requirement_id": "J1939-DIAGNOSTICS-(EXTENDED-DM-SET-\u2014-VIA-CONFIG_OMNICAN_J1939_DM_EXTENDED)-REQ-069",
+    "description": "Verify implement dm21 (pgn 0xc100) diagnostic readiness 2 when config_omnican_j1939_dm_extended=y",
     "type": "Unit",
     "status": "Pending"
   },
   {
     "id": "TEST-070",
-    "requirement_id": "UDS-ISO-14229-REQ-070",
-    "description": "Verify support functional addressing via can id 0x7df for uds broadcast service requests (testerpresent, diagnosticsessioncontrol)",
+    "requirement_id": "J1939-DIAGNOSTICS-(EXTENDED-DM-SET-\u2014-VIA-CONFIG_OMNICAN_J1939_DM_EXTENDED)-REQ-070",
+    "description": "Verify implement dm25 (pgn 0xfdb7) expanded freeze frame with spn-indexed data when config_omnican_j1939_dm_extended=y",
     "type": "Unit",
     "status": "Pending"
   },
   {
     "id": "TEST-071",
-    "requirement_id": "UDS-ISO-14229-REQ-071",
-    "description": "Verify provide `omnican_uds_session_change_cb_t` callback on every session transition with old and new session type",
+    "requirement_id": "J1939-DIAGNOSTICS-(EXTENDED-DM-SET-\u2014-VIA-CONFIG_OMNICAN_J1939_DM_EXTENDED)-REQ-071",
+    "description": "Verify implement dm26 (pgn 0xfdb8) diagnostic readiness 3 when config_omnican_j1939_dm_extended=y",
     "type": "Unit",
     "status": "Pending"
   },
   {
     "id": "TEST-072",
-    "requirement_id": "UDS-ISO-14229-REQ-072",
-    "description": "Verify provide `omnican_uds_security_change_cb_t` callback on security access level grant or revocation",
+    "requirement_id": "J1939-DIAGNOSTICS-(EXTENDED-DM-SET-\u2014-VIA-CONFIG_OMNICAN_J1939_DM_EXTENDED)-REQ-072",
+    "description": "Verify implement dm27 (pgn 0xfd82) all pending dtcs when config_omnican_j1939_dm_extended=y",
     "type": "Unit",
     "status": "Pending"
   },
   {
     "id": "TEST-073",
-    "requirement_id": "UDS-ISO-14229-REQ-073",
-    "description": "Verify provide `omnican_uds_pre_reset_cb_t` callback before ecureset execution allowing application to flush state",
+    "requirement_id": "J1939-DIAGNOSTICS-(EXTENDED-DM-SET-\u2014-VIA-CONFIG_OMNICAN_J1939_DM_EXTENDED)-REQ-073",
+    "description": "Verify implement dm28 (pgn 0xfd80) emission-related permanent dtcs when config_omnican_j1939_dm_extended=y",
     "type": "Unit",
     "status": "Pending"
   },
   {
     "id": "TEST-074",
-    "requirement_id": "UDS-ISO-14229-REQ-074",
-    "description": "Verify support manufacturer-specific nrc values 0x80\u20130xfe via application nrc provider callback registered per sid",
+    "requirement_id": "J1939-DIAGNOSTICS-(EXTENDED-DM-SET-\u2014-VIA-CONFIG_OMNICAN_J1939_DM_EXTENDED)-REQ-074",
+    "description": "Verify implement dm29 (pgn 0x9e00) dtc counts when config_omnican_j1939_dm_extended=y",
     "type": "Unit",
     "status": "Pending"
   },
   {
     "id": "TEST-075",
-    "requirement_id": "UDS-ISO-14229-REQ-075",
-    "description": "Verify provide `omnican_uds_transfer_progress_cb_t` callback during 0x36 transferdata reporting block sequence and bytes transferred",
+    "requirement_id": "J1939-DIAGNOSTICS-(EXTENDED-DM-SET-\u2014-VIA-CONFIG_OMNICAN_J1939_DM_EXTENDED)-REQ-075",
+    "description": "Verify implement dm30 (pgn 0xa400) scaled test results by spn when config_omnican_j1939_dm_extended=y",
     "type": "Unit",
     "status": "Pending"
   },
   {
     "id": "TEST-076",
-    "requirement_id": "OBD-II-J1979-REQ-076",
-    "description": "Verify transmit pid requests on can id 0x7df and collect responses from 0x7e8-0x7ef within configurable timeout",
+    "requirement_id": "J1939-DIAGNOSTICS-(EXTENDED-DM-SET-\u2014-VIA-CONFIG_OMNICAN_J1939_DM_EXTENDED)-REQ-076",
+    "description": "Verify implement dm31 (pgn 0xa300) dtc-to-lamp association when config_omnican_j1939_dm_extended=y",
     "type": "Unit",
     "status": "Pending"
   },
   {
     "id": "TEST-077",
-    "requirement_id": "OBD-II-J1979-REQ-077",
-    "description": "Verify support obd-ii service modes 0x01 through 0x09",
+    "requirement_id": "J1939-SLOT-AND-SPN-DECODING-(OPTIONAL-\u2014-CONFIG_OMNICAN_J1939_SLOT_TABLE)-REQ-077",
+    "description": "Verify provide a compiled-in slot decode table derived from j1939da dec2024 (426 slots) when config_omnican_j1939_slot_table=y",
     "type": "Unit",
     "status": "Pending"
   },
   {
     "id": "TEST-078",
-    "requirement_id": "OBD-II-J1979-REQ-078",
-    "description": "Verify provide callback-based non-blocking pid request/response model",
+    "requirement_id": "J1939-SLOT-AND-SPN-DECODING-(OPTIONAL-\u2014-CONFIG_OMNICAN_J1939_SLOT_TABLE)-REQ-078",
+    "description": "Verify provide `omnican_j1939_spn_decode(uint32_t spn, const uint8_t *raw, size_t raw_len, double *value, const char **unit)` api for converting raw spn bytes to engineering units",
     "type": "Unit",
     "status": "Pending"
   },
   {
     "id": "TEST-079",
-    "requirement_id": "OBD-II-J1979-REQ-079",
-    "description": "Verify support mode 0x01 pids: 0x00 (supported), 0x01 (monitor status), 0x04 (engine load), 0x05 (coolant temp), 0x0c (rpm), 0x0d (vehicle speed), 0x11 (throttle position)",
+    "requirement_id": "J1939-SLOT-AND-SPN-DECODING-(OPTIONAL-\u2014-CONFIG_OMNICAN_J1939_SLOT_TABLE)-REQ-079",
+    "description": "Verify support configurable spn subset inclusion via config_omnican_j1939_spn_include list to manage flash usage",
     "type": "Unit",
     "status": "Pending"
   },
   {
     "id": "TEST-080",
-    "requirement_id": "OBD-II-J1979-REQ-080",
-    "description": "Verify support mode 0x01 pid support bitmap queries (pids 0x00, 0x20, 0x40, 0x60, 0x80, 0xa0, 0xc0) to enumerate ecu-supported pids",
+    "requirement_id": "J1939-DA-REFERENCE-TABLES-(OPTIONAL)-REQ-080",
+    "description": "Verify provide compiled-in manufacturer id lookup table from j1939da b10 (1,509 entries) when config_omnican_j1939_mfr_table=y",
     "type": "Unit",
     "status": "Pending"
   },
   {
     "id": "TEST-081",
-    "requirement_id": "OBD-II-J1979-REQ-081",
-    "description": "Verify support mode 0x01 extended pids: 0x14\u20130x1b (o2 sensor voltage/trim), 0x1c (obd standard), 0x21 (distance since mil on), 0x2f (fuel level), 0x31 (distance since codes cleared), 0x33 (barometric pressure), 0x46 (ambient air temperature), 0x49 (accelerator position), 0x51 (fuel type), 0x5c (engine oil temperature)",
+    "requirement_id": "J1939-DA-REFERENCE-TABLES-(OPTIONAL)-REQ-081",
+    "description": "Verify provide `omnican_j1939_mfr_name(uint16_t mfr_id)` returning manufacturer name string",
     "type": "Unit",
     "status": "Pending"
   },
   {
     "id": "TEST-082",
-    "requirement_id": "OBD-II-J1979-REQ-082",
-    "description": "Verify support mode 0x02 (freeze frame) pid requests using the same pid set as mode 0x01 with frame number sub-byte",
+    "requirement_id": "J1939-DA-REFERENCE-TABLES-(OPTIONAL)-REQ-082",
+    "description": "Verify provide global preferred source address table from j1939da b2 when config_omnican_j1939_ig_addresses=y",
     "type": "Unit",
     "status": "Pending"
   },
   {
     "id": "TEST-083",
-    "requirement_id": "OBD-II-J1979-REQ-083",
-    "description": "Verify retrieve mode 0x03 stored dtcs and mode 0x07 pending dtcs as decoded fault codes per sae j2012 (p/c/b/u + 4-digit hex)",
+    "requirement_id": "J1939-DA-REFERENCE-TABLES-(OPTIONAL)-REQ-083",
+    "description": "Verify provide name function lookup from j1939da b11/b12 when config_omnican_j1939_ig_addresses=y",
     "type": "Unit",
     "status": "Pending"
   },
   {
     "id": "TEST-084",
-    "requirement_id": "OBD-II-J1979-REQ-084",
-    "description": "Verify support mode 0x04 clear all emission-related dtcs with application completion callback",
+    "requirement_id": "UDS-ISO-14229-REQ-084",
+    "description": "Verify use zephyr iso-tp for all uds message transport with isotp patch when config_omnican_isotp_patch=y",
     "type": "Unit",
     "status": "Pending"
   },
   {
     "id": "TEST-085",
-    "requirement_id": "OBD-II-J1979-REQ-085",
-    "description": "Verify support mode 0x06 on-board monitoring test results (obdmid and obdmid test results) via callback",
+    "requirement_id": "UDS-ISO-14229-REQ-085",
+    "description": "Verify implement diagnosticsessioncontrol (sid 0x10) and enforce service availability per active session",
     "type": "Unit",
     "status": "Pending"
   },
   {
     "id": "TEST-086",
-    "requirement_id": "OBD-II-J1979-REQ-086",
-    "description": "Verify support mode 0x09 vehicle information: infotype 0x02 (vin), 0x04 (calibration id), 0x06 (cvn), 0x0a (ecu name)",
+    "requirement_id": "UDS-ISO-14229-REQ-086",
+    "description": "Verify maintain an s3 timer (default 5000 ms) and revert to default session on expiry",
     "type": "Unit",
     "status": "Pending"
   },
   {
     "id": "TEST-087",
-    "requirement_id": "OBD-II-J1979-REQ-087",
-    "description": "Verify aggregate responses from multiple ecus for broadcast requests and deliver each ecu response individually via per-ecu callback",
+    "requirement_id": "UDS-ISO-14229-REQ-087",
+    "description": "Verify reset the s3 timer on testerpresent (sid 0x3e)",
     "type": "Unit",
     "status": "Pending"
   },
   {
     "id": "TEST-088",
-    "requirement_id": "OBD-II-J1979-REQ-088",
-    "description": "Verify support ecu-specific physical addressing: send to 0x7e0\u20130x7e7 and receive from the corresponding 0x7e8\u20130x7ef response can id",
+    "requirement_id": "UDS-ISO-14229-REQ-088",
+    "description": "Verify support sid 0x10 diagnosticsessioncontrol",
     "type": "Unit",
     "status": "Pending"
   },
   {
     "id": "TEST-089",
-    "requirement_id": "OBD-II-J1979-REQ-089",
-    "description": "Verify provide `omnican_obd2_dtc_cb_t` callback delivering decoded dtc records (fault code, status byte) from mode 0x03/0x07 responses",
+    "requirement_id": "UDS-ISO-14229-REQ-089",
+    "description": "Verify support sid 0x11 ecureset with hardreset, softreset, and keyoffonreset sub-functions",
     "type": "Unit",
     "status": "Pending"
   },
   {
     "id": "TEST-090",
-    "requirement_id": "OBD-II-J1979-REQ-090",
-    "description": "Verify provide `omnican_obd2_timeout_cb_t` callback when a pid request receives no response within the configured timeout",
+    "requirement_id": "UDS-ISO-14229-REQ-090",
+    "description": "Verify support sid 0x22 readdatabyidentifier with multi-did requests (multiple dids in one 0x22 request)",
     "type": "Unit",
     "status": "Pending"
   },
   {
     "id": "TEST-091",
-    "requirement_id": "CANOPEN-FD-CIA-1301-REQ-091",
-    "description": "Verify extend canopen module with cia 1301 fd features; require config_omnican_canopen=y and config_can_fd_mode=y",
+    "requirement_id": "UDS-ISO-14229-REQ-091",
+    "description": "Verify support sid 0x27 securityaccess with application-supplied seed/key callback",
     "type": "Unit",
     "status": "Pending"
   },
   {
     "id": "TEST-092",
-    "requirement_id": "CANOPEN-FD-CIA-1301-REQ-092",
-    "description": "Verify support can fd data payloads of up to 64 bytes for higher-throughput pdo transfers",
+    "requirement_id": "UDS-ISO-14229-REQ-092",
+    "description": "Verify support sid 0x28 communicationcontrol with all sub-functions: enablerxandtx (0x00), enablerxanddisabletx (0x01), disablerxandenabletx (0x02), disablerxandtx (0x03)",
     "type": "Unit",
     "status": "Pending"
   },
   {
     "id": "TEST-093",
-    "requirement_id": "CANOPEN-FD-CIA-1301-REQ-093",
-    "description": "Verify maintain backward compatibility with classical 8-byte canopen nodes when fd is not negotiated",
+    "requirement_id": "UDS-ISO-14229-REQ-093",
+    "description": "Verify support sid 0x2e writedatabyidentifier with application-supplied write validation callback before applying data",
     "type": "Unit",
     "status": "Pending"
   },
   {
     "id": "TEST-094",
-    "requirement_id": "ISOTP-PATCH-REQ-094",
-    "description": "Verify implement a workaround for zephyr issue #86025 using separate tx/rx socket contexts with a forwarding shim",
+    "requirement_id": "UDS-ISO-14229-REQ-094",
+    "description": "Verify support sid 0x31 routinecontrol with application-supplied start, stop, and requestresults executor callbacks per routine id",
     "type": "Unit",
     "status": "Pending"
   },
   {
     "id": "TEST-095",
-    "requirement_id": "ISOTP-PATCH-REQ-095",
-    "description": "Verify default config_omnican_isotp_patch to y when config_omnican_uds or config_omnican_obd2 is enabled",
+    "requirement_id": "UDS-ISO-14229-REQ-095",
+    "description": "Verify support sid 0x34 requestdownload",
     "type": "Unit",
     "status": "Pending"
   },
   {
     "id": "TEST-096",
-    "requirement_id": "MEMORY-AND-THREADING-REQ-096",
-    "description": "Verify never use dynamic heap allocation (k_malloc, malloc); all state statically allocated or via net_buf pools",
+    "requirement_id": "UDS-ISO-14229-REQ-096",
+    "description": "Verify support sid 0x36 transferdata",
     "type": "Unit",
     "status": "Pending"
   },
   {
     "id": "TEST-097",
-    "requirement_id": "MEMORY-AND-THREADING-REQ-097",
-    "description": "Verify handle can frame data via zephyr net_buf from a pool sized by config_omnican_net_buf_count (default 16)",
+    "requirement_id": "UDS-ISO-14229-REQ-097",
+    "description": "Verify support sid 0x37 requesttransferexit",
     "type": "Unit",
     "status": "Pending"
   },
   {
     "id": "TEST-098",
-    "requirement_id": "MEMORY-AND-THREADING-REQ-098",
-    "description": "Verify all protocol context structures shall be opaque to the caller but caller-allocated",
+    "requirement_id": "UDS-ISO-14229-REQ-098",
+    "description": "Verify support sid 0x85 controldtcsetting with application callback to enable or disable dtc storage",
     "type": "Unit",
     "status": "Pending"
   },
   {
     "id": "TEST-099",
-    "requirement_id": "MEMORY-AND-THREADING-REQ-099",
+    "requirement_id": "UDS-ISO-14229-REQ-099",
+    "description": "Verify return nrc 0x11 (servicenotsupported) for unregistered sids",
+    "type": "Unit",
+    "status": "Pending"
+  },
+  {
+    "id": "TEST-100",
+    "requirement_id": "UDS-ISO-14229-REQ-100",
+    "description": "Verify never use a hardcoded securityaccess seed/key algorithm; always use an application callback",
+    "type": "Unit",
+    "status": "Pending"
+  },
+  {
+    "id": "TEST-101",
+    "requirement_id": "UDS-ISO-14229-REQ-101",
+    "description": "Verify lock the session and return nrc 0x36 after exceeding config_omnican_uds_max_auth_attempts failed securityaccess attempts",
+    "type": "Unit",
+    "status": "Pending"
+  },
+  {
+    "id": "TEST-102",
+    "requirement_id": "UDS-ISO-14229-REQ-102",
+    "description": "Verify support suppresspositiveresponse sub-function bit (0x80) per iso 14229-1 \u00a77.5.2.2",
+    "type": "Unit",
+    "status": "Pending"
+  },
+  {
+    "id": "TEST-103",
+    "requirement_id": "UDS-ISO-14229-REQ-103",
+    "description": "Verify implement nrc 0x78 (responsepending) when a service handler cannot respond within p2server_max and requires p2starserver_max time",
+    "type": "Unit",
+    "status": "Pending"
+  },
+  {
+    "id": "TEST-104",
+    "requirement_id": "UDS-ISO-14229-REQ-104",
+    "description": "Verify support manufacturer-specific did range (0xf200\u20130xfeff) via application-registered did handler callbacks with read and write hooks",
+    "type": "Unit",
+    "status": "Pending"
+  },
+  {
+    "id": "TEST-105",
+    "requirement_id": "UDS-ISO-14229-REQ-105",
+    "description": "Verify implement mandatory ecu identification dids: 0xf186 (activesession), 0xf18b (ecumanufacturingdate), 0xf18c (ecuserialnumber), 0xf190 (vin), 0xf195 (systemsupplierecusoftwareversion)",
+    "type": "Unit",
+    "status": "Pending"
+  },
+  {
+    "id": "TEST-106",
+    "requirement_id": "UDS-ISO-14229-REQ-106",
+    "description": "Verify support functional addressing via can id 0x7df for uds broadcast service requests (testerpresent, diagnosticsessioncontrol)",
+    "type": "Unit",
+    "status": "Pending"
+  },
+  {
+    "id": "TEST-107",
+    "requirement_id": "UDS-ISO-14229-REQ-107",
+    "description": "Verify provide `omnican_uds_session_change_cb_t` callback on every session transition with old and new session type",
+    "type": "Unit",
+    "status": "Pending"
+  },
+  {
+    "id": "TEST-108",
+    "requirement_id": "UDS-ISO-14229-REQ-108",
+    "description": "Verify provide `omnican_uds_security_change_cb_t` callback on security access level grant or revocation",
+    "type": "Unit",
+    "status": "Pending"
+  },
+  {
+    "id": "TEST-109",
+    "requirement_id": "UDS-ISO-14229-REQ-109",
+    "description": "Verify provide `omnican_uds_pre_reset_cb_t` callback before ecureset execution allowing application to flush state",
+    "type": "Unit",
+    "status": "Pending"
+  },
+  {
+    "id": "TEST-110",
+    "requirement_id": "UDS-ISO-14229-REQ-110",
+    "description": "Verify support manufacturer-specific nrc values 0x80\u20130xfe via application nrc provider callback registered per sid",
+    "type": "Unit",
+    "status": "Pending"
+  },
+  {
+    "id": "TEST-111",
+    "requirement_id": "UDS-ISO-14229-REQ-111",
+    "description": "Verify provide `omnican_uds_transfer_progress_cb_t` callback during 0x36 transferdata reporting block sequence and bytes transferred",
+    "type": "Unit",
+    "status": "Pending"
+  },
+  {
+    "id": "TEST-112",
+    "requirement_id": "OBD-II-J1979-REQ-112",
+    "description": "Verify transmit pid requests on can id 0x7df and collect responses from 0x7e8-0x7ef within configurable timeout",
+    "type": "Unit",
+    "status": "Pending"
+  },
+  {
+    "id": "TEST-113",
+    "requirement_id": "OBD-II-J1979-REQ-113",
+    "description": "Verify support obd-ii service modes 0x01 through 0x09",
+    "type": "Unit",
+    "status": "Pending"
+  },
+  {
+    "id": "TEST-114",
+    "requirement_id": "OBD-II-J1979-REQ-114",
+    "description": "Verify provide callback-based non-blocking pid request/response model",
+    "type": "Unit",
+    "status": "Pending"
+  },
+  {
+    "id": "TEST-115",
+    "requirement_id": "OBD-II-J1979-REQ-115",
+    "description": "Verify support mode 0x01 pids: 0x00 (supported), 0x01 (monitor status), 0x04 (engine load), 0x05 (coolant temp), 0x0c (rpm), 0x0d (vehicle speed), 0x11 (throttle position)",
+    "type": "Unit",
+    "status": "Pending"
+  },
+  {
+    "id": "TEST-116",
+    "requirement_id": "OBD-II-J1979-REQ-116",
+    "description": "Verify support mode 0x01 pid support bitmap queries (pids 0x00, 0x20, 0x40, 0x60, 0x80, 0xa0, 0xc0) to enumerate ecu-supported pids",
+    "type": "Unit",
+    "status": "Pending"
+  },
+  {
+    "id": "TEST-117",
+    "requirement_id": "OBD-II-J1979-REQ-117",
+    "description": "Verify support mode 0x01 extended pids: 0x14\u20130x1b (o2 sensor voltage/trim), 0x1c (obd standard), 0x21 (distance since mil on), 0x2f (fuel level), 0x31 (distance since codes cleared), 0x33 (barometric pressure), 0x46 (ambient air temperature), 0x49 (accelerator position), 0x51 (fuel type), 0x5c (engine oil temperature)",
+    "type": "Unit",
+    "status": "Pending"
+  },
+  {
+    "id": "TEST-118",
+    "requirement_id": "OBD-II-J1979-REQ-118",
+    "description": "Verify support mode 0x02 (freeze frame) pid requests using the same pid set as mode 0x01 with frame number sub-byte",
+    "type": "Unit",
+    "status": "Pending"
+  },
+  {
+    "id": "TEST-119",
+    "requirement_id": "OBD-II-J1979-REQ-119",
+    "description": "Verify retrieve mode 0x03 stored dtcs and mode 0x07 pending dtcs as decoded fault codes per sae j2012 (p/c/b/u + 4-digit hex)",
+    "type": "Unit",
+    "status": "Pending"
+  },
+  {
+    "id": "TEST-120",
+    "requirement_id": "OBD-II-J1979-REQ-120",
+    "description": "Verify support mode 0x04 clear all emission-related dtcs with application completion callback",
+    "type": "Unit",
+    "status": "Pending"
+  },
+  {
+    "id": "TEST-121",
+    "requirement_id": "OBD-II-J1979-REQ-121",
+    "description": "Verify support mode 0x06 on-board monitoring test results (obdmid and obdmid test results) via callback",
+    "type": "Unit",
+    "status": "Pending"
+  },
+  {
+    "id": "TEST-122",
+    "requirement_id": "OBD-II-J1979-REQ-122",
+    "description": "Verify support mode 0x09 vehicle information: infotype 0x02 (vin), 0x04 (calibration id), 0x06 (cvn), 0x0a (ecu name)",
+    "type": "Unit",
+    "status": "Pending"
+  },
+  {
+    "id": "TEST-123",
+    "requirement_id": "OBD-II-J1979-REQ-123",
+    "description": "Verify aggregate responses from multiple ecus for broadcast requests and deliver each ecu response individually via per-ecu callback",
+    "type": "Unit",
+    "status": "Pending"
+  },
+  {
+    "id": "TEST-124",
+    "requirement_id": "OBD-II-J1979-REQ-124",
+    "description": "Verify support ecu-specific physical addressing: send to 0x7e0\u20130x7e7 and receive from the corresponding 0x7e8\u20130x7ef response can id",
+    "type": "Unit",
+    "status": "Pending"
+  },
+  {
+    "id": "TEST-125",
+    "requirement_id": "OBD-II-J1979-REQ-125",
+    "description": "Verify provide `omnican_obd2_dtc_cb_t` callback delivering decoded dtc records (fault code, status byte) from mode 0x03/0x07 responses",
+    "type": "Unit",
+    "status": "Pending"
+  },
+  {
+    "id": "TEST-126",
+    "requirement_id": "OBD-II-J1979-REQ-126",
+    "description": "Verify provide `omnican_obd2_timeout_cb_t` callback when a pid request receives no response within the configured timeout",
+    "type": "Unit",
+    "status": "Pending"
+  },
+  {
+    "id": "TEST-127",
+    "requirement_id": "CANOPEN-FD-CIA-1301-REQ-127",
+    "description": "Verify extend canopen module with cia 1301 fd features; require config_omnican_canopen=y and config_can_fd_mode=y",
+    "type": "Unit",
+    "status": "Pending"
+  },
+  {
+    "id": "TEST-128",
+    "requirement_id": "CANOPEN-FD-CIA-1301-REQ-128",
+    "description": "Verify support can fd data payloads of up to 64 bytes for higher-throughput pdo transfers",
+    "type": "Unit",
+    "status": "Pending"
+  },
+  {
+    "id": "TEST-129",
+    "requirement_id": "CANOPEN-FD-CIA-1301-REQ-129",
+    "description": "Verify maintain backward compatibility with classical 8-byte canopen nodes when fd is not negotiated",
+    "type": "Unit",
+    "status": "Pending"
+  },
+  {
+    "id": "TEST-130",
+    "requirement_id": "MULTI-PROTOCOL-CO-EXISTENCE-REQ-130",
+    "description": "Verify support simultaneous operation of j1939 (29-bit) and uds (11-bit) on the same can bus without filter conflicts by distinguishing frame types at the zephyr can driver level",
+    "type": "Unit",
+    "status": "Pending"
+  },
+  {
+    "id": "TEST-131",
+    "requirement_id": "MULTI-PROTOCOL-CO-EXISTENCE-REQ-131",
+    "description": "Verify support simultaneous operation of canopen (11-bit) and uds (11-bit) using non-overlapping can id ranges: canopen 0x000-0x5ff is below uds 0x7df/0x7e0-0x7ef; document this co-existence guarantee",
+    "type": "Unit",
+    "status": "Pending"
+  },
+  {
+    "id": "TEST-132",
+    "requirement_id": "MULTI-PROTOCOL-CO-EXISTENCE-REQ-132",
+    "description": "Verify support simultaneous operation of canopen (11-bit) and j1939 (29-bit) via frame type distinction with no id conflict",
+    "type": "Unit",
+    "status": "Pending"
+  },
+  {
+    "id": "TEST-133",
+    "requirement_id": "MULTI-PROTOCOL-CO-EXISTENCE-REQ-133",
+    "description": "Verify enforce a policy when obd-ii and uds are both enabled: uds holds exclusive ownership of can id 0x7df for functional addressing; obd-ii client shall use physical addressing (0x7e0-0x7e7) when uds is co-active, or disable obd-ii functional broadcast",
+    "type": "Unit",
+    "status": "Pending"
+  },
+  {
+    "id": "TEST-134",
+    "requirement_id": "MULTI-PROTOCOL-CO-EXISTENCE-REQ-134",
+    "description": "Verify provide a `docs/multiprotocol.md` integration guide documenting supported combinations, can id allocation maps, and kconfig compatibility matrix for all 4-protocol combinations",
+    "type": "Unit",
+    "status": "Pending"
+  },
+  {
+    "id": "TEST-135",
+    "requirement_id": "MULTI-PROTOCOL-CO-EXISTENCE-REQ-135",
+    "description": "Verify support cross-protocol error propagation: an `omnican_error_cb_t` global hook that receives errors from any enabled protocol with protocol id, error code, and context",
+    "type": "Unit",
+    "status": "Pending"
+  },
+  {
+    "id": "TEST-136",
+    "requirement_id": "ISOTP-PATCH-REQ-136",
+    "description": "Verify implement a workaround for zephyr issue #86025 using separate tx/rx socket contexts with a forwarding shim",
+    "type": "Unit",
+    "status": "Pending"
+  },
+  {
+    "id": "TEST-137",
+    "requirement_id": "ISOTP-PATCH-REQ-137",
+    "description": "Verify default config_omnican_isotp_patch to y when config_omnican_uds or config_omnican_obd2 is enabled",
+    "type": "Unit",
+    "status": "Pending"
+  },
+  {
+    "id": "TEST-138",
+    "requirement_id": "MEMORY-AND-THREADING-REQ-138",
+    "description": "Verify never use dynamic heap allocation (k_malloc, malloc); all state statically allocated or via net_buf pools",
+    "type": "Unit",
+    "status": "Pending"
+  },
+  {
+    "id": "TEST-139",
+    "requirement_id": "MEMORY-AND-THREADING-REQ-139",
+    "description": "Verify handle can frame data via zephyr net_buf from a pool sized by config_omnican_net_buf_count (default 16)",
+    "type": "Unit",
+    "status": "Pending"
+  },
+  {
+    "id": "TEST-140",
+    "requirement_id": "MEMORY-AND-THREADING-REQ-140",
+    "description": "Verify all protocol context structures shall be opaque to the caller but caller-allocated",
+    "type": "Unit",
+    "status": "Pending"
+  },
+  {
+    "id": "TEST-141",
+    "requirement_id": "MEMORY-AND-THREADING-REQ-141",
     "description": "Verify all protocol handlers execute in a zephyr workqueue context, not the can isr",
     "type": "Unit",
     "status": "Pending"

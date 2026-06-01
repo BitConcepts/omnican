@@ -289,404 +289,698 @@
   {
     "id": "J1939-REQ-042",
     "component": "J1939",
-    "description": "Maintain TP/ETP session state in static context with configurable maximum simultaneous sessions",
+    "description": "Explicitly implement ETP.CM (PGN 0xC800) and ETP.DT (PGN 0xC700) as separate ETP connection management and data transfer PGNs",
     "status": "Draft",
     "priority": "Medium"
   },
   {
     "id": "J1939-REQ-043",
     "component": "J1939",
-    "description": "Provide `omnican_j1939_address_result_cb_t` callback reporting address claim success, failure, or address-lost events",
+    "description": "Maintain TP/ETP session state in static context with configurable maximum simultaneous sessions",
     "status": "Draft",
     "priority": "Medium"
   },
   {
     "id": "J1939-REQ-044",
     "component": "J1939",
-    "description": "Provide `omnican_j1939_tp_progress_cb_t` callback reporting bytes transferred during active TP/ETP sessions",
+    "description": "Implement RQST (PGN 0xEA00) to request any PGN from a remote device (mandatory for DM request/response)",
     "status": "Draft",
     "priority": "Medium"
   },
   {
     "id": "J1939-REQ-045",
     "component": "J1939",
-    "description": "Provide `omnican_j1939_tp_complete_cb_t` callback on TP/ETP session completion or abort with status",
+    "description": "Implement ACKM (PGN 0xE800) to send positive, negative, busy, and cannot-respond acknowledgments (mandatory per J1939/21)",
     "status": "Draft",
     "priority": "Medium"
   },
   {
     "id": "J1939-REQ-046",
     "component": "J1939",
-    "description": "Support J1939 diagnostic PGN reception: DM1 (PGN 0xFECA, active DTCs) and DM11 (PGN 0xFED3, clear active DTCs) via the PGN routing table",
+    "description": "Support Proprietary A (PGN 0xEF00, peer-to-peer) and Proprietary B (PGN 0xFF00, broadcast) via the PGN routing table for manufacturer-specific messages",
     "status": "Draft",
     "priority": "Medium"
   },
   {
     "id": "J1939-REQ-047",
     "component": "J1939",
+    "description": "Provide `omnican_j1939_address_result_cb_t` callback reporting address claim success, failure, or address-lost events",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "J1939-REQ-048",
+    "component": "J1939",
+    "description": "Provide `omnican_j1939_tp_progress_cb_t` callback reporting bytes transferred during active TP/ETP sessions",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "J1939-REQ-049",
+    "component": "J1939",
+    "description": "Provide `omnican_j1939_tp_complete_cb_t` callback on TP/ETP session completion or abort with status",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "J1939-REQ-050",
+    "component": "J1939",
     "description": "Support configurable maximum TP/ETP single-transfer payload via CONFIG_OMNICAN_J1939_TP_MAX_PAYLOAD (default 1785 bytes for TP, unlimited for ETP)",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "UDS-ISO-14229-REQ-048",
+    "id": "J1939-DTC-AND-SPN-REQ-051",
+    "component": "J1939 DTC and SPN",
+    "description": "Implement 4-byte J1939 DTC encode/decode: SPN (19-bit) in bytes 1-3 bits [7:5], FMI (5-bit) in byte 3 bits [4:0], CM (1-bit) in byte 4 bit [7], OC (7-bit) in byte 4 bits [6:0] per J1939/73",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "J1939-DTC-AND-SPN-REQ-052",
+    "component": "J1939 DTC and SPN",
+    "description": "Define all 32 FMI (Failure Mode Identifier) codes 0-31 per J1939/73 \u00a74.3.2",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "J1939-DTC-AND-SPN-REQ-053",
+    "component": "J1939 DTC and SPN",
+    "description": "Provide `omnican_j1939_dtc_encode(uint32_t spn, uint8_t fmi, uint8_t oc, bool cm, uint8_t out[4])` API",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "J1939-DTC-AND-SPN-REQ-054",
+    "component": "J1939 DTC and SPN",
+    "description": "Provide `omnican_j1939_dtc_decode(const uint8_t in[4], uint32_t *spn, uint8_t *fmi, uint8_t *oc, bool *cm)` API",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "J1939-DTC-AND-SPN-REQ-055",
+    "component": "J1939 DTC and SPN",
+    "description": "Provide `omnican_j1939_fmi_string(uint8_t fmi)` to return human-readable FMI description",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "J1939-DIAGNOSTICS-(MANDATORY-DM-SET)-REQ-056",
+    "component": "J1939 Diagnostics (mandatory DM set)",
+    "description": "Implement DM1 (PGN 0xFECA) with correct 2-byte lamp status header: MIL [7:6], Stop Lamp [5:4], Amber Warning [3:2], Protect [1:0] per J1939/73, plus repeated 4-byte DTC records",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "J1939-DIAGNOSTICS-(MANDATORY-DM-SET)-REQ-057",
+    "component": "J1939 Diagnostics (mandatory DM set)",
+    "description": "Implement DM2 (PGN 0xFECB) previously active DTCs with same frame format as DM1",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "J1939-DIAGNOSTICS-(MANDATORY-DM-SET)-REQ-058",
+    "component": "J1939 Diagnostics (mandatory DM set)",
+    "description": "Implement DM3 (PGN 0xFECC) clear/reset previously active DTCs (mandatory request handling)",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "J1939-DIAGNOSTICS-(MANDATORY-DM-SET)-REQ-059",
+    "component": "J1939 Diagnostics (mandatory DM set)",
+    "description": "Implement DM5 (PGN 0xFECE) diagnostic readiness with active/previously active DTC counts and supported/completed monitor bits",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "J1939-DIAGNOSTICS-(MANDATORY-DM-SET)-REQ-060",
+    "component": "J1939 Diagnostics (mandatory DM set)",
+    "description": "Implement DM6 (PGN 0xFECF) emission-related pending DTCs",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "J1939-DIAGNOSTICS-(MANDATORY-DM-SET)-REQ-061",
+    "component": "J1939 Diagnostics (mandatory DM set)",
+    "description": "Implement DM11 (PGN 0xFED3) clear/reset active DTCs (mandatory request handling)",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "J1939-DIAGNOSTICS-(MANDATORY-DM-SET)-REQ-062",
+    "component": "J1939 Diagnostics (mandatory DM set)",
+    "description": "Implement DM12 (PGN 0xFED4) emission-related MIL-on DTCs",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "J1939-DIAGNOSTICS-(MANDATORY-DM-SET)-REQ-063",
+    "component": "J1939 Diagnostics (mandatory DM set)",
+    "description": "Implement DM22 (PGN 0xC300) individual clear/reset of specific active and previously active DTCs by SPN/FMI",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "J1939-DIAGNOSTICS-(MANDATORY-DM-SET)-REQ-064",
+    "component": "J1939 Diagnostics (mandatory DM set)",
+    "description": "Provide `omnican_j1939_dm1_cb_t` callback delivering lamp status and decoded DTC list when DM1 is received",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "J1939-DIAGNOSTICS-(MANDATORY-DM-SET)-REQ-065",
+    "component": "J1939 Diagnostics (mandatory DM set)",
+    "description": "Provide `omnican_j1939_dm_request(struct omnican_j1939_node *, uint8_t dm_num, omnican_j1939_addr_t dest)` to request a specific DM from a device",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "J1939-DIAGNOSTICS-(EXTENDED-DM-SET-\u2014-VIA-CONFIG_OMNICAN_J1939_DM_EXTENDED)-REQ-066",
+    "component": "J1939 Diagnostics (extended DM set \u2014 via CONFIG_OMNICAN_J1939_DM_EXTENDED)",
+    "description": "Implement DM4 (PGN 0xFECD) freeze frame parameters capture and reporting when CONFIG_OMNICAN_J1939_DM_EXTENDED=y",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "J1939-DIAGNOSTICS-(EXTENDED-DM-SET-\u2014-VIA-CONFIG_OMNICAN_J1939_DM_EXTENDED)-REQ-067",
+    "component": "J1939 Diagnostics (extended DM set \u2014 via CONFIG_OMNICAN_J1939_DM_EXTENDED)",
+    "description": "Implement DM13 (PGN 0xDF00) stop/start broadcast control when CONFIG_OMNICAN_J1939_DM_EXTENDED=y",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "J1939-DIAGNOSTICS-(EXTENDED-DM-SET-\u2014-VIA-CONFIG_OMNICAN_J1939_DM_EXTENDED)-REQ-068",
+    "component": "J1939 Diagnostics (extended DM set \u2014 via CONFIG_OMNICAN_J1939_DM_EXTENDED)",
+    "description": "Implement DM20 (PGN 0xC200) monitor performance ratio reporting when CONFIG_OMNICAN_J1939_DM_EXTENDED=y",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "J1939-DIAGNOSTICS-(EXTENDED-DM-SET-\u2014-VIA-CONFIG_OMNICAN_J1939_DM_EXTENDED)-REQ-069",
+    "component": "J1939 Diagnostics (extended DM set \u2014 via CONFIG_OMNICAN_J1939_DM_EXTENDED)",
+    "description": "Implement DM21 (PGN 0xC100) diagnostic readiness 2 when CONFIG_OMNICAN_J1939_DM_EXTENDED=y",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "J1939-DIAGNOSTICS-(EXTENDED-DM-SET-\u2014-VIA-CONFIG_OMNICAN_J1939_DM_EXTENDED)-REQ-070",
+    "component": "J1939 Diagnostics (extended DM set \u2014 via CONFIG_OMNICAN_J1939_DM_EXTENDED)",
+    "description": "Implement DM25 (PGN 0xFDB7) expanded freeze frame with SPN-indexed data when CONFIG_OMNICAN_J1939_DM_EXTENDED=y",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "J1939-DIAGNOSTICS-(EXTENDED-DM-SET-\u2014-VIA-CONFIG_OMNICAN_J1939_DM_EXTENDED)-REQ-071",
+    "component": "J1939 Diagnostics (extended DM set \u2014 via CONFIG_OMNICAN_J1939_DM_EXTENDED)",
+    "description": "Implement DM26 (PGN 0xFDB8) diagnostic readiness 3 when CONFIG_OMNICAN_J1939_DM_EXTENDED=y",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "J1939-DIAGNOSTICS-(EXTENDED-DM-SET-\u2014-VIA-CONFIG_OMNICAN_J1939_DM_EXTENDED)-REQ-072",
+    "component": "J1939 Diagnostics (extended DM set \u2014 via CONFIG_OMNICAN_J1939_DM_EXTENDED)",
+    "description": "Implement DM27 (PGN 0xFD82) all pending DTCs when CONFIG_OMNICAN_J1939_DM_EXTENDED=y",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "J1939-DIAGNOSTICS-(EXTENDED-DM-SET-\u2014-VIA-CONFIG_OMNICAN_J1939_DM_EXTENDED)-REQ-073",
+    "component": "J1939 Diagnostics (extended DM set \u2014 via CONFIG_OMNICAN_J1939_DM_EXTENDED)",
+    "description": "Implement DM28 (PGN 0xFD80) emission-related permanent DTCs when CONFIG_OMNICAN_J1939_DM_EXTENDED=y",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "J1939-DIAGNOSTICS-(EXTENDED-DM-SET-\u2014-VIA-CONFIG_OMNICAN_J1939_DM_EXTENDED)-REQ-074",
+    "component": "J1939 Diagnostics (extended DM set \u2014 via CONFIG_OMNICAN_J1939_DM_EXTENDED)",
+    "description": "Implement DM29 (PGN 0x9E00) DTC counts when CONFIG_OMNICAN_J1939_DM_EXTENDED=y",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "J1939-DIAGNOSTICS-(EXTENDED-DM-SET-\u2014-VIA-CONFIG_OMNICAN_J1939_DM_EXTENDED)-REQ-075",
+    "component": "J1939 Diagnostics (extended DM set \u2014 via CONFIG_OMNICAN_J1939_DM_EXTENDED)",
+    "description": "Implement DM30 (PGN 0xA400) scaled test results by SPN when CONFIG_OMNICAN_J1939_DM_EXTENDED=y",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "J1939-DIAGNOSTICS-(EXTENDED-DM-SET-\u2014-VIA-CONFIG_OMNICAN_J1939_DM_EXTENDED)-REQ-076",
+    "component": "J1939 Diagnostics (extended DM set \u2014 via CONFIG_OMNICAN_J1939_DM_EXTENDED)",
+    "description": "Implement DM31 (PGN 0xA300) DTC-to-lamp association when CONFIG_OMNICAN_J1939_DM_EXTENDED=y",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "J1939-SLOT-AND-SPN-DECODING-(OPTIONAL-\u2014-CONFIG_OMNICAN_J1939_SLOT_TABLE)-REQ-077",
+    "component": "J1939 SLOT and SPN Decoding (optional \u2014 CONFIG_OMNICAN_J1939_SLOT_TABLE)",
+    "description": "Provide a compiled-in SLOT decode table derived from J1939DA DEC2024 (426 SLOTs) when CONFIG_OMNICAN_J1939_SLOT_TABLE=y",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "J1939-SLOT-AND-SPN-DECODING-(OPTIONAL-\u2014-CONFIG_OMNICAN_J1939_SLOT_TABLE)-REQ-078",
+    "component": "J1939 SLOT and SPN Decoding (optional \u2014 CONFIG_OMNICAN_J1939_SLOT_TABLE)",
+    "description": "Provide `omnican_j1939_spn_decode(uint32_t spn, const uint8_t *raw, size_t raw_len, double *value, const char **unit)` API for converting raw SPN bytes to engineering units",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "J1939-SLOT-AND-SPN-DECODING-(OPTIONAL-\u2014-CONFIG_OMNICAN_J1939_SLOT_TABLE)-REQ-079",
+    "component": "J1939 SLOT and SPN Decoding (optional \u2014 CONFIG_OMNICAN_J1939_SLOT_TABLE)",
+    "description": "Support configurable SPN subset inclusion via CONFIG_OMNICAN_J1939_SPN_INCLUDE list to manage flash usage",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "J1939-DA-REFERENCE-TABLES-(OPTIONAL)-REQ-080",
+    "component": "J1939 DA Reference Tables (optional)",
+    "description": "Provide compiled-in manufacturer ID lookup table from J1939DA B10 (1,509 entries) when CONFIG_OMNICAN_J1939_MFR_TABLE=y",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "J1939-DA-REFERENCE-TABLES-(OPTIONAL)-REQ-081",
+    "component": "J1939 DA Reference Tables (optional)",
+    "description": "Provide `omnican_j1939_mfr_name(uint16_t mfr_id)` returning manufacturer name string",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "J1939-DA-REFERENCE-TABLES-(OPTIONAL)-REQ-082",
+    "component": "J1939 DA Reference Tables (optional)",
+    "description": "Provide global preferred source address table from J1939DA B2 when CONFIG_OMNICAN_J1939_IG_ADDRESSES=y",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "J1939-DA-REFERENCE-TABLES-(OPTIONAL)-REQ-083",
+    "component": "J1939 DA Reference Tables (optional)",
+    "description": "Provide NAME function lookup from J1939DA B11/B12 when CONFIG_OMNICAN_J1939_IG_ADDRESSES=y",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "UDS-ISO-14229-REQ-084",
     "component": "UDS ISO 14229",
     "description": "Use Zephyr ISO-TP for all UDS message transport with ISOTP patch when CONFIG_OMNICAN_ISOTP_PATCH=y",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "UDS-ISO-14229-REQ-049",
+    "id": "UDS-ISO-14229-REQ-085",
     "component": "UDS ISO 14229",
     "description": "Implement DiagnosticSessionControl (SID 0x10) and enforce service availability per active session",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "UDS-ISO-14229-REQ-050",
+    "id": "UDS-ISO-14229-REQ-086",
     "component": "UDS ISO 14229",
     "description": "Maintain an S3 timer (default 5000 ms) and revert to Default session on expiry",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "UDS-ISO-14229-REQ-051",
+    "id": "UDS-ISO-14229-REQ-087",
     "component": "UDS ISO 14229",
     "description": "Reset the S3 timer on TesterPresent (SID 0x3E)",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "UDS-ISO-14229-REQ-052",
+    "id": "UDS-ISO-14229-REQ-088",
     "component": "UDS ISO 14229",
     "description": "Support SID 0x10 DiagnosticSessionControl",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "UDS-ISO-14229-REQ-053",
+    "id": "UDS-ISO-14229-REQ-089",
     "component": "UDS ISO 14229",
     "description": "Support SID 0x11 ECUReset with hardReset, softReset, and keyOffOnReset sub-functions",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "UDS-ISO-14229-REQ-054",
+    "id": "UDS-ISO-14229-REQ-090",
     "component": "UDS ISO 14229",
     "description": "Support SID 0x22 ReadDataByIdentifier with multi-DID requests (multiple DIDs in one 0x22 request)",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "UDS-ISO-14229-REQ-055",
+    "id": "UDS-ISO-14229-REQ-091",
     "component": "UDS ISO 14229",
     "description": "Support SID 0x27 SecurityAccess with application-supplied seed/key callback",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "UDS-ISO-14229-REQ-056",
+    "id": "UDS-ISO-14229-REQ-092",
     "component": "UDS ISO 14229",
     "description": "Support SID 0x28 CommunicationControl with all sub-functions: enableRxAndTx (0x00), enableRxAndDisableTx (0x01), disableRxAndEnableTx (0x02), disableRxAndTx (0x03)",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "UDS-ISO-14229-REQ-057",
+    "id": "UDS-ISO-14229-REQ-093",
     "component": "UDS ISO 14229",
     "description": "Support SID 0x2E WriteDataByIdentifier with application-supplied write validation callback before applying data",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "UDS-ISO-14229-REQ-058",
+    "id": "UDS-ISO-14229-REQ-094",
     "component": "UDS ISO 14229",
     "description": "Support SID 0x31 RoutineControl with application-supplied start, stop, and requestResults executor callbacks per routine ID",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "UDS-ISO-14229-REQ-059",
+    "id": "UDS-ISO-14229-REQ-095",
     "component": "UDS ISO 14229",
     "description": "Support SID 0x34 RequestDownload",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "UDS-ISO-14229-REQ-060",
+    "id": "UDS-ISO-14229-REQ-096",
     "component": "UDS ISO 14229",
     "description": "Support SID 0x36 TransferData",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "UDS-ISO-14229-REQ-061",
+    "id": "UDS-ISO-14229-REQ-097",
     "component": "UDS ISO 14229",
     "description": "Support SID 0x37 RequestTransferExit",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "UDS-ISO-14229-REQ-062",
+    "id": "UDS-ISO-14229-REQ-098",
     "component": "UDS ISO 14229",
     "description": "Support SID 0x85 ControlDTCSetting with application callback to enable or disable DTC storage",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "UDS-ISO-14229-REQ-063",
+    "id": "UDS-ISO-14229-REQ-099",
     "component": "UDS ISO 14229",
     "description": "Return NRC 0x11 (serviceNotSupported) for unregistered SIDs",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "UDS-ISO-14229-REQ-064",
+    "id": "UDS-ISO-14229-REQ-100",
     "component": "UDS ISO 14229",
     "description": "Never use a hardcoded SecurityAccess seed/key algorithm; always use an application callback",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "UDS-ISO-14229-REQ-065",
+    "id": "UDS-ISO-14229-REQ-101",
     "component": "UDS ISO 14229",
     "description": "Lock the session and return NRC 0x36 after exceeding CONFIG_OMNICAN_UDS_MAX_AUTH_ATTEMPTS failed SecurityAccess attempts",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "UDS-ISO-14229-REQ-066",
+    "id": "UDS-ISO-14229-REQ-102",
     "component": "UDS ISO 14229",
     "description": "Support suppressPositiveResponse sub-function bit (0x80) per ISO 14229-1 \u00a77.5.2.2",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "UDS-ISO-14229-REQ-067",
+    "id": "UDS-ISO-14229-REQ-103",
     "component": "UDS ISO 14229",
     "description": "Implement NRC 0x78 (responsePending) when a service handler cannot respond within p2Server_max and requires p2StarServer_max time",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "UDS-ISO-14229-REQ-068",
+    "id": "UDS-ISO-14229-REQ-104",
     "component": "UDS ISO 14229",
     "description": "Support manufacturer-specific DID range (0xF200\u20130xFEFF) via application-registered DID handler callbacks with read and write hooks",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "UDS-ISO-14229-REQ-069",
+    "id": "UDS-ISO-14229-REQ-105",
     "component": "UDS ISO 14229",
     "description": "Implement mandatory ECU identification DIDs: 0xF186 (activeSession), 0xF18B (ECUManufacturingDate), 0xF18C (ECUSerialNumber), 0xF190 (VIN), 0xF195 (SystemSupplierECUSoftwareVersion)",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "UDS-ISO-14229-REQ-070",
+    "id": "UDS-ISO-14229-REQ-106",
     "component": "UDS ISO 14229",
     "description": "Support functional addressing via CAN ID 0x7DF for UDS broadcast service requests (TesterPresent, DiagnosticSessionControl)",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "UDS-ISO-14229-REQ-071",
+    "id": "UDS-ISO-14229-REQ-107",
     "component": "UDS ISO 14229",
     "description": "Provide `omnican_uds_session_change_cb_t` callback on every session transition with old and new session type",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "UDS-ISO-14229-REQ-072",
+    "id": "UDS-ISO-14229-REQ-108",
     "component": "UDS ISO 14229",
     "description": "Provide `omnican_uds_security_change_cb_t` callback on security access level grant or revocation",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "UDS-ISO-14229-REQ-073",
+    "id": "UDS-ISO-14229-REQ-109",
     "component": "UDS ISO 14229",
     "description": "Provide `omnican_uds_pre_reset_cb_t` callback before ECUReset execution allowing application to flush state",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "UDS-ISO-14229-REQ-074",
+    "id": "UDS-ISO-14229-REQ-110",
     "component": "UDS ISO 14229",
     "description": "Support manufacturer-specific NRC values 0x80\u20130xFE via application NRC provider callback registered per SID",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "UDS-ISO-14229-REQ-075",
+    "id": "UDS-ISO-14229-REQ-111",
     "component": "UDS ISO 14229",
     "description": "Provide `omnican_uds_transfer_progress_cb_t` callback during 0x36 TransferData reporting block sequence and bytes transferred",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "OBD-II-J1979-REQ-076",
+    "id": "OBD-II-J1979-REQ-112",
     "component": "OBD-II J1979",
     "description": "Transmit PID requests on CAN ID 0x7DF and collect responses from 0x7E8-0x7EF within configurable timeout",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "OBD-II-J1979-REQ-077",
+    "id": "OBD-II-J1979-REQ-113",
     "component": "OBD-II J1979",
     "description": "Support OBD-II service modes 0x01 through 0x09",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "OBD-II-J1979-REQ-078",
+    "id": "OBD-II-J1979-REQ-114",
     "component": "OBD-II J1979",
     "description": "Provide callback-based non-blocking PID request/response model",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "OBD-II-J1979-REQ-079",
+    "id": "OBD-II-J1979-REQ-115",
     "component": "OBD-II J1979",
     "description": "Support Mode 0x01 PIDs: 0x00 (supported), 0x01 (monitor status), 0x04 (engine load), 0x05 (coolant temp), 0x0C (RPM), 0x0D (vehicle speed), 0x11 (throttle position)",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "OBD-II-J1979-REQ-080",
+    "id": "OBD-II-J1979-REQ-116",
     "component": "OBD-II J1979",
     "description": "Support Mode 0x01 PID support bitmap queries (PIDs 0x00, 0x20, 0x40, 0x60, 0x80, 0xA0, 0xC0) to enumerate ECU-supported PIDs",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "OBD-II-J1979-REQ-081",
+    "id": "OBD-II-J1979-REQ-117",
     "component": "OBD-II J1979",
     "description": "Support Mode 0x01 extended PIDs: 0x14\u20130x1B (O2 sensor voltage/trim), 0x1C (OBD standard), 0x21 (distance since MIL on), 0x2F (fuel level), 0x31 (distance since codes cleared), 0x33 (barometric pressure), 0x46 (ambient air temperature), 0x49 (accelerator position), 0x51 (fuel type), 0x5C (engine oil temperature)",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "OBD-II-J1979-REQ-082",
+    "id": "OBD-II-J1979-REQ-118",
     "component": "OBD-II J1979",
     "description": "Support Mode 0x02 (Freeze Frame) PID requests using the same PID set as Mode 0x01 with frame number sub-byte",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "OBD-II-J1979-REQ-083",
+    "id": "OBD-II-J1979-REQ-119",
     "component": "OBD-II J1979",
     "description": "Retrieve Mode 0x03 stored DTCs and Mode 0x07 pending DTCs as decoded fault codes per SAE J2012 (P/C/B/U + 4-digit hex)",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "OBD-II-J1979-REQ-084",
+    "id": "OBD-II-J1979-REQ-120",
     "component": "OBD-II J1979",
     "description": "Support Mode 0x04 clear all emission-related DTCs with application completion callback",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "OBD-II-J1979-REQ-085",
+    "id": "OBD-II-J1979-REQ-121",
     "component": "OBD-II J1979",
     "description": "Support Mode 0x06 on-board monitoring test results (OBDMID and OBDMID test results) via callback",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "OBD-II-J1979-REQ-086",
+    "id": "OBD-II-J1979-REQ-122",
     "component": "OBD-II J1979",
     "description": "Support Mode 0x09 vehicle information: INFOTYPE 0x02 (VIN), 0x04 (calibration ID), 0x06 (CVN), 0x0A (ECU name)",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "OBD-II-J1979-REQ-087",
+    "id": "OBD-II-J1979-REQ-123",
     "component": "OBD-II J1979",
     "description": "Aggregate responses from multiple ECUs for broadcast requests and deliver each ECU response individually via per-ECU callback",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "OBD-II-J1979-REQ-088",
+    "id": "OBD-II-J1979-REQ-124",
     "component": "OBD-II J1979",
     "description": "Support ECU-specific physical addressing: send to 0x7E0\u20130x7E7 and receive from the corresponding 0x7E8\u20130x7EF response CAN ID",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "OBD-II-J1979-REQ-089",
+    "id": "OBD-II-J1979-REQ-125",
     "component": "OBD-II J1979",
     "description": "Provide `omnican_obd2_dtc_cb_t` callback delivering decoded DTC records (fault code, status byte) from Mode 0x03/0x07 responses",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "OBD-II-J1979-REQ-090",
+    "id": "OBD-II-J1979-REQ-126",
     "component": "OBD-II J1979",
     "description": "Provide `omnican_obd2_timeout_cb_t` callback when a PID request receives no response within the configured timeout",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "CANOPEN-FD-CIA-1301-REQ-091",
+    "id": "CANOPEN-FD-CIA-1301-REQ-127",
     "component": "CANopen FD CiA 1301",
     "description": "Extend CANopen module with CiA 1301 FD features; require CONFIG_OMNICAN_CANOPEN=y and CONFIG_CAN_FD_MODE=y",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "CANOPEN-FD-CIA-1301-REQ-092",
+    "id": "CANOPEN-FD-CIA-1301-REQ-128",
     "component": "CANopen FD CiA 1301",
     "description": "Support CAN FD data payloads of up to 64 bytes for higher-throughput PDO transfers",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "CANOPEN-FD-CIA-1301-REQ-093",
+    "id": "CANOPEN-FD-CIA-1301-REQ-129",
     "component": "CANopen FD CiA 1301",
     "description": "Maintain backward compatibility with classical 8-byte CANopen nodes when FD is not negotiated",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "ISOTP-PATCH-REQ-094",
+    "id": "MULTI-PROTOCOL-CO-EXISTENCE-REQ-130",
+    "component": "Multi-Protocol Co-Existence",
+    "description": "Support simultaneous operation of J1939 (29-bit) and UDS (11-bit) on the same CAN bus without filter conflicts by distinguishing frame types at the Zephyr CAN driver level",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "MULTI-PROTOCOL-CO-EXISTENCE-REQ-131",
+    "component": "Multi-Protocol Co-Existence",
+    "description": "Support simultaneous operation of CANopen (11-bit) and UDS (11-bit) using non-overlapping CAN ID ranges: CANopen 0x000-0x5FF is below UDS 0x7DF/0x7E0-0x7EF; document this co-existence guarantee",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "MULTI-PROTOCOL-CO-EXISTENCE-REQ-132",
+    "component": "Multi-Protocol Co-Existence",
+    "description": "Support simultaneous operation of CANopen (11-bit) and J1939 (29-bit) via frame type distinction with no ID conflict",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "MULTI-PROTOCOL-CO-EXISTENCE-REQ-133",
+    "component": "Multi-Protocol Co-Existence",
+    "description": "Enforce a policy when OBD-II and UDS are both enabled: UDS holds exclusive ownership of CAN ID 0x7DF for functional addressing; OBD-II client shall use physical addressing (0x7E0-0x7E7) when UDS is co-active, or disable OBD-II functional broadcast",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "MULTI-PROTOCOL-CO-EXISTENCE-REQ-134",
+    "component": "Multi-Protocol Co-Existence",
+    "description": "Provide a `docs/MULTIPROTOCOL.md` integration guide documenting supported combinations, CAN ID allocation maps, and Kconfig compatibility matrix for all 4-protocol combinations",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "MULTI-PROTOCOL-CO-EXISTENCE-REQ-135",
+    "component": "Multi-Protocol Co-Existence",
+    "description": "Support cross-protocol error propagation: an `omnican_error_cb_t` global hook that receives errors from any enabled protocol with protocol ID, error code, and context",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "ISOTP-PATCH-REQ-136",
     "component": "ISOTP Patch",
     "description": "Implement a workaround for Zephyr issue #86025 using separate TX/RX socket contexts with a forwarding shim",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "ISOTP-PATCH-REQ-095",
+    "id": "ISOTP-PATCH-REQ-137",
     "component": "ISOTP Patch",
     "description": "Default CONFIG_OMNICAN_ISOTP_PATCH to y when CONFIG_OMNICAN_UDS or CONFIG_OMNICAN_OBD2 is enabled",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "MEMORY-AND-THREADING-REQ-096",
+    "id": "MEMORY-AND-THREADING-REQ-138",
     "component": "Memory and Threading",
     "description": "Never use dynamic heap allocation (k_malloc, malloc); all state statically allocated or via net_buf pools",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "MEMORY-AND-THREADING-REQ-097",
+    "id": "MEMORY-AND-THREADING-REQ-139",
     "component": "Memory and Threading",
     "description": "Handle CAN frame data via Zephyr net_buf from a pool sized by CONFIG_OMNICAN_NET_BUF_COUNT (default 16)",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "MEMORY-AND-THREADING-REQ-098",
+    "id": "MEMORY-AND-THREADING-REQ-140",
     "component": "Memory and Threading",
     "description": "All protocol context structures shall be opaque to the caller but caller-allocated",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "MEMORY-AND-THREADING-REQ-099",
+    "id": "MEMORY-AND-THREADING-REQ-141",
     "component": "Memory and Threading",
     "description": "All protocol handlers execute in a Zephyr workqueue context, not the CAN ISR",
     "status": "Draft",

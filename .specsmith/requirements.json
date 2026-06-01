@@ -376,6 +376,294 @@
     "test_ids": []
   },
   {
+    "id": "REQ-JNET-015",
+    "title": "REQ-JNET-015",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-JNET-016",
+    "title": "REQ-JNET-016",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-JNET-017",
+    "title": "REQ-JNET-017",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-JDTC-001",
+    "title": "REQ-JDTC-001",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-JDTC-002",
+    "title": "REQ-JDTC-002",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-JDTC-003",
+    "title": "REQ-JDTC-003",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-JDTC-004",
+    "title": "REQ-JDTC-004",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-JDTC-005",
+    "title": "REQ-JDTC-005",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-JDM-001",
+    "title": "REQ-JDM-001",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-JDM-002",
+    "title": "REQ-JDM-002",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-JDM-003",
+    "title": "REQ-JDM-003",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-JDM-004",
+    "title": "REQ-JDM-004",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-JDM-005",
+    "title": "REQ-JDM-005",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-JDM-006",
+    "title": "REQ-JDM-006",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-JDM-007",
+    "title": "REQ-JDM-007",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-JDM-008",
+    "title": "REQ-JDM-008",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-JDM-009",
+    "title": "REQ-JDM-009",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-JDM-010",
+    "title": "REQ-JDM-010",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-JDME-001",
+    "title": "REQ-JDME-001",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-JDME-002",
+    "title": "REQ-JDME-002",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-JDME-003",
+    "title": "REQ-JDME-003",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-JDME-004",
+    "title": "REQ-JDME-004",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-JDME-005",
+    "title": "REQ-JDME-005",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-JDME-006",
+    "title": "REQ-JDME-006",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-JDME-007",
+    "title": "REQ-JDME-007",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-JDME-008",
+    "title": "REQ-JDME-008",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-JDME-009",
+    "title": "REQ-JDME-009",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-JDME-010",
+    "title": "REQ-JDME-010",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-JDME-011",
+    "title": "REQ-JDME-011",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-JSLOT-001",
+    "title": "REQ-JSLOT-001",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-JSLOT-002",
+    "title": "REQ-JSLOT-002",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-JSLOT-003",
+    "title": "REQ-JSLOT-003",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-JDA-001",
+    "title": "REQ-JDA-001",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-JDA-002",
+    "title": "REQ-JDA-002",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-JDA-003",
+    "title": "REQ-JDA-003",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-JDA-004",
+    "title": "REQ-JDA-004",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
     "id": "REQ-UDS-001",
     "title": "REQ-UDS-001",
     "description": "",
@@ -738,6 +1026,54 @@
   {
     "id": "REQ-COFD-003",
     "title": "REQ-COFD-003",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-MPROTO-001",
+    "title": "REQ-MPROTO-001",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-MPROTO-002",
+    "title": "REQ-MPROTO-002",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-MPROTO-003",
+    "title": "REQ-MPROTO-003",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-MPROTO-004",
+    "title": "REQ-MPROTO-004",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-MPROTO-005",
+    "title": "REQ-MPROTO-005",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-MPROTO-006",
+    "title": "REQ-MPROTO-006",
     "description": "",
     "source": "docs/REQUIREMENTS.md",
     "status": "defined",

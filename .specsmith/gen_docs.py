@@ -8,15 +8,21 @@ tests_raw = json.loads((root / ".specsmith" / "tests.json").read_text())
 
 # Map component names -> short REQ prefix codes
 COMP_MAP = {
-    "Core Node":           "CORE",
-    "Frame Router":        "ROUTER",
-    "CANopen CiA 301":     "CO",
-    "J1939":               "JNET",
-    "UDS ISO 14229":       "UDS",
-    "OBD-II J1979":        "OBD",
-    "CANopen FD CiA 1301": "COFD",
-    "ISOTP Patch":         "ISOTP",
-    "Memory and Threading":"MEM",
+    "Core Node":                                          "CORE",
+    "Frame Router":                                       "ROUTER",
+    "CANopen CiA 301":                                    "CO",
+    "CANopen FD CiA 1301":                                "COFD",
+    "J1939":                                              "JNET",
+    "J1939 DTC and SPN":                                  "JDTC",
+    "J1939 Diagnostics (mandatory DM set)":               "JDM",
+    "J1939 Diagnostics (extended DM set \u2014 via CONFIG_OMNICAN_J1939_DM_EXTENDED)": "JDME",
+    "J1939 SLOT and SPN Decoding (optional \u2014 CONFIG_OMNICAN_J1939_SLOT_TABLE)": "JSLOT",
+    "J1939 DA Reference Tables (optional)":               "JDA",
+    "UDS ISO 14229":                                      "UDS",
+    "OBD-II J1979":                                       "OBD",
+    "ISOTP Patch":                                        "ISOTP",
+    "Memory and Threading":                               "MEM",
+    "Multi-Protocol Co-Existence":                        "MPROTO",
 }
 
 # Build normalised ID map: old parse-reqs ID -> new REQ-COMP-NNN
