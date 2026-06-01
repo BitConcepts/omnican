@@ -65,3 +65,9 @@
 - **Type**: task
 - **Status**: complete
 - **Chain hash**: `c56ed129d68212bb...`
+
+## 2026-06-01T07:10 — docs/FEATURES.md created: authoritative feature status + coverage matrix for all 6 phases. J1939/73 purchase requirement documented (SAE J1939/73_202412, ~, needed for 6 specific extended DM byte definitions). All mandatory DMs (DM1-3,5,6,11,12,22,14-16) noted as implementable from open sources. DM17-19, DM23-24, DM32-60 noted as not planned. ISOBUS Phase 6 limitation noted. GPL/commercial stack restrictions noted. Open-source attribution requirements per file listed.
+- **Author**: agent
+- **Type**: task
+- **Status**: complete
+- **Chain hash**: `562e25b0529ba792...`
