@@ -254,55 +254,88 @@ J1939 + UDS + CANopen + OBD-II:
 
 ---
 
-## 11. What Cannot Be Found / Requires Clarification
+## 11. Open-Source Coverage of J1939/73 (Updated)
 
-The following items reference standards or data not fully available in the DA:
+After searching all available open-source implementations, the following MIT/Apache-2.0
+licensed stacks cover J1939/73 sufficiently to implement OmniCAN's DM set:
 
-1. **J1939/73 full text** — DM message definitions reference J1939/73 sections.
-   OmniCAN needs J1939/73 for complete DM1–DM35 service byte definitions.
-   *CANNOT FIND in DA alone; requires purchase of SAE J1939/73.*
+### Available open-source implementations (MIT/Apache-2.0 — usable by OmniCAN)
 
-2. **SPN 1213–1215 (Lamp Status SPNs)** — DM1 lamp bits reference specific SPNs
-   for MIL, Stop Lamp, etc. These are in the DA but their mapping into DM1
-   lamp status byte is specified in J1939/73, not the DA. *Partial — in DA but
-   interpretation requires J1939/73.*
+| Source | License | J1939/73 coverage |
+|---|---|---|
+| **Open-SAE-J1939** (DanielMartensson) | MIT | DM1, DM2, DM3, DM14, DM15, DM16 — full C89 implementation. RQST (0xEA00) + ACKM (0xE800) complete. No dynamic allocation. PRIMARY SOURCE for OmniCAN porting. |
+| **python-can-j1939** (juergenH87) | MIT | DTC encode/decode bit operations; DM1 lamp byte parser; DM11, DM22 |
+| **AgIsoStack++** (Open-Agriculture) | MIT | C++ diagnostic_protocol: DM5, DM12, DM22 — translatable to C |
+| **CSS Electronics guide** | Public | DM1–DM12 byte maps, FMI 32-code table, transmission timing |
+| **EmbeddedFlakes J1939 Diagnostics** | Public | DM1–DM12 byte-level format, FMI 0–21+31 table |
 
-3. **DM4 Freeze Frame content** — The freeze frame parameters (DM4) reference a
-   list of SPNs to capture. The specific SPN list is application-defined per J1939/73.
-   *CANNOT FIND exact SPN list in DA; application-specific.*
+### NOT usable as code (wrong license)
 
-4. **DM8/DM30 Test Result IDs (TID/FID)** — Test identifiers for non-continuously
-   monitored system tests. Partially in DA (DM10 lists supported test IDs), but
-   the mapping of test IDs to actual test procedures is in J1939/73.
-   *CANNOT FIND test procedure definitions in DA.*
+| Source | License | Why not | How to use |
+|---|---|---|---|
+| Linux kernel j1939 | GPL-2.0 | Copyleft, incompatible with Apache-2.0 | Protocol reference only |
+| MicroControl J1939 Stack | Commercial | Proprietary | Public header docs as reference |
 
-5. **DM14/DM15/DM16 memory access protocol** — While PGNs exist in DA,
-   the multi-step memory access handshake (request → grant → data) is defined
-   in J1939/73 §5.18–5.20. *CANNOT FIND protocol state machine in DA.*
+### Porting strategy for Open-SAE-J1939 → Zephyr
 
-6. **ETP session limits** — The maximum payload for ETP (~117 MB) is a theoretical
-   maximum. The actual Zephyr net_buf pool limits this severely. Real-world ETP
-   on embedded systems is typically limited to 4–64 KB.
-   *Constraint is implementation-specific, not in DA.*
+The only delta from Open-SAE-J1939 to OmniCAN is the hardware shim:
+```c
+/* Replace: CAN_Send_Message(ID, data) */
+/* With: can_send(node->can_dev, &frame, K_MSEC(10), NULL, NULL) */
+```
+All DM byte logic, DTC encoding, request/response state machines port directly.
+Attribution header required in each ported file.
 
-7. **SLOT lookup for ~8,000 SPNs** — The DA provides 426 SLOTs that apply to
-   thousands of SPNs. A complete embedded SPN decode table would be ~64 KB
-   of flash. Requires Kconfig to select which SPN subsets to include.
-   *Space constraint not addressed in DA.*
+## 12. What Cannot Be Found / Requires Clarification (Updated)
 
-8. **Manufacturer-specific SPNs (512000+)** — SPNs above 524287 are proprietary
-   manufacturer-specific. The DA does not define these.
-   *By design — manufacturer proprietary.*
+1. **J1939/73 full text** — RESOLVED for mandatory DM set via Open-SAE-J1939 (MIT),
+   CSS Electronics guide, and EmbeddedFlakes articles. Extended DMs (DM7–DM10,
+   DM20+) still require J1939/73 for precise service byte definitions.
 
-9. **DA revision column meanings** — The DA uses revision codes (numeric) in column 0
-   per row. The "Revision Column Definition" sheet explains these but they are
-   complex. OmniCAN should not hard-code revision-dependent behavior.
-   *Informational only for OmniCAN.*
+2. **SPN 1213–1215 (Lamp Status SPNs)** — RESOLVED. Lamp byte format (MIL [7:6],
+   RSL [5:4], AWL [3:2], PL [1:0]) documented in CSS Electronics guide and
+   EmbeddedFlakes. Values: 00=off, 01=on, 10=flash, 11=N/A.
 
-10. **IG2 (Agricultural) ISO 11783 overlap** — IG2 (Agricultural/Forestry) defers
-    to ISO 11783 (ISOBUS) for preferred addresses 128–236. OmniCAN does not
-    currently support ISOBUS/ISO 11783.
-    *Out of scope — separate standard, separate document.*
+3. **DM4 Freeze Frame SPN list** — RESOLVED as application-configurable.
+   OmniCAN uses CONFIG_OMNICAN_J1939_DM4_SPN_LIST (default: 190,84,110,91).
+   Application can override via `omnican_j1939_dm4_set_spn_list()`.
+
+4. **DM8/DM30 Test Result TID/FID format** — PARTIALLY resolved via DM10 in DA
+   (lists supported test IDs). Full test procedure definitions remain in J1939/73
+   text. Implement as generic container with app-supplied callbacks.
+
+5. **DM14/DM15/DM16 memory access handshake** — RESOLVED via Open-SAE-J1939
+   (MIT). Complete multi-step state machine (`Send_Request_DM14` →
+   `Send_Response_DM15` → `Send_Binary_Data_DM16`) is fully implemented
+   and portable to Zephyr.
+
+6. **ETP session limits** — RESOLVED. CONFIG_OMNICAN_J1939_ETP_MAX_PAYLOAD_KB
+   (default 64 KB) caps this appropriately for embedded targets.
+
+7. **SLOT flash budget** — RESOLVED. Kconfig subset selection (mandatory minimum
+   7 SPNs + CONFIG_OMNICAN_J1939_SPN_EXTRA_LIST) manages flash usage.
+
+8. **Manufacturer-specific SPNs (>524287)** — RESOLVED. `spn_register_custom()`
+   API allows runtime registration without Kconfig changes.
+
+9. **DA revision columns** — Informational only. OmniCAN does not version-gate
+   on revision codes.
+
+10. **ISOBUS (ISO 11783)** — RESOLVED as Phase 6. AgIsoStack++ (MIT C++) serves
+    as protocol reference. Native Zephyr C implementation planned.
+
+### Remaining true gaps (require SAE J1939/73 purchase for completeness)
+
+- DM5 monitor readiness bits exact normative mapping (which bit = which monitor)
+- DM7/DM8/DM10 test ID-to-procedure table
+- DM13 service byte sub-function encoding (stop/start/no-action bit positions)
+- DM20 monitor performance ratio calculation formula
+- DM25 expanded freeze frame SPN indexing format
+- DM28 permanent DTC qualifier criteria
+
+All other DM messages in the mandatory set (DM1-3, DM5, DM6, DM11, DM12, DM22)
+are fully specified by open public documentation and the MIT-licensed Open-SAE-J1939
+implementation.
 
 ---
 

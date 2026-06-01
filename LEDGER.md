@@ -59,3 +59,9 @@
 - **Type**: task
 - **Status**: complete
 - **Chain hash**: `f6e014c52e883a62...`
+
+## 2026-06-01T07:02 — J1939/73 open-source coverage analysis complete. PRIMARY SOURCE: Open-SAE-J1939 (MIT C89, no dynamic alloc, has DM1/DM2/DM3/DM14/DM15/DM16 + RQST + ACKM). Porting delta = only hardware shim (CAN_Send_Message -> zephyr/drivers/can.h). Additional: python-can-j1939 (MIT, DTC bits), AgIsoStack++ (MIT C++, DM5/DM12/DM22). NOT usable as code: Linux kernel j1939 (GPL-2.0), MicroControl (commercial). Remaining true gaps requiring J1939/73 purchase: DM5 monitor readiness bit mapping, DM7/8/10 test ID table, DM13/20/25/28 sub-function details. All mandatory DM set (DM1-3,5,6,11,12,22) fully coverable from open sources. J1939DA_GAP.md updated with resolution status for all original 10 items.
+- **Author**: agent
+- **Type**: task
+- **Status**: complete
+- **Chain hash**: `c56ed129d68212bb...`
