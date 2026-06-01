@@ -29,3 +29,9 @@
 - **Type**: task
 - **Status**: complete
 - **Chain hash**: `b5ef52043b0e80c1...`
+
+## 2026-06-01T04:07 — Gap analysis + full protocol expansion: 99 REQs, 99 tests (was 63/63). Added: OBD-II all 9 modes + full PID set + DTC decode (SAE J2012) + physical addressing + timeout/DTC callbacks. UDS manufacturer DID range (0xF200-0xFEFF) + mandatory ECU ID DIDs + suppressPositiveResponse + NRC 0x78 + session/security/reset/transfer/DID-write/routine/NRC hooks. CANopen NMT/SDO/PDO/EMCY/SYNC/HB/bootup callbacks. J1939 address-result/TP-progress/TP-complete callbacks + DM1/DM11 diagnostic PGNs. Frame router 11-bit+29-bit coexistence + CANopen FD 29-bit filter. SAE J2012 added to STANDARDS.md. Audit: 29/30 pass.
+- **Author**: agent
+- **Type**: task
+- **Status**: complete
+- **Chain hash**: `c64a9b7484399f7d...`

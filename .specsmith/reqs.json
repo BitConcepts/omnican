@@ -70,371 +70,623 @@
     "priority": "Medium"
   },
   {
-    "id": "CANOPEN-CIA-301-REQ-011",
-    "component": "CANopen CiA 301",
-    "description": "Implement the NMT state machine with states Initialising, Pre-Operational, Operational, and Stopped per CiA 301",
+    "id": "FRAME-ROUTER-REQ-011",
+    "component": "Frame Router",
+    "description": "Support simultaneous reception of 11-bit standard and 29-bit extended CAN frames on the same router instance",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "CANOPEN-CIA-301-REQ-012",
-    "component": "CANopen CiA 301",
-    "description": "Transmit a Boot-Up message (NMT state 0x00) on transition from Initialising to Pre-Operational",
+    "id": "FRAME-ROUTER-REQ-012",
+    "component": "Frame Router",
+    "description": "Support 29-bit extended CAN ID filtering for CANopen FD extended COB-IDs and vendor-specific profiles",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "CANOPEN-CIA-301-REQ-013",
-    "component": "CANopen CiA 301",
-    "description": "Respond to NMT master commands (Start, Stop, Pre-Operational, Reset Node, Reset Communication) on CAN ID 0x000",
+    "id": "FRAME-ROUTER-REQ-013",
+    "component": "Frame Router",
+    "description": "Provide configurable per-protocol CAN filter masks via Kconfig so applications can narrow or broaden reception ranges",
     "status": "Draft",
     "priority": "Medium"
   },
   {
     "id": "CANOPEN-CIA-301-REQ-014",
     "component": "CANopen CiA 301",
-    "description": "Implement an SDO server supporting expedited, segmented, and block transfer modes per CiA 301",
+    "description": "Implement the NMT state machine with states Initialising, Pre-Operational, Operational, and Stopped per CiA 301",
     "status": "Draft",
     "priority": "Medium"
   },
   {
     "id": "CANOPEN-CIA-301-REQ-015",
     "component": "CANopen CiA 301",
-    "description": "Return SDO abort code 0x05040000 on SDO timeout",
+    "description": "Transmit a Boot-Up message (NMT state 0x00) on transition from Initialising to Pre-Operational",
     "status": "Draft",
     "priority": "Medium"
   },
   {
     "id": "CANOPEN-CIA-301-REQ-016",
     "component": "CANopen CiA 301",
-    "description": "Support TPDO and RPDO with event-driven and synchronisation-triggered transmission modes",
+    "description": "Respond to NMT master commands (Start, Stop, Pre-Operational, Reset Node, Reset Communication) on CAN ID 0x000",
     "status": "Draft",
     "priority": "Medium"
   },
   {
     "id": "CANOPEN-CIA-301-REQ-017",
     "component": "CANopen CiA 301",
-    "description": "Support compile-time PDO mappings via the Object Dictionary",
+    "description": "Implement an SDO server supporting expedited, segmented, and block transfer modes per CiA 301",
     "status": "Draft",
     "priority": "Medium"
   },
   {
     "id": "CANOPEN-CIA-301-REQ-018",
     "component": "CANopen CiA 301",
-    "description": "Produce Emergency messages (CAN ID 0x80 + node_id) with 16-bit error code and 8-byte error register per CiA 301",
+    "description": "Return SDO abort code 0x05040000 on SDO timeout",
     "status": "Draft",
     "priority": "Medium"
   },
   {
     "id": "CANOPEN-CIA-301-REQ-019",
     "component": "CANopen CiA 301",
-    "description": "Produce Heartbeat messages at a Kconfig-configurable interval (default 1000 ms) per CiA 301",
+    "description": "Support TPDO and RPDO with event-driven and synchronisation-triggered transmission modes",
     "status": "Draft",
     "priority": "Medium"
   },
   {
     "id": "CANOPEN-CIA-301-REQ-020",
     "component": "CANopen CiA 301",
-    "description": "Support Heartbeat consumer monitoring of remote nodes with error event on timeout",
+    "description": "Support compile-time PDO mappings via the Object Dictionary",
     "status": "Draft",
     "priority": "Medium"
   },
   {
     "id": "CANOPEN-CIA-301-REQ-021",
     "component": "CANopen CiA 301",
-    "description": "Represent the Object Dictionary as a static C array generated from an OD descriptor with no heap allocation",
+    "description": "Produce Emergency messages (CAN ID 0x80 + node_id) with 16-bit error code and 8-byte error register per CiA 301",
     "status": "Draft",
     "priority": "Medium"
   },
   {
     "id": "CANOPEN-CIA-301-REQ-022",
     "component": "CANopen CiA 301",
-    "description": "Write recommended delay to next `omnican_canopen_process()` call in microseconds via `*next_us`",
+    "description": "Produce Heartbeat messages at a Kconfig-configurable interval (default 1000 ms) per CiA 301",
     "status": "Draft",
     "priority": "Medium"
   },
   {
     "id": "CANOPEN-CIA-301-REQ-023",
     "component": "CANopen CiA 301",
+    "description": "Support Heartbeat consumer monitoring of remote nodes with error event on timeout",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "CANOPEN-CIA-301-REQ-024",
+    "component": "CANopen CiA 301",
+    "description": "Represent the Object Dictionary as a static C array generated from an OD descriptor with no heap allocation",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "CANOPEN-CIA-301-REQ-025",
+    "component": "CANopen CiA 301",
+    "description": "Write recommended delay to next `omnican_canopen_process()` call in microseconds via `*next_us`",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "CANOPEN-CIA-301-REQ-026",
+    "component": "CANopen CiA 301",
     "description": "Run the CANopen process loop in a dedicated Zephyr thread with configurable stack size and priority",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "J1939-REQ-024",
+    "id": "CANOPEN-CIA-301-REQ-027",
+    "component": "CANopen CiA 301",
+    "description": "Provide `omnican_canopen_nmt_change_cb_t` callback invoked on every NMT state transition (both self-initiated and master-commanded)",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "CANOPEN-CIA-301-REQ-028",
+    "component": "CANopen CiA 301",
+    "description": "Provide `omnican_canopen_sdo_post_write_cb_t` callback after every successful SDO write so the application can react to OD changes",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "CANOPEN-CIA-301-REQ-029",
+    "component": "CANopen CiA 301",
+    "description": "Provide `omnican_canopen_rpdo_rx_cb_t` callback when RPDO data is received and mapped into the OD",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "CANOPEN-CIA-301-REQ-030",
+    "component": "CANopen CiA 301",
+    "description": "Provide `omnican_canopen_emcy_rx_cb_t` callback when an Emergency message from a remote node is received",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "CANOPEN-CIA-301-REQ-031",
+    "component": "CANopen CiA 301",
+    "description": "Provide `omnican_canopen_sync_cb_t` callback on SYNC message reception for application-level synchronisation",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "CANOPEN-CIA-301-REQ-032",
+    "component": "CANopen CiA 301",
+    "description": "Provide `omnican_canopen_hb_event_cb_t` callback for heartbeat consumer events distinguishing timeout and recovery",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "CANOPEN-CIA-301-REQ-033",
+    "component": "CANopen CiA 301",
+    "description": "Provide `omnican_canopen_bootup_rx_cb_t` callback when a remote node Boot-Up message is received",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "J1939-REQ-034",
     "component": "J1939",
     "description": "Use 29-bit extended CAN identifiers and reject 11-bit standard ID frames",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "J1939-REQ-025",
+    "id": "J1939-REQ-035",
     "component": "J1939",
     "description": "Implement the address-claiming procedure per J1939/81 with 250 ms contention window and 64-bit NAME priority",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "J1939-REQ-026",
+    "id": "J1939-REQ-036",
     "component": "J1939",
     "description": "Prevent PGN transmission until address claiming succeeds",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "J1939-REQ-027",
+    "id": "J1939-REQ-037",
     "component": "J1939",
     "description": "Return OMNICAN_ERR_BUSY and set addr to NULL when address claiming fails",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "J1939-REQ-028",
+    "id": "J1939-REQ-038",
     "component": "J1939",
     "description": "Support a static PGN routing table populated via `omnican_j1939_register_pgn()` with callback and user-data",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "J1939-REQ-029",
+    "id": "J1939-REQ-039",
     "component": "J1939",
     "description": "Invoke PGN callbacks from the system workqueue with source address, data pointer, and length",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "J1939-REQ-030",
+    "id": "J1939-REQ-040",
     "component": "J1939",
     "description": "Implement J1939 Transport Protocol (TP) for 9-1785 byte messages using BAM and CMDT modes",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "J1939-REQ-031",
+    "id": "J1939-REQ-041",
     "component": "J1939",
     "description": "Implement Extended Transport Protocol (ETP) for messages larger than 1785 bytes",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "J1939-REQ-032",
+    "id": "J1939-REQ-042",
     "component": "J1939",
     "description": "Maintain TP/ETP session state in static context with configurable maximum simultaneous sessions",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "UDS-ISO-14229-REQ-033",
-    "component": "UDS ISO 14229",
-    "description": "Use Zephyr ISO-TP for all UDS message transport with ISOTP patch when CONFIG_OMNICAN_ISOTP_PATCH=y",
+    "id": "J1939-REQ-043",
+    "component": "J1939",
+    "description": "Provide `omnican_j1939_address_result_cb_t` callback reporting address claim success, failure, or address-lost events",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "UDS-ISO-14229-REQ-034",
-    "component": "UDS ISO 14229",
-    "description": "Implement DiagnosticSessionControl (SID 0x10) and enforce service availability per active session",
+    "id": "J1939-REQ-044",
+    "component": "J1939",
+    "description": "Provide `omnican_j1939_tp_progress_cb_t` callback reporting bytes transferred during active TP/ETP sessions",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "UDS-ISO-14229-REQ-035",
-    "component": "UDS ISO 14229",
-    "description": "Maintain an S3 timer (default 5000 ms) and revert to Default session on expiry",
+    "id": "J1939-REQ-045",
+    "component": "J1939",
+    "description": "Provide `omnican_j1939_tp_complete_cb_t` callback on TP/ETP session completion or abort with status",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "UDS-ISO-14229-REQ-036",
-    "component": "UDS ISO 14229",
-    "description": "Reset the S3 timer on TesterPresent (SID 0x3E)",
+    "id": "J1939-REQ-046",
+    "component": "J1939",
+    "description": "Support J1939 diagnostic PGN reception: DM1 (PGN 0xFECA, active DTCs) and DM11 (PGN 0xFED3, clear active DTCs) via the PGN routing table",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "UDS-ISO-14229-REQ-037",
-    "component": "UDS ISO 14229",
-    "description": "Support SID 0x10 DiagnosticSessionControl",
-    "status": "Draft",
-    "priority": "Medium"
-  },
-  {
-    "id": "UDS-ISO-14229-REQ-038",
-    "component": "UDS ISO 14229",
-    "description": "Support SID 0x11 ECUReset with hardReset, softReset, and keyOffOnReset sub-functions",
-    "status": "Draft",
-    "priority": "Medium"
-  },
-  {
-    "id": "UDS-ISO-14229-REQ-039",
-    "component": "UDS ISO 14229",
-    "description": "Support SID 0x22 ReadDataByIdentifier",
-    "status": "Draft",
-    "priority": "Medium"
-  },
-  {
-    "id": "UDS-ISO-14229-REQ-040",
-    "component": "UDS ISO 14229",
-    "description": "Support SID 0x27 SecurityAccess with application-supplied seed/key callback",
-    "status": "Draft",
-    "priority": "Medium"
-  },
-  {
-    "id": "UDS-ISO-14229-REQ-041",
-    "component": "UDS ISO 14229",
-    "description": "Support SID 0x28 CommunicationControl",
-    "status": "Draft",
-    "priority": "Medium"
-  },
-  {
-    "id": "UDS-ISO-14229-REQ-042",
-    "component": "UDS ISO 14229",
-    "description": "Support SID 0x2E WriteDataByIdentifier",
-    "status": "Draft",
-    "priority": "Medium"
-  },
-  {
-    "id": "UDS-ISO-14229-REQ-043",
-    "component": "UDS ISO 14229",
-    "description": "Support SID 0x31 RoutineControl with start, stop, and requestResults",
-    "status": "Draft",
-    "priority": "Medium"
-  },
-  {
-    "id": "UDS-ISO-14229-REQ-044",
-    "component": "UDS ISO 14229",
-    "description": "Support SID 0x34 RequestDownload",
-    "status": "Draft",
-    "priority": "Medium"
-  },
-  {
-    "id": "UDS-ISO-14229-REQ-045",
-    "component": "UDS ISO 14229",
-    "description": "Support SID 0x36 TransferData",
-    "status": "Draft",
-    "priority": "Medium"
-  },
-  {
-    "id": "UDS-ISO-14229-REQ-046",
-    "component": "UDS ISO 14229",
-    "description": "Support SID 0x37 RequestTransferExit",
-    "status": "Draft",
-    "priority": "Medium"
-  },
-  {
-    "id": "UDS-ISO-14229-REQ-047",
-    "component": "UDS ISO 14229",
-    "description": "Support SID 0x85 ControlDTCSetting",
+    "id": "J1939-REQ-047",
+    "component": "J1939",
+    "description": "Support configurable maximum TP/ETP single-transfer payload via CONFIG_OMNICAN_J1939_TP_MAX_PAYLOAD (default 1785 bytes for TP, unlimited for ETP)",
     "status": "Draft",
     "priority": "Medium"
   },
   {
     "id": "UDS-ISO-14229-REQ-048",
     "component": "UDS ISO 14229",
-    "description": "Return NRC 0x11 (serviceNotSupported) for unregistered SIDs",
+    "description": "Use Zephyr ISO-TP for all UDS message transport with ISOTP patch when CONFIG_OMNICAN_ISOTP_PATCH=y",
     "status": "Draft",
     "priority": "Medium"
   },
   {
     "id": "UDS-ISO-14229-REQ-049",
     "component": "UDS ISO 14229",
-    "description": "Never use a hardcoded SecurityAccess seed/key algorithm; always use an application callback",
+    "description": "Implement DiagnosticSessionControl (SID 0x10) and enforce service availability per active session",
     "status": "Draft",
     "priority": "Medium"
   },
   {
     "id": "UDS-ISO-14229-REQ-050",
     "component": "UDS ISO 14229",
+    "description": "Maintain an S3 timer (default 5000 ms) and revert to Default session on expiry",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "UDS-ISO-14229-REQ-051",
+    "component": "UDS ISO 14229",
+    "description": "Reset the S3 timer on TesterPresent (SID 0x3E)",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "UDS-ISO-14229-REQ-052",
+    "component": "UDS ISO 14229",
+    "description": "Support SID 0x10 DiagnosticSessionControl",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "UDS-ISO-14229-REQ-053",
+    "component": "UDS ISO 14229",
+    "description": "Support SID 0x11 ECUReset with hardReset, softReset, and keyOffOnReset sub-functions",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "UDS-ISO-14229-REQ-054",
+    "component": "UDS ISO 14229",
+    "description": "Support SID 0x22 ReadDataByIdentifier with multi-DID requests (multiple DIDs in one 0x22 request)",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "UDS-ISO-14229-REQ-055",
+    "component": "UDS ISO 14229",
+    "description": "Support SID 0x27 SecurityAccess with application-supplied seed/key callback",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "UDS-ISO-14229-REQ-056",
+    "component": "UDS ISO 14229",
+    "description": "Support SID 0x28 CommunicationControl with all sub-functions: enableRxAndTx (0x00), enableRxAndDisableTx (0x01), disableRxAndEnableTx (0x02), disableRxAndTx (0x03)",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "UDS-ISO-14229-REQ-057",
+    "component": "UDS ISO 14229",
+    "description": "Support SID 0x2E WriteDataByIdentifier with application-supplied write validation callback before applying data",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "UDS-ISO-14229-REQ-058",
+    "component": "UDS ISO 14229",
+    "description": "Support SID 0x31 RoutineControl with application-supplied start, stop, and requestResults executor callbacks per routine ID",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "UDS-ISO-14229-REQ-059",
+    "component": "UDS ISO 14229",
+    "description": "Support SID 0x34 RequestDownload",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "UDS-ISO-14229-REQ-060",
+    "component": "UDS ISO 14229",
+    "description": "Support SID 0x36 TransferData",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "UDS-ISO-14229-REQ-061",
+    "component": "UDS ISO 14229",
+    "description": "Support SID 0x37 RequestTransferExit",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "UDS-ISO-14229-REQ-062",
+    "component": "UDS ISO 14229",
+    "description": "Support SID 0x85 ControlDTCSetting with application callback to enable or disable DTC storage",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "UDS-ISO-14229-REQ-063",
+    "component": "UDS ISO 14229",
+    "description": "Return NRC 0x11 (serviceNotSupported) for unregistered SIDs",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "UDS-ISO-14229-REQ-064",
+    "component": "UDS ISO 14229",
+    "description": "Never use a hardcoded SecurityAccess seed/key algorithm; always use an application callback",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "UDS-ISO-14229-REQ-065",
+    "component": "UDS ISO 14229",
     "description": "Lock the session and return NRC 0x36 after exceeding CONFIG_OMNICAN_UDS_MAX_AUTH_ATTEMPTS failed SecurityAccess attempts",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "OBD-II-J1979-REQ-051",
+    "id": "UDS-ISO-14229-REQ-066",
+    "component": "UDS ISO 14229",
+    "description": "Support suppressPositiveResponse sub-function bit (0x80) per ISO 14229-1 \u00a77.5.2.2",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "UDS-ISO-14229-REQ-067",
+    "component": "UDS ISO 14229",
+    "description": "Implement NRC 0x78 (responsePending) when a service handler cannot respond within p2Server_max and requires p2StarServer_max time",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "UDS-ISO-14229-REQ-068",
+    "component": "UDS ISO 14229",
+    "description": "Support manufacturer-specific DID range (0xF200\u20130xFEFF) via application-registered DID handler callbacks with read and write hooks",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "UDS-ISO-14229-REQ-069",
+    "component": "UDS ISO 14229",
+    "description": "Implement mandatory ECU identification DIDs: 0xF186 (activeSession), 0xF18B (ECUManufacturingDate), 0xF18C (ECUSerialNumber), 0xF190 (VIN), 0xF195 (SystemSupplierECUSoftwareVersion)",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "UDS-ISO-14229-REQ-070",
+    "component": "UDS ISO 14229",
+    "description": "Support functional addressing via CAN ID 0x7DF for UDS broadcast service requests (TesterPresent, DiagnosticSessionControl)",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "UDS-ISO-14229-REQ-071",
+    "component": "UDS ISO 14229",
+    "description": "Provide `omnican_uds_session_change_cb_t` callback on every session transition with old and new session type",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "UDS-ISO-14229-REQ-072",
+    "component": "UDS ISO 14229",
+    "description": "Provide `omnican_uds_security_change_cb_t` callback on security access level grant or revocation",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "UDS-ISO-14229-REQ-073",
+    "component": "UDS ISO 14229",
+    "description": "Provide `omnican_uds_pre_reset_cb_t` callback before ECUReset execution allowing application to flush state",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "UDS-ISO-14229-REQ-074",
+    "component": "UDS ISO 14229",
+    "description": "Support manufacturer-specific NRC values 0x80\u20130xFE via application NRC provider callback registered per SID",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "UDS-ISO-14229-REQ-075",
+    "component": "UDS ISO 14229",
+    "description": "Provide `omnican_uds_transfer_progress_cb_t` callback during 0x36 TransferData reporting block sequence and bytes transferred",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "OBD-II-J1979-REQ-076",
     "component": "OBD-II J1979",
     "description": "Transmit PID requests on CAN ID 0x7DF and collect responses from 0x7E8-0x7EF within configurable timeout",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "OBD-II-J1979-REQ-052",
+    "id": "OBD-II-J1979-REQ-077",
     "component": "OBD-II J1979",
     "description": "Support OBD-II service modes 0x01 through 0x09",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "OBD-II-J1979-REQ-053",
+    "id": "OBD-II-J1979-REQ-078",
     "component": "OBD-II J1979",
     "description": "Provide callback-based non-blocking PID request/response model",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "OBD-II-J1979-REQ-054",
+    "id": "OBD-II-J1979-REQ-079",
     "component": "OBD-II J1979",
-    "description": "Support Mode 0x01 PIDs: 0x00 (supported), 0x01 (monitor status), 0x04 (engine load), 0x05 (coolant), 0x0C (RPM), 0x0D (speed), 0x11 (throttle)",
+    "description": "Support Mode 0x01 PIDs: 0x00 (supported), 0x01 (monitor status), 0x04 (engine load), 0x05 (coolant temp), 0x0C (RPM), 0x0D (vehicle speed), 0x11 (throttle position)",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "CANOPEN-FD-CIA-1301-REQ-055",
+    "id": "OBD-II-J1979-REQ-080",
+    "component": "OBD-II J1979",
+    "description": "Support Mode 0x01 PID support bitmap queries (PIDs 0x00, 0x20, 0x40, 0x60, 0x80, 0xA0, 0xC0) to enumerate ECU-supported PIDs",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "OBD-II-J1979-REQ-081",
+    "component": "OBD-II J1979",
+    "description": "Support Mode 0x01 extended PIDs: 0x14\u20130x1B (O2 sensor voltage/trim), 0x1C (OBD standard), 0x21 (distance since MIL on), 0x2F (fuel level), 0x31 (distance since codes cleared), 0x33 (barometric pressure), 0x46 (ambient air temperature), 0x49 (accelerator position), 0x51 (fuel type), 0x5C (engine oil temperature)",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "OBD-II-J1979-REQ-082",
+    "component": "OBD-II J1979",
+    "description": "Support Mode 0x02 (Freeze Frame) PID requests using the same PID set as Mode 0x01 with frame number sub-byte",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "OBD-II-J1979-REQ-083",
+    "component": "OBD-II J1979",
+    "description": "Retrieve Mode 0x03 stored DTCs and Mode 0x07 pending DTCs as decoded fault codes per SAE J2012 (P/C/B/U + 4-digit hex)",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "OBD-II-J1979-REQ-084",
+    "component": "OBD-II J1979",
+    "description": "Support Mode 0x04 clear all emission-related DTCs with application completion callback",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "OBD-II-J1979-REQ-085",
+    "component": "OBD-II J1979",
+    "description": "Support Mode 0x06 on-board monitoring test results (OBDMID and OBDMID test results) via callback",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "OBD-II-J1979-REQ-086",
+    "component": "OBD-II J1979",
+    "description": "Support Mode 0x09 vehicle information: INFOTYPE 0x02 (VIN), 0x04 (calibration ID), 0x06 (CVN), 0x0A (ECU name)",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "OBD-II-J1979-REQ-087",
+    "component": "OBD-II J1979",
+    "description": "Aggregate responses from multiple ECUs for broadcast requests and deliver each ECU response individually via per-ECU callback",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "OBD-II-J1979-REQ-088",
+    "component": "OBD-II J1979",
+    "description": "Support ECU-specific physical addressing: send to 0x7E0\u20130x7E7 and receive from the corresponding 0x7E8\u20130x7EF response CAN ID",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "OBD-II-J1979-REQ-089",
+    "component": "OBD-II J1979",
+    "description": "Provide `omnican_obd2_dtc_cb_t` callback delivering decoded DTC records (fault code, status byte) from Mode 0x03/0x07 responses",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "OBD-II-J1979-REQ-090",
+    "component": "OBD-II J1979",
+    "description": "Provide `omnican_obd2_timeout_cb_t` callback when a PID request receives no response within the configured timeout",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "CANOPEN-FD-CIA-1301-REQ-091",
     "component": "CANopen FD CiA 1301",
     "description": "Extend CANopen module with CiA 1301 FD features; require CONFIG_OMNICAN_CANOPEN=y and CONFIG_CAN_FD_MODE=y",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "CANOPEN-FD-CIA-1301-REQ-056",
+    "id": "CANOPEN-FD-CIA-1301-REQ-092",
     "component": "CANopen FD CiA 1301",
     "description": "Support CAN FD data payloads of up to 64 bytes for higher-throughput PDO transfers",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "CANOPEN-FD-CIA-1301-REQ-057",
+    "id": "CANOPEN-FD-CIA-1301-REQ-093",
     "component": "CANopen FD CiA 1301",
     "description": "Maintain backward compatibility with classical 8-byte CANopen nodes when FD is not negotiated",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "ISOTP-PATCH-REQ-058",
+    "id": "ISOTP-PATCH-REQ-094",
     "component": "ISOTP Patch",
     "description": "Implement a workaround for Zephyr issue #86025 using separate TX/RX socket contexts with a forwarding shim",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "ISOTP-PATCH-REQ-059",
+    "id": "ISOTP-PATCH-REQ-095",
     "component": "ISOTP Patch",
     "description": "Default CONFIG_OMNICAN_ISOTP_PATCH to y when CONFIG_OMNICAN_UDS or CONFIG_OMNICAN_OBD2 is enabled",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "MEMORY-AND-THREADING-REQ-060",
+    "id": "MEMORY-AND-THREADING-REQ-096",
     "component": "Memory and Threading",
     "description": "Never use dynamic heap allocation (k_malloc, malloc); all state statically allocated or via net_buf pools",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "MEMORY-AND-THREADING-REQ-061",
+    "id": "MEMORY-AND-THREADING-REQ-097",
     "component": "Memory and Threading",
     "description": "Handle CAN frame data via Zephyr net_buf from a pool sized by CONFIG_OMNICAN_NET_BUF_COUNT (default 16)",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "MEMORY-AND-THREADING-REQ-062",
+    "id": "MEMORY-AND-THREADING-REQ-098",
     "component": "Memory and Threading",
     "description": "All protocol context structures shall be opaque to the caller but caller-allocated",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "MEMORY-AND-THREADING-REQ-063",
+    "id": "MEMORY-AND-THREADING-REQ-099",
     "component": "Memory and Threading",
     "description": "All protocol handlers execute in a Zephyr workqueue context, not the CAN ISR",
     "status": "Draft",

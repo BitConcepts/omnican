@@ -96,6 +96,30 @@ Component codes: CORE, ROUTER, CO (CANopen), JNET (J1939), UDS, OBD (OBD-II), CO
 - **Platform**: embedded
 - **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
 
+### REQ-ROUTER-005
+- **Title**: Support simultaneous reception of 11-bit standard and 29-bit extended CAN frames
+- **Status**: planned
+- **Description**: Support simultaneous reception of 11-bit standard and 29-bit extended CAN frames on the same router instance
+- **Source**: docs/ARCHITECTURE.md ## Frame Router
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-ROUTER-006
+- **Title**: Support 29-bit extended CAN ID filtering for CANopen FD extended COB-IDs and ven
+- **Status**: planned
+- **Description**: Support 29-bit extended CAN ID filtering for CANopen FD extended COB-IDs and vendor-specific profiles
+- **Source**: docs/ARCHITECTURE.md ## Frame Router
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-ROUTER-007
+- **Title**: Provide configurable per-protocol CAN filter masks via Kconfig so applications c
+- **Status**: planned
+- **Description**: Provide configurable per-protocol CAN filter masks via Kconfig so applications can narrow or broaden reception ranges
+- **Source**: docs/ARCHITECTURE.md ## Frame Router
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
 ### REQ-CO-001
 - **Title**: Implement the NMT state machine with states Initialising, Pre-Operational, Opera
 - **Status**: planned
@@ -200,6 +224,62 @@ Component codes: CORE, ROUTER, CO (CANopen), JNET (J1939), UDS, OBD (OBD-II), CO
 - **Platform**: embedded
 - **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
 
+### REQ-CO-014
+- **Title**: Provide `omnican_canopen_nmt_change_cb_t` callback invoked on every NMT state tr
+- **Status**: planned
+- **Description**: Provide `omnican_canopen_nmt_change_cb_t` callback invoked on every NMT state transition (both self-initiated and master-commanded)
+- **Source**: docs/ARCHITECTURE.md ## CANopen CiA 301
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-CO-015
+- **Title**: Provide `omnican_canopen_sdo_post_write_cb_t` callback after every successful SD
+- **Status**: planned
+- **Description**: Provide `omnican_canopen_sdo_post_write_cb_t` callback after every successful SDO write so the application can react to OD changes
+- **Source**: docs/ARCHITECTURE.md ## CANopen CiA 301
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-CO-016
+- **Title**: Provide `omnican_canopen_rpdo_rx_cb_t` callback when RPDO data is received and m
+- **Status**: planned
+- **Description**: Provide `omnican_canopen_rpdo_rx_cb_t` callback when RPDO data is received and mapped into the OD
+- **Source**: docs/ARCHITECTURE.md ## CANopen CiA 301
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-CO-017
+- **Title**: Provide `omnican_canopen_emcy_rx_cb_t` callback when an Emergency message from a
+- **Status**: planned
+- **Description**: Provide `omnican_canopen_emcy_rx_cb_t` callback when an Emergency message from a remote node is received
+- **Source**: docs/ARCHITECTURE.md ## CANopen CiA 301
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-CO-018
+- **Title**: Provide `omnican_canopen_sync_cb_t` callback on SYNC message reception for appli
+- **Status**: planned
+- **Description**: Provide `omnican_canopen_sync_cb_t` callback on SYNC message reception for application-level synchronisation
+- **Source**: docs/ARCHITECTURE.md ## CANopen CiA 301
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-CO-019
+- **Title**: Provide `omnican_canopen_hb_event_cb_t` callback for heartbeat consumer events d
+- **Status**: planned
+- **Description**: Provide `omnican_canopen_hb_event_cb_t` callback for heartbeat consumer events distinguishing timeout and recovery
+- **Source**: docs/ARCHITECTURE.md ## CANopen CiA 301
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-CO-020
+- **Title**: Provide `omnican_canopen_bootup_rx_cb_t` callback when a remote node Boot-Up mes
+- **Status**: planned
+- **Description**: Provide `omnican_canopen_bootup_rx_cb_t` callback when a remote node Boot-Up message is received
+- **Source**: docs/ARCHITECTURE.md ## CANopen CiA 301
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
 ### REQ-JNET-001
 - **Title**: Use 29-bit extended CAN identifiers and reject 11-bit standard ID frames
 - **Status**: planned
@@ -272,6 +352,46 @@ Component codes: CORE, ROUTER, CO (CANopen), JNET (J1939), UDS, OBD (OBD-II), CO
 - **Platform**: embedded
 - **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
 
+### REQ-JNET-010
+- **Title**: Provide `omnican_j1939_address_result_cb_t` callback reporting address claim suc
+- **Status**: planned
+- **Description**: Provide `omnican_j1939_address_result_cb_t` callback reporting address claim success, failure, or address-lost events
+- **Source**: docs/ARCHITECTURE.md ## J1939
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-JNET-011
+- **Title**: Provide `omnican_j1939_tp_progress_cb_t` callback reporting bytes transferred du
+- **Status**: planned
+- **Description**: Provide `omnican_j1939_tp_progress_cb_t` callback reporting bytes transferred during active TP/ETP sessions
+- **Source**: docs/ARCHITECTURE.md ## J1939
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-JNET-012
+- **Title**: Provide `omnican_j1939_tp_complete_cb_t` callback on TP/ETP session completion o
+- **Status**: planned
+- **Description**: Provide `omnican_j1939_tp_complete_cb_t` callback on TP/ETP session completion or abort with status
+- **Source**: docs/ARCHITECTURE.md ## J1939
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-JNET-013
+- **Title**: Support J1939 diagnostic PGN reception: DM1 (PGN 0xFECA, active DTCs) and DM11 (
+- **Status**: planned
+- **Description**: Support J1939 diagnostic PGN reception: DM1 (PGN 0xFECA, active DTCs) and DM11 (PGN 0xFED3, clear active DTCs) via the PGN routing table
+- **Source**: docs/ARCHITECTURE.md ## J1939
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-JNET-014
+- **Title**: Support configurable maximum TP/ETP single-transfer payload via CONFIG_OMNICAN_J
+- **Status**: planned
+- **Description**: Support configurable maximum TP/ETP single-transfer payload via CONFIG_OMNICAN_J1939_TP_MAX_PAYLOAD (default 1785 bytes for TP, unlimited for ETP)
+- **Source**: docs/ARCHITECTURE.md ## J1939
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
 ### REQ-UDS-001
 - **Title**: Use Zephyr ISO-TP for all UDS message transport with ISOTP patch when CONFIG_OMN
 - **Status**: planned
@@ -321,9 +441,9 @@ Component codes: CORE, ROUTER, CO (CANopen), JNET (J1939), UDS, OBD (OBD-II), CO
 - **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
 
 ### REQ-UDS-007
-- **Title**: Support SID 0x22 ReadDataByIdentifier
+- **Title**: Support SID 0x22 ReadDataByIdentifier with multi-DID requests (multiple DIDs in 
 - **Status**: planned
-- **Description**: Support SID 0x22 ReadDataByIdentifier
+- **Description**: Support SID 0x22 ReadDataByIdentifier with multi-DID requests (multiple DIDs in one 0x22 request)
 - **Source**: docs/ARCHITECTURE.md ## UDS ISO 14229
 - **Platform**: embedded
 - **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
@@ -337,25 +457,25 @@ Component codes: CORE, ROUTER, CO (CANopen), JNET (J1939), UDS, OBD (OBD-II), CO
 - **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
 
 ### REQ-UDS-009
-- **Title**: Support SID 0x28 CommunicationControl
+- **Title**: Support SID 0x28 CommunicationControl with all sub-functions: enableRxAndTx (0x0
 - **Status**: planned
-- **Description**: Support SID 0x28 CommunicationControl
+- **Description**: Support SID 0x28 CommunicationControl with all sub-functions: enableRxAndTx (0x00), enableRxAndDisableTx (0x01), disableRxAndEnableTx (0x02), disableRxAndTx (0x03)
 - **Source**: docs/ARCHITECTURE.md ## UDS ISO 14229
 - **Platform**: embedded
 - **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
 
 ### REQ-UDS-010
-- **Title**: Support SID 0x2E WriteDataByIdentifier
+- **Title**: Support SID 0x2E WriteDataByIdentifier with application-supplied write validatio
 - **Status**: planned
-- **Description**: Support SID 0x2E WriteDataByIdentifier
+- **Description**: Support SID 0x2E WriteDataByIdentifier with application-supplied write validation callback before applying data
 - **Source**: docs/ARCHITECTURE.md ## UDS ISO 14229
 - **Platform**: embedded
 - **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
 
 ### REQ-UDS-011
-- **Title**: Support SID 0x31 RoutineControl with start, stop, and requestResults
+- **Title**: Support SID 0x31 RoutineControl with application-supplied start, stop, and reque
 - **Status**: planned
-- **Description**: Support SID 0x31 RoutineControl with start, stop, and requestResults
+- **Description**: Support SID 0x31 RoutineControl with application-supplied start, stop, and requestResults executor callbacks per routine ID
 - **Source**: docs/ARCHITECTURE.md ## UDS ISO 14229
 - **Platform**: embedded
 - **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
@@ -385,9 +505,9 @@ Component codes: CORE, ROUTER, CO (CANopen), JNET (J1939), UDS, OBD (OBD-II), CO
 - **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
 
 ### REQ-UDS-015
-- **Title**: Support SID 0x85 ControlDTCSetting
+- **Title**: Support SID 0x85 ControlDTCSetting with application callback to enable or disabl
 - **Status**: planned
-- **Description**: Support SID 0x85 ControlDTCSetting
+- **Description**: Support SID 0x85 ControlDTCSetting with application callback to enable or disable DTC storage
 - **Source**: docs/ARCHITECTURE.md ## UDS ISO 14229
 - **Platform**: embedded
 - **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
@@ -412,6 +532,86 @@ Component codes: CORE, ROUTER, CO (CANopen), JNET (J1939), UDS, OBD (OBD-II), CO
 - **Title**: Lock the session and return NRC 0x36 after exceeding CONFIG_OMNICAN_UDS_MAX_AUTH
 - **Status**: planned
 - **Description**: Lock the session and return NRC 0x36 after exceeding CONFIG_OMNICAN_UDS_MAX_AUTH_ATTEMPTS failed SecurityAccess attempts
+- **Source**: docs/ARCHITECTURE.md ## UDS ISO 14229
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-UDS-019
+- **Title**: Support suppressPositiveResponse sub-function bit (0x80) per ISO 14229-1 §7.5.2.
+- **Status**: planned
+- **Description**: Support suppressPositiveResponse sub-function bit (0x80) per ISO 14229-1 §7.5.2.2
+- **Source**: docs/ARCHITECTURE.md ## UDS ISO 14229
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-UDS-020
+- **Title**: Implement NRC 0x78 (responsePending) when a service handler cannot respond withi
+- **Status**: planned
+- **Description**: Implement NRC 0x78 (responsePending) when a service handler cannot respond within p2Server_max and requires p2StarServer_max time
+- **Source**: docs/ARCHITECTURE.md ## UDS ISO 14229
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-UDS-021
+- **Title**: Support manufacturer-specific DID range (0xF200–0xFEFF) via application-register
+- **Status**: planned
+- **Description**: Support manufacturer-specific DID range (0xF200–0xFEFF) via application-registered DID handler callbacks with read and write hooks
+- **Source**: docs/ARCHITECTURE.md ## UDS ISO 14229
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-UDS-022
+- **Title**: Implement mandatory ECU identification DIDs: 0xF186 (activeSession), 0xF18B (ECU
+- **Status**: planned
+- **Description**: Implement mandatory ECU identification DIDs: 0xF186 (activeSession), 0xF18B (ECUManufacturingDate), 0xF18C (ECUSerialNumber), 0xF190 (VIN), 0xF195 (SystemSupplierECUSoftwareVersion)
+- **Source**: docs/ARCHITECTURE.md ## UDS ISO 14229
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-UDS-023
+- **Title**: Support functional addressing via CAN ID 0x7DF for UDS broadcast service request
+- **Status**: planned
+- **Description**: Support functional addressing via CAN ID 0x7DF for UDS broadcast service requests (TesterPresent, DiagnosticSessionControl)
+- **Source**: docs/ARCHITECTURE.md ## UDS ISO 14229
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-UDS-024
+- **Title**: Provide `omnican_uds_session_change_cb_t` callback on every session transition w
+- **Status**: planned
+- **Description**: Provide `omnican_uds_session_change_cb_t` callback on every session transition with old and new session type
+- **Source**: docs/ARCHITECTURE.md ## UDS ISO 14229
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-UDS-025
+- **Title**: Provide `omnican_uds_security_change_cb_t` callback on security access level gra
+- **Status**: planned
+- **Description**: Provide `omnican_uds_security_change_cb_t` callback on security access level grant or revocation
+- **Source**: docs/ARCHITECTURE.md ## UDS ISO 14229
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-UDS-026
+- **Title**: Provide `omnican_uds_pre_reset_cb_t` callback before ECUReset execution allowing
+- **Status**: planned
+- **Description**: Provide `omnican_uds_pre_reset_cb_t` callback before ECUReset execution allowing application to flush state
+- **Source**: docs/ARCHITECTURE.md ## UDS ISO 14229
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-UDS-027
+- **Title**: Support manufacturer-specific NRC values 0x80–0xFE via application NRC provider 
+- **Status**: planned
+- **Description**: Support manufacturer-specific NRC values 0x80–0xFE via application NRC provider callback registered per SID
+- **Source**: docs/ARCHITECTURE.md ## UDS ISO 14229
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-UDS-028
+- **Title**: Provide `omnican_uds_transfer_progress_cb_t` callback during 0x36 TransferData r
+- **Status**: planned
+- **Description**: Provide `omnican_uds_transfer_progress_cb_t` callback during 0x36 TransferData reporting block sequence and bytes transferred
 - **Source**: docs/ARCHITECTURE.md ## UDS ISO 14229
 - **Platform**: embedded
 - **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
@@ -443,7 +643,95 @@ Component codes: CORE, ROUTER, CO (CANopen), JNET (J1939), UDS, OBD (OBD-II), CO
 ### REQ-OBD-004
 - **Title**: Support Mode 0x01 PIDs: 0x00 (supported), 0x01 (monitor status), 0x04 (engine lo
 - **Status**: planned
-- **Description**: Support Mode 0x01 PIDs: 0x00 (supported), 0x01 (monitor status), 0x04 (engine load), 0x05 (coolant), 0x0C (RPM), 0x0D (speed), 0x11 (throttle)
+- **Description**: Support Mode 0x01 PIDs: 0x00 (supported), 0x01 (monitor status), 0x04 (engine load), 0x05 (coolant temp), 0x0C (RPM), 0x0D (vehicle speed), 0x11 (throttle position)
+- **Source**: docs/ARCHITECTURE.md ## OBD-II J1979
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-OBD-005
+- **Title**: Support Mode 0x01 PID support bitmap queries (PIDs 0x00, 0x20, 0x40, 0x60, 0x80,
+- **Status**: planned
+- **Description**: Support Mode 0x01 PID support bitmap queries (PIDs 0x00, 0x20, 0x40, 0x60, 0x80, 0xA0, 0xC0) to enumerate ECU-supported PIDs
+- **Source**: docs/ARCHITECTURE.md ## OBD-II J1979
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-OBD-006
+- **Title**: Support Mode 0x01 extended PIDs: 0x14–0x1B (O2 sensor voltage/trim), 0x1C (OBD s
+- **Status**: planned
+- **Description**: Support Mode 0x01 extended PIDs: 0x14–0x1B (O2 sensor voltage/trim), 0x1C (OBD standard), 0x21 (distance since MIL on), 0x2F (fuel level), 0x31 (distance since codes cleared), 0x33 (barometric pressure), 0x46 (ambient air temperature), 0x49 (accelerator position), 0x51 (fuel type), 0x5C (engine oil temperature)
+- **Source**: docs/ARCHITECTURE.md ## OBD-II J1979
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-OBD-007
+- **Title**: Support Mode 0x02 (Freeze Frame) PID requests using the same PID set as Mode 0x0
+- **Status**: planned
+- **Description**: Support Mode 0x02 (Freeze Frame) PID requests using the same PID set as Mode 0x01 with frame number sub-byte
+- **Source**: docs/ARCHITECTURE.md ## OBD-II J1979
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-OBD-008
+- **Title**: Retrieve Mode 0x03 stored DTCs and Mode 0x07 pending DTCs as decoded fault codes
+- **Status**: planned
+- **Description**: Retrieve Mode 0x03 stored DTCs and Mode 0x07 pending DTCs as decoded fault codes per SAE J2012 (P/C/B/U + 4-digit hex)
+- **Source**: docs/ARCHITECTURE.md ## OBD-II J1979
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-OBD-009
+- **Title**: Support Mode 0x04 clear all emission-related DTCs with application completion ca
+- **Status**: planned
+- **Description**: Support Mode 0x04 clear all emission-related DTCs with application completion callback
+- **Source**: docs/ARCHITECTURE.md ## OBD-II J1979
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-OBD-010
+- **Title**: Support Mode 0x06 on-board monitoring test results (OBDMID and OBDMID test resul
+- **Status**: planned
+- **Description**: Support Mode 0x06 on-board monitoring test results (OBDMID and OBDMID test results) via callback
+- **Source**: docs/ARCHITECTURE.md ## OBD-II J1979
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-OBD-011
+- **Title**: Support Mode 0x09 vehicle information: INFOTYPE 0x02 (VIN), 0x04 (calibration ID
+- **Status**: planned
+- **Description**: Support Mode 0x09 vehicle information: INFOTYPE 0x02 (VIN), 0x04 (calibration ID), 0x06 (CVN), 0x0A (ECU name)
+- **Source**: docs/ARCHITECTURE.md ## OBD-II J1979
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-OBD-012
+- **Title**: Aggregate responses from multiple ECUs for broadcast requests and deliver each E
+- **Status**: planned
+- **Description**: Aggregate responses from multiple ECUs for broadcast requests and deliver each ECU response individually via per-ECU callback
+- **Source**: docs/ARCHITECTURE.md ## OBD-II J1979
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-OBD-013
+- **Title**: Support ECU-specific physical addressing: send to 0x7E0–0x7E7 and receive from t
+- **Status**: planned
+- **Description**: Support ECU-specific physical addressing: send to 0x7E0–0x7E7 and receive from the corresponding 0x7E8–0x7EF response CAN ID
+- **Source**: docs/ARCHITECTURE.md ## OBD-II J1979
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-OBD-014
+- **Title**: Provide `omnican_obd2_dtc_cb_t` callback delivering decoded DTC records (fault c
+- **Status**: planned
+- **Description**: Provide `omnican_obd2_dtc_cb_t` callback delivering decoded DTC records (fault code, status byte) from Mode 0x03/0x07 responses
+- **Source**: docs/ARCHITECTURE.md ## OBD-II J1979
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-OBD-015
+- **Title**: Provide `omnican_obd2_timeout_cb_t` callback when a PID request receives no resp
+- **Status**: planned
+- **Description**: Provide `omnican_obd2_timeout_cb_t` callback when a PID request receives no response within the configured timeout
 - **Source**: docs/ARCHITECTURE.md ## OBD-II J1979
 - **Platform**: embedded
 - **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim

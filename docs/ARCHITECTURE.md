@@ -30,6 +30,9 @@ Protocol implementation is phased:
 - Dispatch received frames to the correct protocol handler without blocking the CAN ISR
 - Use a Zephyr system workqueue for all protocol callback dispatch
 - Auto-enable via CONFIG_OMNICAN_FRAME_ROUTER when any protocol is active
+- Support simultaneous reception of 11-bit standard and 29-bit extended CAN frames on the same router instance
+- Support 29-bit extended CAN ID filtering for CANopen FD extended COB-IDs and vendor-specific profiles
+- Provide configurable per-protocol CAN filter masks via Kconfig so applications can narrow or broaden reception ranges
 
 ### CANopen CiA 301
 - Implement the NMT state machine with states Initialising, Pre-Operational, Operational, and Stopped per CiA 301
@@ -45,6 +48,13 @@ Protocol implementation is phased:
 - Represent the Object Dictionary as a static C array generated from an OD descriptor with no heap allocation
 - Write recommended delay to next `omnican_canopen_process()` call in microseconds via `*next_us`
 - Run the CANopen process loop in a dedicated Zephyr thread with configurable stack size and priority
+- Provide `omnican_canopen_nmt_change_cb_t` callback invoked on every NMT state transition (both self-initiated and master-commanded)
+- Provide `omnican_canopen_sdo_post_write_cb_t` callback after every successful SDO write so the application can react to OD changes
+- Provide `omnican_canopen_rpdo_rx_cb_t` callback when RPDO data is received and mapped into the OD
+- Provide `omnican_canopen_emcy_rx_cb_t` callback when an Emergency message from a remote node is received
+- Provide `omnican_canopen_sync_cb_t` callback on SYNC message reception for application-level synchronisation
+- Provide `omnican_canopen_hb_event_cb_t` callback for heartbeat consumer events distinguishing timeout and recovery
+- Provide `omnican_canopen_bootup_rx_cb_t` callback when a remote node Boot-Up message is received
 
 ### J1939
 - Use 29-bit extended CAN identifiers and reject 11-bit standard ID frames
@@ -56,6 +66,11 @@ Protocol implementation is phased:
 - Implement J1939 Transport Protocol (TP) for 9-1785 byte messages using BAM and CMDT modes
 - Implement Extended Transport Protocol (ETP) for messages larger than 1785 bytes
 - Maintain TP/ETP session state in static context with configurable maximum simultaneous sessions
+- Provide `omnican_j1939_address_result_cb_t` callback reporting address claim success, failure, or address-lost events
+- Provide `omnican_j1939_tp_progress_cb_t` callback reporting bytes transferred during active TP/ETP sessions
+- Provide `omnican_j1939_tp_complete_cb_t` callback on TP/ETP session completion or abort with status
+- Support J1939 diagnostic PGN reception: DM1 (PGN 0xFECA, active DTCs) and DM11 (PGN 0xFED3, clear active DTCs) via the PGN routing table
+- Support configurable maximum TP/ETP single-transfer payload via CONFIG_OMNICAN_J1939_TP_MAX_PAYLOAD (default 1785 bytes for TP, unlimited for ETP)
 
 ### UDS ISO 14229
 - Use Zephyr ISO-TP for all UDS message transport with ISOTP patch when CONFIG_OMNICAN_ISOTP_PATCH=y
@@ -64,24 +79,45 @@ Protocol implementation is phased:
 - Reset the S3 timer on TesterPresent (SID 0x3E)
 - Support SID 0x10 DiagnosticSessionControl
 - Support SID 0x11 ECUReset with hardReset, softReset, and keyOffOnReset sub-functions
-- Support SID 0x22 ReadDataByIdentifier
+- Support SID 0x22 ReadDataByIdentifier with multi-DID requests (multiple DIDs in one 0x22 request)
 - Support SID 0x27 SecurityAccess with application-supplied seed/key callback
-- Support SID 0x28 CommunicationControl
-- Support SID 0x2E WriteDataByIdentifier
-- Support SID 0x31 RoutineControl with start, stop, and requestResults
+- Support SID 0x28 CommunicationControl with all sub-functions: enableRxAndTx (0x00), enableRxAndDisableTx (0x01), disableRxAndEnableTx (0x02), disableRxAndTx (0x03)
+- Support SID 0x2E WriteDataByIdentifier with application-supplied write validation callback before applying data
+- Support SID 0x31 RoutineControl with application-supplied start, stop, and requestResults executor callbacks per routine ID
 - Support SID 0x34 RequestDownload
 - Support SID 0x36 TransferData
 - Support SID 0x37 RequestTransferExit
-- Support SID 0x85 ControlDTCSetting
+- Support SID 0x85 ControlDTCSetting with application callback to enable or disable DTC storage
 - Return NRC 0x11 (serviceNotSupported) for unregistered SIDs
 - Never use a hardcoded SecurityAccess seed/key algorithm; always use an application callback
 - Lock the session and return NRC 0x36 after exceeding CONFIG_OMNICAN_UDS_MAX_AUTH_ATTEMPTS failed SecurityAccess attempts
+- Support suppressPositiveResponse sub-function bit (0x80) per ISO 14229-1 §7.5.2.2
+- Implement NRC 0x78 (responsePending) when a service handler cannot respond within p2Server_max and requires p2StarServer_max time
+- Support manufacturer-specific DID range (0xF200–0xFEFF) via application-registered DID handler callbacks with read and write hooks
+- Implement mandatory ECU identification DIDs: 0xF186 (activeSession), 0xF18B (ECUManufacturingDate), 0xF18C (ECUSerialNumber), 0xF190 (VIN), 0xF195 (SystemSupplierECUSoftwareVersion)
+- Support functional addressing via CAN ID 0x7DF for UDS broadcast service requests (TesterPresent, DiagnosticSessionControl)
+- Provide `omnican_uds_session_change_cb_t` callback on every session transition with old and new session type
+- Provide `omnican_uds_security_change_cb_t` callback on security access level grant or revocation
+- Provide `omnican_uds_pre_reset_cb_t` callback before ECUReset execution allowing application to flush state
+- Support manufacturer-specific NRC values 0x80–0xFE via application NRC provider callback registered per SID
+- Provide `omnican_uds_transfer_progress_cb_t` callback during 0x36 TransferData reporting block sequence and bytes transferred
 
 ### OBD-II J1979
 - Transmit PID requests on CAN ID 0x7DF and collect responses from 0x7E8-0x7EF within configurable timeout
 - Support OBD-II service modes 0x01 through 0x09
 - Provide callback-based non-blocking PID request/response model
-- Support Mode 0x01 PIDs: 0x00 (supported), 0x01 (monitor status), 0x04 (engine load), 0x05 (coolant), 0x0C (RPM), 0x0D (speed), 0x11 (throttle)
+- Support Mode 0x01 PIDs: 0x00 (supported), 0x01 (monitor status), 0x04 (engine load), 0x05 (coolant temp), 0x0C (RPM), 0x0D (vehicle speed), 0x11 (throttle position)
+- Support Mode 0x01 PID support bitmap queries (PIDs 0x00, 0x20, 0x40, 0x60, 0x80, 0xA0, 0xC0) to enumerate ECU-supported PIDs
+- Support Mode 0x01 extended PIDs: 0x14–0x1B (O2 sensor voltage/trim), 0x1C (OBD standard), 0x21 (distance since MIL on), 0x2F (fuel level), 0x31 (distance since codes cleared), 0x33 (barometric pressure), 0x46 (ambient air temperature), 0x49 (accelerator position), 0x51 (fuel type), 0x5C (engine oil temperature)
+- Support Mode 0x02 (Freeze Frame) PID requests using the same PID set as Mode 0x01 with frame number sub-byte
+- Retrieve Mode 0x03 stored DTCs and Mode 0x07 pending DTCs as decoded fault codes per SAE J2012 (P/C/B/U + 4-digit hex)
+- Support Mode 0x04 clear all emission-related DTCs with application completion callback
+- Support Mode 0x06 on-board monitoring test results (OBDMID and OBDMID test results) via callback
+- Support Mode 0x09 vehicle information: INFOTYPE 0x02 (VIN), 0x04 (calibration ID), 0x06 (CVN), 0x0A (ECU name)
+- Aggregate responses from multiple ECUs for broadcast requests and deliver each ECU response individually via per-ECU callback
+- Support ECU-specific physical addressing: send to 0x7E0–0x7E7 and receive from the corresponding 0x7E8–0x7EF response CAN ID
+- Provide `omnican_obd2_dtc_cb_t` callback delivering decoded DTC records (fault code, status byte) from Mode 0x03/0x07 responses
+- Provide `omnican_obd2_timeout_cb_t` callback when a PID request receives no response within the configured timeout
 
 ### CANopen FD CiA 1301
 - Extend CANopen module with CiA 1301 FD features; require CONFIG_OMNICAN_CANOPEN=y and CONFIG_CAN_FD_MODE=y
@@ -203,13 +239,17 @@ The frame router is enabled automatically when any protocol is active
 
 | Protocol | CAN filter | ID range | Frame type |
 |---|---|---|---|
-| CANopen | Mask filter | 0x000–0x7FF | 11-bit standard |
+| CANopen (classical) | Mask filter | 0x000–0x7FF | 11-bit standard |
+| CANopen FD / vendor ext | Mask filter | 29-bit extended (configurable) | 29-bit extended |
 | J1939 | Accept-all extended | 29-bit extended | 29-bit extended only |
 | UDS/OBD-II | ISO-TP layer | 0x7DF, 0x7E0–0x7EF | 11-bit standard |
 
-CANopen and J1939 use non-overlapping ID spaces (11-bit vs 29-bit) so they can
-coexist on the same physical CAN bus without filter conflicts. UDS/OBD-II
-operate through the Zephyr ISO-TP subsystem, which manages its own filters.
+**11-bit and 29-bit coexistence**: CANopen uses 11-bit IDs; J1939 uses 29-bit IDs.
+They can coexist on the same bus without filter conflicts because the Zephyr CAN
+driver distinguishes frame type at the filter level. When `CONFIG_OMNICAN_CANOPEN_FD=y`,
+an additional 29-bit filter slot is registered for any CANopen FD extended COB-IDs or
+vendor-specific profiles that require 29-bit addressing. Applications may narrow or
+broaden any filter range via the per-protocol Kconfig mask symbols.
 
 **REQ** The frame router shall register exactly one CAN receive filter per
 enabled protocol and dispatch received frames to the correct protocol handler
@@ -363,6 +403,60 @@ struct od_entry {
 **REQ** The Object Dictionary shall be represented as a static C array
 generated from an OD descriptor, with no runtime heap allocation.
 
+### Callback Hooks (CANopen)
+
+```c
+/* NMT state transition (both self-initiated and master-commanded) */
+typedef void (*omnican_canopen_nmt_change_cb_t)(
+    struct omnican_node *node,
+    uint8_t old_state, uint8_t new_state,
+    void *user_data);
+
+/* Called after a successful SDO write to an OD entry */
+typedef void (*omnican_canopen_sdo_post_write_cb_t)(
+    struct omnican_node *node,
+    uint16_t index, uint8_t sub,
+    const void *data, size_t len,
+    void *user_data);
+
+/* Called when RPDO data is received and mapped into the OD */
+typedef void (*omnican_canopen_rpdo_rx_cb_t)(
+    struct omnican_node *node,
+    uint8_t rpdo_num,
+    const uint8_t *data, size_t len,
+    void *user_data);
+
+/* Called when Emergency from a remote node is received */
+typedef void (*omnican_canopen_emcy_rx_cb_t)(
+    struct omnican_node *node,
+    uint8_t remote_node_id,
+    uint16_t error_code, uint8_t error_register,
+    const uint8_t mfr_data[5],
+    void *user_data);
+
+/* Called on SYNC reception */
+typedef void (*omnican_canopen_sync_cb_t)(
+    struct omnican_node *node,
+    uint8_t counter,   /* 0 if counter not present */
+    void *user_data);
+
+/* Heartbeat consumer event: HB_TIMEOUT or HB_RECOVERED */
+typedef void (*omnican_canopen_hb_event_cb_t)(
+    struct omnican_node *node,
+    uint8_t remote_node_id,
+    enum omnican_hb_event event,  /* OMNICAN_HB_TIMEOUT | OMNICAN_HB_RECOVERED */
+    void *user_data);
+
+/* Remote node Boot-Up received */
+typedef void (*omnican_canopen_bootup_rx_cb_t)(
+    struct omnican_node *node,
+    uint8_t remote_node_id,
+    void *user_data);
+```
+
+All callbacks are invoked from the Zephyr system workqueue context.
+Registration: `omnican_canopen_set_nmt_cb()`, `omnican_canopen_set_sdo_post_write_cb()`, etc.
+
 ### API
 ```c
 int  omnican_canopen_init(struct omnican_node *, uint8_t node_id);
@@ -370,6 +464,21 @@ int  omnican_canopen_start(struct omnican_node *);
 void omnican_canopen_stop(struct omnican_node *);
 void omnican_canopen_process(struct omnican_node *, uint32_t elapsed_us,
                               uint32_t *next_us);
+/* Callback registration */
+void omnican_canopen_set_nmt_cb(struct omnican_node *,
+                                omnican_canopen_nmt_change_cb_t, void *);
+void omnican_canopen_set_sdo_post_write_cb(struct omnican_node *,
+                                           omnican_canopen_sdo_post_write_cb_t, void *);
+void omnican_canopen_set_rpdo_rx_cb(struct omnican_node *,
+                                    omnican_canopen_rpdo_rx_cb_t, void *);
+void omnican_canopen_set_emcy_rx_cb(struct omnican_node *,
+                                    omnican_canopen_emcy_rx_cb_t, void *);
+void omnican_canopen_set_sync_cb(struct omnican_node *,
+                                  omnican_canopen_sync_cb_t, void *);
+void omnican_canopen_set_hb_event_cb(struct omnican_node *,
+                                      omnican_canopen_hb_event_cb_t, void *);
+void omnican_canopen_set_bootup_rx_cb(struct omnican_node *,
+                                       omnican_canopen_bootup_rx_cb_t, void *);
 ```
 
 `omnican_canopen_process()` drives: heartbeat timer, SDO segmented timeouts,
@@ -507,6 +616,43 @@ int omnican_j1939_register_pgn(struct omnican_j1939_node *, omnican_j1939_pgn_t,
                                omnican_j1939_rx_cb_t, void *user_data);
 ```
 
+### Callback Hooks (J1939)
+
+```c
+/* Address claim result: success, failure (BUSY), or address-lost */
+typedef void (*omnican_j1939_address_result_cb_t)(
+    struct omnican_j1939_node *j1939,
+    omnican_j1939_addr_t addr,
+    enum omnican_j1939_addr_event event, /* CLAIMED | FAILED | LOST */
+    void *user_data);
+
+/* TP/ETP transfer progress (bytes_done / bytes_total) */
+typedef void (*omnican_j1939_tp_progress_cb_t)(
+    struct omnican_j1939_node *j1939,
+    omnican_j1939_pgn_t pgn,
+    size_t bytes_done, size_t bytes_total,
+    void *user_data);
+
+/* TP/ETP transfer complete or aborted */
+typedef void (*omnican_j1939_tp_complete_cb_t)(
+    struct omnican_j1939_node *j1939,
+    omnican_j1939_pgn_t pgn,
+    int status,   /* OMNICAN_OK or error code */
+    void *user_data);
+```
+
+Registration added to `omnican_j1939_init()` via extended config struct:
+```c
+struct omnican_j1939_callbacks {
+    omnican_j1939_address_result_cb_t address_result;
+    omnican_j1939_tp_progress_cb_t    tp_progress;
+    omnican_j1939_tp_complete_cb_t    tp_complete;
+    void *user_data;
+};
+int omnican_j1939_set_callbacks(struct omnican_j1939_node *,
+                                const struct omnican_j1939_callbacks *);
+```
+
 Return codes: `OMNICAN_OK`, `OMNICAN_ERR_BUSY` (address conflict),
 `OMNICAN_ERR_TIMEOUT` (TP/ETP timeout), `OMNICAN_ERR_INVAL`, `OMNICAN_ERR_NOMEM`.
 
@@ -612,6 +758,94 @@ sequenceDiagram
     ECU ->> Tester: SID 0x77 (complete)
 ```
 
+### UDS DID Registry
+
+OmniCAN pre-populates mandatory ECU identification DIDs automatically.
+Applications extend the DID space by registering handler callbacks:
+
+| DID Range | Description | Who populates |
+|---|---|---|
+| 0x0000–0x00FF | ISO 14229 reserved | OmniCAN (built-in) |
+| 0xF000–0xF0FF | OBD-II mandated | Application |
+| 0xF100–0xF1FF | System supplier / PPID | Application |
+| 0xF180–0xF1FF | ECU identification (ISO 14229-1 Annex F) | OmniCAN (built-in) |
+| 0xF200–0xFEFF | **Manufacturer-specific** | **Application-registered** |
+| 0xFF00–0xFFFF | SAE J1979 / OBD-II | OBD-II subsystem |
+
+Mandatory ECU identification DIDs auto-populated by OmniCAN:
+
+| DID | Name | Length | Format |
+|---|---|---|---|
+| 0xF186 | activeSession | 1 | Current session type |
+| 0xF18B | ECUManufacturingDate | 3 | BCD YYYYMMDD trunc |
+| 0xF18C | ECUSerialNumber | 17 | ASCII |
+| 0xF190 | VIN | 17 | ASCII (app-provided) |
+| 0xF195 | SystemSupplierECUSoftwareVersion | 4 | BCD |
+
+### UDS Hook and Callback Reference
+
+```c
+/* Session transition: called on every session change */
+typedef void (*omnican_uds_session_change_cb_t)(
+    struct omnican_uds_server *srv,
+    uint8_t old_session, uint8_t new_session,
+    void *user_data);
+
+/* Security access level change: called on grant or revocation */
+typedef void (*omnican_uds_security_change_cb_t)(
+    struct omnican_uds_server *srv,
+    uint8_t level,          /* 0 = locked; 1+ = security level */
+    bool granted,           /* true = unlocked, false = locked */
+    void *user_data);
+
+/* Pre-reset hook: called before ECUReset is executed */
+typedef void (*omnican_uds_pre_reset_cb_t)(
+    struct omnican_uds_server *srv,
+    uint8_t reset_type,     /* 0x01=hard, 0x02=keyOffOn, 0x03=soft */
+    void *user_data);
+
+/* TransferData progress: called for each 0x36 block received */
+typedef void (*omnican_uds_transfer_progress_cb_t)(
+    struct omnican_uds_server *srv,
+    uint8_t block_seq,
+    size_t bytes_transferred,
+    size_t bytes_total,
+    void *user_data);
+
+/* WriteDataByIdentifier validation: called before write is applied */
+typedef int (*omnican_uds_did_write_validate_cb_t)(
+    struct omnican_uds_server *srv,
+    uint16_t did,
+    const uint8_t *data, size_t len,
+    void *user_data);
+/* returns 0 = accept; negative = NRC to return */
+
+/* Manufacturer-specific DID handler (read or write) */
+typedef int (*omnican_uds_did_handler_cb_t)(
+    struct omnican_uds_server *srv,
+    uint16_t did,
+    bool is_write,
+    uint8_t *buf, size_t *buf_len,  /* in/out */
+    void *user_data);
+
+/* Routine executor for SID 0x31 RoutineControl */
+typedef int (*omnican_uds_routine_cb_t)(
+    struct omnican_uds_server *srv,
+    uint16_t routine_id,
+    uint8_t sub_func,       /* 0x01=start, 0x02=stop, 0x03=results */
+    const uint8_t *opt_params, size_t opt_len,
+    uint8_t *resp, size_t *resp_len,
+    void *user_data);
+
+/* Manufacturer-specific NRC provider per SID */
+typedef int (*omnican_uds_nrc_provider_cb_t)(
+    struct omnican_uds_server *srv,
+    uint8_t sid,
+    int internal_error,
+    void *user_data);
+/* returns NRC value 0x80-0xFE, or 0 to use default */
+```
+
 ### API
 ```c
 int omnican_uds_server_init(struct omnican_uds_server *srv,
@@ -621,6 +855,30 @@ int omnican_uds_register_service(struct omnican_uds_server *srv,
                                  uint8_t sid,
                                  omnican_uds_service_cb_t cb,
                                  void *user_data);
+/* Manufacturer DID registration */
+int omnican_uds_register_did(struct omnican_uds_server *srv,
+                             uint16_t did,
+                             omnican_uds_did_handler_cb_t cb,
+                             void *user_data);
+/* Routine registration */
+int omnican_uds_register_routine(struct omnican_uds_server *srv,
+                                  uint16_t routine_id,
+                                  omnican_uds_routine_cb_t cb,
+                                  void *user_data);
+/* Hook registration */
+void omnican_uds_set_session_change_cb(struct omnican_uds_server *,
+                                        omnican_uds_session_change_cb_t, void *);
+void omnican_uds_set_security_change_cb(struct omnican_uds_server *,
+                                         omnican_uds_security_change_cb_t, void *);
+void omnican_uds_set_pre_reset_cb(struct omnican_uds_server *,
+                                   omnican_uds_pre_reset_cb_t, void *);
+void omnican_uds_set_transfer_progress_cb(struct omnican_uds_server *,
+                                           omnican_uds_transfer_progress_cb_t, void *);
+void omnican_uds_set_did_write_validate_cb(struct omnican_uds_server *,
+                                            omnican_uds_did_write_validate_cb_t, void *);
+void omnican_uds_set_nrc_provider_cb(struct omnican_uds_server *,
+                                      uint8_t sid,
+                                      omnican_uds_nrc_provider_cb_t, void *);
 ```
 
 Service callback signature:
@@ -682,6 +940,59 @@ when a response arrives or the request times out.
 minimum: 0x00 (supported PIDs), 0x01 (monitor status), 0x04 (engine load),
 0x05 (coolant temp), 0x0C (RPM), 0x0D (vehicle speed), 0x11 (throttle).
 
+### OBD-II Mode and PID Coverage
+
+| Mode | Description | OmniCAN support |
+|---|---|---|
+| 0x01 | Current data (PIDs) | Full: all supported PIDs enumerated via 0x00/0x20/../0xC0 |
+| 0x02 | Freeze frame data | Full: same PID set as Mode 0x01, frame# sub-byte |
+| 0x03 | Stored DTCs | Full: decoded P/C/B/U codes per SAE J2012 |
+| 0x04 | Clear DTCs | Full: with completion callback |
+| 0x05 | O2 sensor monitoring | Supported via mode=0x05 + OBDMID |
+| 0x06 | On-board monitoring | Supported: OBDMID test results via callback |
+| 0x07 | Pending DTCs | Full: same decode as Mode 0x03 |
+| 0x08 | Control on-board system | Supported via generic mode request |
+| 0x09 | Vehicle information | Full: VIN (0x02), CalID (0x04), CVN (0x06), ECU name (0x0A) |
+
+### OBD-II DTC Format (SAE J2012)
+
+A DTC is encoded as 2 bytes in Modes 0x03 and 0x07:
+
+```
+Byte 0 [7:6]: Type — 00=P (Powertrain), 01=C (Chassis), 10=B (Body), 11=U (Network)
+Byte 0 [5:4]: Sub-type (0–3)
+Byte 0 [3:0]: Digit 1 (hex)
+Byte 1 [7:4]: Digit 2 (hex)
+Byte 1 [3:0]: Digit 3 (hex)
+```
+
+Example: 0x01 0x34 → P0134 (O2 sensor circuit, no activity)
+
+### OBD-II Callback Hooks
+
+```c
+/* Per-ECU PID response (fires once per responding ECU) */
+typedef void (*omnican_obd2_response_cb_t)(
+    uint8_t mode, uint8_t pid,
+    uint8_t ecu_addr,           /* 0x7E8-0x7EF */
+    const uint8_t *data, size_t len,
+    void *user_data);
+
+/* DTC record from Mode 0x03 / 0x07 */
+typedef void (*omnican_obd2_dtc_cb_t)(
+    uint8_t mode,               /* 0x03 or 0x07 */
+    uint8_t ecu_addr,
+    uint16_t dtc_raw,           /* raw 2-byte DTC encoding */
+    char dtc_str[6],            /* decoded e.g. "P0134" */
+    uint8_t status,             /* SAE J1979 DTC status byte */
+    void *user_data);
+
+/* No response received within timeout */
+typedef void (*omnican_obd2_timeout_cb_t)(
+    uint8_t mode, uint8_t pid,
+    void *user_data);
+```
+
 ### API
 ```c
 int omnican_obd2_client_init(struct omnican_obd2_client *client,
@@ -691,9 +1002,28 @@ int omnican_obd2_request_pid(struct omnican_obd2_client *client,
                              omnican_obd2_response_cb_t cb,
                              void *user_data,
                              uint32_t timeout_ms);
+/* Physical addressing to a specific ECU */
+int omnican_obd2_request_pid_physical(struct omnican_obd2_client *client,
+                                       uint8_t ecu_addr, /* 0x00-0x07 */
+                                       uint8_t mode, uint8_t pid,
+                                       omnican_obd2_response_cb_t cb,
+                                       void *user_data,
+                                       uint32_t timeout_ms);
+/* Request stored/pending DTCs */
+int omnican_obd2_request_dtcs(struct omnican_obd2_client *client,
+                               uint8_t mode, /* 0x03 or 0x07 */
+                               omnican_obd2_dtc_cb_t cb,
+                               void *user_data,
+                               uint32_t timeout_ms);
+/* Clear emission-related DTCs */
+int omnican_obd2_clear_dtcs(struct omnican_obd2_client *client,
+                             void (*on_complete)(int status, void *),
+                             void *user_data,
+                             uint32_t timeout_ms);
+/* Set timeout callback */
+void omnican_obd2_set_timeout_cb(struct omnican_obd2_client *client,
+                                  omnican_obd2_timeout_cb_t cb, void *user_data);
 ```
-
-Response callback: `void cb(uint8_t mode, uint8_t pid, const uint8_t *data, size_t len, void *user_data)`
 
 ## Phase 5 — CANopen FD CiA 1301 (`src/canopen_fd/`)
 

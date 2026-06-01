@@ -238,6 +238,7 @@ Application callbacks registered via `omnican_uds_register_service()` supplement
 |---|---|---|---|
 | **SAE J1979 FEB2012** | E/E Diagnostic Test Modes | FEB2012 | **Primary normative reference**. OBD service modes 0x01–0x09, PID definitions, response formats |
 | SAE J1979-2:2022 | E/E Diagnostic Test Modes — OBDonUDS | 2022 | OBD over UDS (future scope) |
+| **SAE J2012 MAR2012** | Diagnostic Trouble Code Definitions | MAR2012 | **Normative**. DTC format: P/C/B/U prefix, sub-type bits [5:4], 4-hex-digit fault code. Used by OmniCAN `omnican_obd2_dtc_cb_t` for decoded `dtc_str[6]` output |
 | SAE J1978 APR1992 | OBD II Scan Tool | APR1992 | Scan tool interface (informative) |
 | SAE J1962 JAN2012 | Diagnostic Connector | JAN2012 | OBD-II connector (hardware; informative) |
 
