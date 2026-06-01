@@ -6,7 +6,7 @@ on:
   push:
     branches: [main, develop]
   pull_request:
-    branches: [main, develop]
+    branches: [main, develop]  # PRs target develop; develop merges to main via PR
 
 concurrency:
   group: ci-${{ github.ref }}

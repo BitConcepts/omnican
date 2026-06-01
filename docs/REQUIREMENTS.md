@@ -337,9 +337,9 @@ Component codes: CORE, ROUTER, CO (CANopen), JNET (J1939), UDS, OBD (OBD-II), CO
 - **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
 
 ### REQ-JNET-008
-- **Title**: Implement Extended Transport Protocol (ETP) for messages larger than 1785 bytes
+- **Title**: Implement Extended Transport Protocol (ETP) for messages larger than 1785 bytes 
 - **Status**: planned
-- **Description**: Implement Extended Transport Protocol (ETP) for messages larger than 1785 bytes
+- **Description**: Implement Extended Transport Protocol (ETP) for messages larger than 1785 bytes with configurable maximum payload via CONFIG_OMNICAN_J1939_ETP_MAX_PAYLOAD_KB (default 64 KB; range 1–16384 KB) to cap memory usage on embedded targets
 - **Source**: docs/ARCHITECTURE.md ## J1939
 - **Platform**: embedded
 - **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
@@ -456,86 +456,6 @@ Component codes: CORE, ROUTER, CO (CANopen), JNET (J1939), UDS, OBD (OBD-II), CO
 - **Platform**: embedded
 - **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
 
-### REQ-JDM-001
-- **Title**: Implement DM1 (PGN 0xFECA) with correct 2-byte lamp status header: MIL [7:6], St
-- **Status**: planned
-- **Description**: Implement DM1 (PGN 0xFECA) with correct 2-byte lamp status header: MIL [7:6], Stop Lamp [5:4], Amber Warning [3:2], Protect [1:0] per J1939/73, plus repeated 4-byte DTC records
-- **Source**: docs/ARCHITECTURE.md ## J1939 Diagnostics (mandatory DM set)
-- **Platform**: embedded
-- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
-
-### REQ-JDM-002
-- **Title**: Implement DM2 (PGN 0xFECB) previously active DTCs with same frame format as DM1
-- **Status**: planned
-- **Description**: Implement DM2 (PGN 0xFECB) previously active DTCs with same frame format as DM1
-- **Source**: docs/ARCHITECTURE.md ## J1939 Diagnostics (mandatory DM set)
-- **Platform**: embedded
-- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
-
-### REQ-JDM-003
-- **Title**: Implement DM3 (PGN 0xFECC) clear/reset previously active DTCs (mandatory request
-- **Status**: planned
-- **Description**: Implement DM3 (PGN 0xFECC) clear/reset previously active DTCs (mandatory request handling)
-- **Source**: docs/ARCHITECTURE.md ## J1939 Diagnostics (mandatory DM set)
-- **Platform**: embedded
-- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
-
-### REQ-JDM-004
-- **Title**: Implement DM5 (PGN 0xFECE) diagnostic readiness with active/previously active DT
-- **Status**: planned
-- **Description**: Implement DM5 (PGN 0xFECE) diagnostic readiness with active/previously active DTC counts and supported/completed monitor bits
-- **Source**: docs/ARCHITECTURE.md ## J1939 Diagnostics (mandatory DM set)
-- **Platform**: embedded
-- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
-
-### REQ-JDM-005
-- **Title**: Implement DM6 (PGN 0xFECF) emission-related pending DTCs
-- **Status**: planned
-- **Description**: Implement DM6 (PGN 0xFECF) emission-related pending DTCs
-- **Source**: docs/ARCHITECTURE.md ## J1939 Diagnostics (mandatory DM set)
-- **Platform**: embedded
-- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
-
-### REQ-JDM-006
-- **Title**: Implement DM11 (PGN 0xFED3) clear/reset active DTCs (mandatory request handling)
-- **Status**: planned
-- **Description**: Implement DM11 (PGN 0xFED3) clear/reset active DTCs (mandatory request handling)
-- **Source**: docs/ARCHITECTURE.md ## J1939 Diagnostics (mandatory DM set)
-- **Platform**: embedded
-- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
-
-### REQ-JDM-007
-- **Title**: Implement DM12 (PGN 0xFED4) emission-related MIL-on DTCs
-- **Status**: planned
-- **Description**: Implement DM12 (PGN 0xFED4) emission-related MIL-on DTCs
-- **Source**: docs/ARCHITECTURE.md ## J1939 Diagnostics (mandatory DM set)
-- **Platform**: embedded
-- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
-
-### REQ-JDM-008
-- **Title**: Implement DM22 (PGN 0xC300) individual clear/reset of specific active and previo
-- **Status**: planned
-- **Description**: Implement DM22 (PGN 0xC300) individual clear/reset of specific active and previously active DTCs by SPN/FMI
-- **Source**: docs/ARCHITECTURE.md ## J1939 Diagnostics (mandatory DM set)
-- **Platform**: embedded
-- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
-
-### REQ-JDM-009
-- **Title**: Provide `omnican_j1939_dm1_cb_t` callback delivering lamp status and decoded DTC
-- **Status**: planned
-- **Description**: Provide `omnican_j1939_dm1_cb_t` callback delivering lamp status and decoded DTC list when DM1 is received
-- **Source**: docs/ARCHITECTURE.md ## J1939 Diagnostics (mandatory DM set)
-- **Platform**: embedded
-- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
-
-### REQ-JDM-010
-- **Title**: Provide `omnican_j1939_dm_request(struct omnican_j1939_node *, uint8_t dm_num, o
-- **Status**: planned
-- **Description**: Provide `omnican_j1939_dm_request(struct omnican_j1939_node *, uint8_t dm_num, omnican_j1939_addr_t dest)` to request a specific DM from a device
-- **Source**: docs/ARCHITECTURE.md ## J1939 Diagnostics (mandatory DM set)
-- **Platform**: embedded
-- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
-
 ### REQ-JDME-001
 - **Title**: Implement DM4 (PGN 0xFECD) freeze frame parameters capture and reporting when CO
 - **Status**: planned
@@ -633,6 +553,22 @@ Component codes: CORE, ROUTER, CO (CANopen), JNET (J1939), UDS, OBD (OBD-II), CO
 - **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
 
 ### REQ-JSLOT-002
+- **Title**: Include a mandatory minimum SPN subset by default covering J1939/71 vehicle appl
+- **Status**: planned
+- **Description**: Include a mandatory minimum SPN subset by default covering J1939/71 vehicle application layer required SPNs: engine speed (SPN 190), vehicle speed (SPN 84), engine coolant temperature (SPN 110), fuel rate (SPN 183), throttle position (SPN 91), engine hours (SPN 247), total fuel used (SPN 250)
+- **Source**: docs/ARCHITECTURE.md ## J1939 SLOT and SPN Decoding (optional — CONFIG_OMNICAN_J1939_SLOT_TABLE)
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-JSLOT-003
+- **Title**: Support configurable SPN subset extension via CONFIG_OMNICAN_J1939_SPN_EXTRA_LIS
+- **Status**: planned
+- **Description**: Support configurable SPN subset extension via CONFIG_OMNICAN_J1939_SPN_EXTRA_LIST (comma-separated SPN numbers) to add application-specific SPNs beyond the mandatory minimum without including the full 426-SLOT table
+- **Source**: docs/ARCHITECTURE.md ## J1939 SLOT and SPN Decoding (optional — CONFIG_OMNICAN_J1939_SLOT_TABLE)
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-JSLOT-004
 - **Title**: Provide `omnican_j1939_spn_decode(uint32_t spn, const uint8_t *raw, size_t raw_l
 - **Status**: planned
 - **Description**: Provide `omnican_j1939_spn_decode(uint32_t spn, const uint8_t *raw, size_t raw_len, double *value, const char **unit)` API for converting raw SPN bytes to engineering units
@@ -640,10 +576,10 @@ Component codes: CORE, ROUTER, CO (CANopen), JNET (J1939), UDS, OBD (OBD-II), CO
 - **Platform**: embedded
 - **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
 
-### REQ-JSLOT-003
-- **Title**: Support configurable SPN subset inclusion via CONFIG_OMNICAN_J1939_SPN_INCLUDE l
+### REQ-JSLOT-005
+- **Title**: Provide `omnican_j1939_spn_register_custom(uint32_t spn, const struct omnican_j1
 - **Status**: planned
-- **Description**: Support configurable SPN subset inclusion via CONFIG_OMNICAN_J1939_SPN_INCLUDE list to manage flash usage
+- **Description**: Provide `omnican_j1939_spn_register_custom(uint32_t spn, const struct omnican_j1939_slot *slot)` API to register manufacturer-specific SPNs (SPN > 524287) at runtime without Kconfig changes
 - **Source**: docs/ARCHITECTURE.md ## J1939 SLOT and SPN Decoding (optional — CONFIG_OMNICAN_J1939_SLOT_TABLE)
 - **Platform**: embedded
 - **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
@@ -665,6 +601,14 @@ Component codes: CORE, ROUTER, CO (CANopen), JNET (J1939), UDS, OBD (OBD-II), CO
 - **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
 
 ### REQ-JDA-003
+- **Title**: Provide `omnican_j1939_mfr_register(uint16_t mfr_id, const char *name)` API to r
+- **Status**: planned
+- **Description**: Provide `omnican_j1939_mfr_register(uint16_t mfr_id, const char *name)` API to register manufacturer-specific IDs not in the DA at runtime
+- **Source**: docs/ARCHITECTURE.md ## J1939 DA Reference Tables (optional)
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-JDA-004
 - **Title**: Provide global preferred source address table from J1939DA B2 when CONFIG_OMNICA
 - **Status**: planned
 - **Description**: Provide global preferred source address table from J1939DA B2 when CONFIG_OMNICAN_J1939_IG_ADDRESSES=y
@@ -672,11 +616,99 @@ Component codes: CORE, ROUTER, CO (CANopen), JNET (J1939), UDS, OBD (OBD-II), CO
 - **Platform**: embedded
 - **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
 
-### REQ-JDA-004
+### REQ-JDA-005
 - **Title**: Provide NAME function lookup from J1939DA B11/B12 when CONFIG_OMNICAN_J1939_IG_A
 - **Status**: planned
 - **Description**: Provide NAME function lookup from J1939DA B11/B12 when CONFIG_OMNICAN_J1939_IG_ADDRESSES=y
 - **Source**: docs/ARCHITECTURE.md ## J1939 DA Reference Tables (optional)
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-JDM-001
+- **Title**: Implement DM1 (PGN 0xFECA) with correct 2-byte lamp status header: MIL [7:6], St
+- **Status**: planned
+- **Description**: Implement DM1 (PGN 0xFECA) with correct 2-byte lamp status header: MIL [7:6], Stop Lamp [5:4], Amber Warning [3:2], Protect [1:0] per J1939/73, plus repeated 4-byte DTC records
+- **Source**: docs/ARCHITECTURE.md ## J1939 Diagnostics (mandatory DM set)
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-JDM-002
+- **Title**: Implement DM2 (PGN 0xFECB) previously active DTCs with same frame format as DM1
+- **Status**: planned
+- **Description**: Implement DM2 (PGN 0xFECB) previously active DTCs with same frame format as DM1
+- **Source**: docs/ARCHITECTURE.md ## J1939 Diagnostics (mandatory DM set)
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-JDM-003
+- **Title**: Implement DM3 (PGN 0xFECC) clear/reset previously active DTCs (mandatory request
+- **Status**: planned
+- **Description**: Implement DM3 (PGN 0xFECC) clear/reset previously active DTCs (mandatory request handling)
+- **Source**: docs/ARCHITECTURE.md ## J1939 Diagnostics (mandatory DM set)
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-JDM-004
+- **Title**: Implement DM4 (PGN 0xFECD) freeze frame parameters with a configurable SPN captu
+- **Status**: planned
+- **Description**: Implement DM4 (PGN 0xFECD) freeze frame parameters with a configurable SPN capture list: provide CONFIG_OMNICAN_J1939_DM4_SPN_LIST (default: SPN 190, 84, 110, 91 — engine speed, vehicle speed, coolant temp, throttle) and allow application to override via `omnican_j1939_dm4_set_spn_list(uint32_t *spns, uint8_t count)`
+- **Source**: docs/ARCHITECTURE.md ## J1939 Diagnostics (mandatory DM set)
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-JDM-005
+- **Title**: Implement DM5 (PGN 0xFECE) diagnostic readiness with active/previously active DT
+- **Status**: planned
+- **Description**: Implement DM5 (PGN 0xFECE) diagnostic readiness with active/previously active DTC counts and supported/completed monitor bits
+- **Source**: docs/ARCHITECTURE.md ## J1939 Diagnostics (mandatory DM set)
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-JDM-006
+- **Title**: Implement DM6 (PGN 0xFECF) emission-related pending DTCs
+- **Status**: planned
+- **Description**: Implement DM6 (PGN 0xFECF) emission-related pending DTCs
+- **Source**: docs/ARCHITECTURE.md ## J1939 Diagnostics (mandatory DM set)
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-JDM-007
+- **Title**: Implement DM11 (PGN 0xFED3) clear/reset active DTCs (mandatory request handling)
+- **Status**: planned
+- **Description**: Implement DM11 (PGN 0xFED3) clear/reset active DTCs (mandatory request handling)
+- **Source**: docs/ARCHITECTURE.md ## J1939 Diagnostics (mandatory DM set)
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-JDM-008
+- **Title**: Implement DM12 (PGN 0xFED4) emission-related MIL-on DTCs
+- **Status**: planned
+- **Description**: Implement DM12 (PGN 0xFED4) emission-related MIL-on DTCs
+- **Source**: docs/ARCHITECTURE.md ## J1939 Diagnostics (mandatory DM set)
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-JDM-009
+- **Title**: Implement DM22 (PGN 0xC300) individual clear/reset of specific active and previo
+- **Status**: planned
+- **Description**: Implement DM22 (PGN 0xC300) individual clear/reset of specific active and previously active DTCs by SPN/FMI
+- **Source**: docs/ARCHITECTURE.md ## J1939 Diagnostics (mandatory DM set)
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-JDM-010
+- **Title**: Provide `omnican_j1939_dm1_cb_t` callback delivering lamp status and decoded DTC
+- **Status**: planned
+- **Description**: Provide `omnican_j1939_dm1_cb_t` callback delivering lamp status and decoded DTC list when DM1 is received
+- **Source**: docs/ARCHITECTURE.md ## J1939 Diagnostics (mandatory DM set)
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-JDM-011
+- **Title**: Provide `omnican_j1939_dm_request(struct omnican_j1939_node *, uint8_t dm_num, o
+- **Status**: planned
+- **Description**: Provide `omnican_j1939_dm_request(struct omnican_j1939_node *, uint8_t dm_num, omnican_j1939_addr_t dest)` to request a specific DM from a device
+- **Source**: docs/ARCHITECTURE.md ## J1939 Diagnostics (mandatory DM set)
 - **Platform**: embedded
 - **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
 

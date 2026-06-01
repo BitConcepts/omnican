@@ -16,6 +16,7 @@ vcs_platform: github
 branching_strategy: gitflow
 default_branch: main
 develop_branch: develop
+pr_target_branch: develop
 require_pr_reviews: true
 required_approvals: 1
 require_ci_pass: true

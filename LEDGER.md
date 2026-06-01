@@ -41,3 +41,9 @@
 - **Type**: task
 - **Status**: complete
 - **Chain hash**: `d7c795af9bc803be...`
+
+## 2026-06-01T04:45 — Items 2,5,6,7,8 resolved. ETP Kconfig: CONFIG_OMNICAN_J1939_ETP_MAX_PAYLOAD_KB (default 64KB, range 1-16384KB). DM4 freeze frame: CONFIG_OMNICAN_J1939_DM4_SPN_LIST (default SPNs 190,84,110,91) + dm4_set_spn_list() runtime override. SLOT subset: mandatory minimum 7 SPNs (190,84,110,183,91,247,250) + CONFIG_OMNICAN_J1939_SPN_EXTRA_LIST for additions + spn_register_custom() for mfr SPNs >524287. Mfr IDs: mfr_register() for custom DA entries. Branch protection: main and develop now require PR + 1 approval; tbitcs has bypass. develop branch created. ISOBUS clarification: ISO 11783 != ISO-TP; ISOBUS is J1939-based agricultural app layer (Phase 6 candidate).
+- **Author**: agent
+- **Type**: task
+- **Status**: complete
+- **Chain hash**: `dca339275bf5fc26...`

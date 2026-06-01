@@ -64,7 +64,7 @@ Protocol implementation is phased:
 - Support a static PGN routing table populated via `omnican_j1939_register_pgn()` with callback and user-data
 - Invoke PGN callbacks from the system workqueue with source address, data pointer, and length
 - Implement J1939 Transport Protocol (TP) for 9-1785 byte messages using BAM and CMDT modes
-- Implement Extended Transport Protocol (ETP) for messages larger than 1785 bytes
+- Implement Extended Transport Protocol (ETP) for messages larger than 1785 bytes with configurable maximum payload via CONFIG_OMNICAN_J1939_ETP_MAX_PAYLOAD_KB (default 64 KB; range 1–16384 KB) to cap memory usage on embedded targets
 - Explicitly implement ETP.CM (PGN 0xC800) and ETP.DT (PGN 0xC700) as separate ETP connection management and data transfer PGNs
 - Maintain TP/ETP session state in static context with configurable maximum simultaneous sessions
 - Implement RQST (PGN 0xEA00) to request any PGN from a remote device (mandatory for DM request/response)
@@ -82,18 +82,6 @@ Protocol implementation is phased:
 - Provide `omnican_j1939_dtc_decode(const uint8_t in[4], uint32_t *spn, uint8_t *fmi, uint8_t *oc, bool *cm)` API
 - Provide `omnican_j1939_fmi_string(uint8_t fmi)` to return human-readable FMI description
 
-### J1939 Diagnostics (mandatory DM set)
-- Implement DM1 (PGN 0xFECA) with correct 2-byte lamp status header: MIL [7:6], Stop Lamp [5:4], Amber Warning [3:2], Protect [1:0] per J1939/73, plus repeated 4-byte DTC records
-- Implement DM2 (PGN 0xFECB) previously active DTCs with same frame format as DM1
-- Implement DM3 (PGN 0xFECC) clear/reset previously active DTCs (mandatory request handling)
-- Implement DM5 (PGN 0xFECE) diagnostic readiness with active/previously active DTC counts and supported/completed monitor bits
-- Implement DM6 (PGN 0xFECF) emission-related pending DTCs
-- Implement DM11 (PGN 0xFED3) clear/reset active DTCs (mandatory request handling)
-- Implement DM12 (PGN 0xFED4) emission-related MIL-on DTCs
-- Implement DM22 (PGN 0xC300) individual clear/reset of specific active and previously active DTCs by SPN/FMI
-- Provide `omnican_j1939_dm1_cb_t` callback delivering lamp status and decoded DTC list when DM1 is received
-- Provide `omnican_j1939_dm_request(struct omnican_j1939_node *, uint8_t dm_num, omnican_j1939_addr_t dest)` to request a specific DM from a device
-
 ### J1939 Diagnostics (extended DM set — via CONFIG_OMNICAN_J1939_DM_EXTENDED)
 - Implement DM4 (PGN 0xFECD) freeze frame parameters capture and reporting when CONFIG_OMNICAN_J1939_DM_EXTENDED=y
 - Implement DM13 (PGN 0xDF00) stop/start broadcast control when CONFIG_OMNICAN_J1939_DM_EXTENDED=y
@@ -109,14 +97,30 @@ Protocol implementation is phased:
 
 ### J1939 SLOT and SPN Decoding (optional — CONFIG_OMNICAN_J1939_SLOT_TABLE)
 - Provide a compiled-in SLOT decode table derived from J1939DA DEC2024 (426 SLOTs) when CONFIG_OMNICAN_J1939_SLOT_TABLE=y
+- Include a mandatory minimum SPN subset by default covering J1939/71 vehicle application layer required SPNs: engine speed (SPN 190), vehicle speed (SPN 84), engine coolant temperature (SPN 110), fuel rate (SPN 183), throttle position (SPN 91), engine hours (SPN 247), total fuel used (SPN 250)
+- Support configurable SPN subset extension via CONFIG_OMNICAN_J1939_SPN_EXTRA_LIST (comma-separated SPN numbers) to add application-specific SPNs beyond the mandatory minimum without including the full 426-SLOT table
 - Provide `omnican_j1939_spn_decode(uint32_t spn, const uint8_t *raw, size_t raw_len, double *value, const char **unit)` API for converting raw SPN bytes to engineering units
-- Support configurable SPN subset inclusion via CONFIG_OMNICAN_J1939_SPN_INCLUDE list to manage flash usage
+- Provide `omnican_j1939_spn_register_custom(uint32_t spn, const struct omnican_j1939_slot *slot)` API to register manufacturer-specific SPNs (SPN > 524287) at runtime without Kconfig changes
 
 ### J1939 DA Reference Tables (optional)
 - Provide compiled-in manufacturer ID lookup table from J1939DA B10 (1,509 entries) when CONFIG_OMNICAN_J1939_MFR_TABLE=y
 - Provide `omnican_j1939_mfr_name(uint16_t mfr_id)` returning manufacturer name string
+- Provide `omnican_j1939_mfr_register(uint16_t mfr_id, const char *name)` API to register manufacturer-specific IDs not in the DA at runtime
 - Provide global preferred source address table from J1939DA B2 when CONFIG_OMNICAN_J1939_IG_ADDRESSES=y
 - Provide NAME function lookup from J1939DA B11/B12 when CONFIG_OMNICAN_J1939_IG_ADDRESSES=y
+
+### J1939 Diagnostics (mandatory DM set)
+- Implement DM1 (PGN 0xFECA) with correct 2-byte lamp status header: MIL [7:6], Stop Lamp [5:4], Amber Warning [3:2], Protect [1:0] per J1939/73, plus repeated 4-byte DTC records
+- Implement DM2 (PGN 0xFECB) previously active DTCs with same frame format as DM1
+- Implement DM3 (PGN 0xFECC) clear/reset previously active DTCs (mandatory request handling)
+- Implement DM4 (PGN 0xFECD) freeze frame parameters with a configurable SPN capture list: provide CONFIG_OMNICAN_J1939_DM4_SPN_LIST (default: SPN 190, 84, 110, 91 — engine speed, vehicle speed, coolant temp, throttle) and allow application to override via `omnican_j1939_dm4_set_spn_list(uint32_t *spns, uint8_t count)`
+- Implement DM5 (PGN 0xFECE) diagnostic readiness with active/previously active DTC counts and supported/completed monitor bits
+- Implement DM6 (PGN 0xFECF) emission-related pending DTCs
+- Implement DM11 (PGN 0xFED3) clear/reset active DTCs (mandatory request handling)
+- Implement DM12 (PGN 0xFED4) emission-related MIL-on DTCs
+- Implement DM22 (PGN 0xC300) individual clear/reset of specific active and previously active DTCs by SPN/FMI
+- Provide `omnican_j1939_dm1_cb_t` callback delivering lamp status and decoded DTC list when DM1 is received
+- Provide `omnican_j1939_dm_request(struct omnican_j1939_node *, uint8_t dm_num, omnican_j1939_addr_t dest)` to request a specific DM from a device
 
 ### UDS ISO 14229
 - Use Zephyr ISO-TP for all UDS message transport with ISOTP patch when CONFIG_OMNICAN_ISOTP_PATCH=y
@@ -1209,6 +1213,13 @@ with a separately published size constant or `sizeof` helper).
 | `CONFIG_OMNICAN_UDS_S3_TIMEOUT_MS` | int | 5000 | 100–30000 | UDS S3 session timeout (ms) |
 | `CONFIG_OMNICAN_UDS_MAX_AUTH_ATTEMPTS` | int | 3 | 1–10 | Max SecurityAccess attempts before lockout |
 | `CONFIG_OMNICAN_OBD2_RESPONSE_TIMEOUT_MS` | int | 200 | 50–5000 | OBD-II PID response collection timeout (ms) |
+| `CONFIG_OMNICAN_J1939_ETP_MAX_PAYLOAD_KB` | int | 64 | 1–16384 | ETP max single-transfer payload (KB); caps embedded memory use |
+| `CONFIG_OMNICAN_J1939_DM_EXTENDED` | bool | n | — | Enable extended DM set (DM4, DM13, DM20–31). Requires `OMNICAN_J1939` |
+| `CONFIG_OMNICAN_J1939_DM4_SPN_LIST` | string | "190,84,110,91" | — | Comma-separated SPNs captured in DM4 freeze frame |
+| `CONFIG_OMNICAN_J1939_SLOT_TABLE` | bool | n | — | Include J1939DA SLOT decode table (426 SLOTs). Requires `OMNICAN_J1939` |
+| `CONFIG_OMNICAN_J1939_SPN_EXTRA_LIST` | string | "" | — | Comma-separated extra SPN numbers to include beyond mandatory minimum |
+| `CONFIG_OMNICAN_J1939_MFR_TABLE` | bool | n | — | Include manufacturer ID lookup table (1,509 entries from J1939DA B10) |
+| `CONFIG_OMNICAN_J1939_IG_ADDRESSES` | bool | n | — | Include preferred address and NAME function tables (J1939DA B2/B11/B12) |
 | `CONFIG_OMNICAN_LOG_LEVEL` | int | 3 (WRN) | 0–4 | Zephyr log level: 0=off 1=err 2=wrn 3=inf 4=dbg |
 
 ## Integration Guide
