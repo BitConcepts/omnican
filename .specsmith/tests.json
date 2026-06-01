@@ -974,42 +974,105 @@
   },
   {
     "id": "TEST-140",
-    "requirement_id": "ISOTP-PATCH-REQ-140",
-    "description": "Verify implement a workaround for zephyr issue #86025 using separate tx/rx socket contexts with a forwarding shim",
+    "requirement_id": "ISOBUS-ISO-11783-(PHASE-6-\u2014-CONFIG_OMNICAN_ISOBUS)-REQ-140",
+    "description": "Verify build on omnican's j1939 phase 2 layer (address claiming, tp/etp, pgn routing) as the iso 11783 data-link foundation",
     "type": "Unit",
     "status": "Pending"
   },
   {
     "id": "TEST-141",
-    "requirement_id": "ISOTP-PATCH-REQ-141",
-    "description": "Verify default config_omnican_isotp_patch to y when config_omnican_uds or config_omnican_obd2 is enabled",
+    "requirement_id": "ISOBUS-ISO-11783-(PHASE-6-\u2014-CONFIG_OMNICAN_ISOBUS)-REQ-141",
+    "description": "Verify implement working set (ws) management: working set master election, working set member announcement per iso 11783-5",
     "type": "Unit",
     "status": "Pending"
   },
   {
     "id": "TEST-142",
-    "requirement_id": "MEMORY-AND-THREADING-REQ-142",
-    "description": "Verify never use dynamic heap allocation (k_malloc, malloc); all state statically allocated or via net_buf pools",
+    "requirement_id": "ISOBUS-ISO-11783-(PHASE-6-\u2014-CONFIG_OMNICAN_ISOBUS)-REQ-142",
+    "description": "Verify implement virtual terminal (vt) client per iso 11783-6: object pool upload, soft-key handling, alarm messages, data mask navigation",
     "type": "Unit",
     "status": "Pending"
   },
   {
     "id": "TEST-143",
-    "requirement_id": "MEMORY-AND-THREADING-REQ-143",
-    "description": "Verify handle can frame data via zephyr net_buf from a pool sized by config_omnican_net_buf_count (default 16)",
+    "requirement_id": "ISOBUS-ISO-11783-(PHASE-6-\u2014-CONFIG_OMNICAN_ISOBUS)-REQ-143",
+    "description": "Verify implement task controller (tc) client per iso 11783-10: device descriptor object pool (ddop), process data exchange, section control",
     "type": "Unit",
     "status": "Pending"
   },
   {
     "id": "TEST-144",
-    "requirement_id": "MEMORY-AND-THREADING-REQ-144",
-    "description": "Verify all protocol context structures shall be opaque to the caller but caller-allocated",
+    "requirement_id": "ISOBUS-ISO-11783-(PHASE-6-\u2014-CONFIG_OMNICAN_ISOBUS)-REQ-144",
+    "description": "Verify implement isobus shortcut button (isb) per iso 11783-7 \u00a7b.5: single-button emergency stop broadcast",
     "type": "Unit",
     "status": "Pending"
   },
   {
     "id": "TEST-145",
-    "requirement_id": "MEMORY-AND-THREADING-REQ-145",
+    "requirement_id": "ISOBUS-ISO-11783-(PHASE-6-\u2014-CONFIG_OMNICAN_ISOBUS)-REQ-145",
+    "description": "Verify support iso 11783-7 implement messages: auxiliary valve commands, general-purpose valve commands, auxiliary valve estimated flow, guidance speed/direction",
+    "type": "Unit",
+    "status": "Pending"
+  },
+  {
+    "id": "TEST-146",
+    "requirement_id": "ISOBUS-ISO-11783-(PHASE-6-\u2014-CONFIG_OMNICAN_ISOBUS)-REQ-146",
+    "description": "Verify reference implementation: agisostack++ (github.com/open-agriculture/agisostack-plus-plus, mit). port or wrap for zephyr compatibility via `config_omnican_isobus_backend` selecting native zephyr or agisostack++ bridge",
+    "type": "Unit",
+    "status": "Pending"
+  },
+  {
+    "id": "TEST-147",
+    "requirement_id": "ISOBUS-ISO-11783-(PHASE-6-\u2014-CONFIG_OMNICAN_ISOBUS)-REQ-147",
+    "description": "Verify provide `omnican_isobus_vt_client_init()`, `omnican_isobus_tc_client_init()` apis following the same `omnican_node` anchor pattern",
+    "type": "Unit",
+    "status": "Pending"
+  },
+  {
+    "id": "TEST-148",
+    "requirement_id": "ISOBUS-ISO-11783-(PHASE-6-\u2014-CONFIG_OMNICAN_ISOBUS)-REQ-148",
+    "description": "Verify enable via `config_omnican_isobus=y`; requires `config_omnican_j1939=y`",
+    "type": "Unit",
+    "status": "Pending"
+  },
+  {
+    "id": "TEST-149",
+    "requirement_id": "ISOTP-PATCH-REQ-149",
+    "description": "Verify implement a workaround for zephyr issue #86025 using separate tx/rx socket contexts with a forwarding shim",
+    "type": "Unit",
+    "status": "Pending"
+  },
+  {
+    "id": "TEST-150",
+    "requirement_id": "ISOTP-PATCH-REQ-150",
+    "description": "Verify default config_omnican_isotp_patch to y when config_omnican_uds or config_omnican_obd2 is enabled",
+    "type": "Unit",
+    "status": "Pending"
+  },
+  {
+    "id": "TEST-151",
+    "requirement_id": "MEMORY-AND-THREADING-REQ-151",
+    "description": "Verify never use dynamic heap allocation (k_malloc, malloc); all state statically allocated or via net_buf pools",
+    "type": "Unit",
+    "status": "Pending"
+  },
+  {
+    "id": "TEST-152",
+    "requirement_id": "MEMORY-AND-THREADING-REQ-152",
+    "description": "Verify handle can frame data via zephyr net_buf from a pool sized by config_omnican_net_buf_count (default 16)",
+    "type": "Unit",
+    "status": "Pending"
+  },
+  {
+    "id": "TEST-153",
+    "requirement_id": "MEMORY-AND-THREADING-REQ-153",
+    "description": "Verify all protocol context structures shall be opaque to the caller but caller-allocated",
+    "type": "Unit",
+    "status": "Pending"
+  },
+  {
+    "id": "TEST-154",
+    "requirement_id": "MEMORY-AND-THREADING-REQ-154",
     "description": "Verify all protocol handlers execute in a zephyr workqueue context, not the can isr",
     "type": "Unit",
     "status": "Pending"

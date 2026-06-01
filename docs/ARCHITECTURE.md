@@ -10,10 +10,11 @@ is guarded by a Kconfig symbol so unused modules compile to zero.
 
 Protocol implementation is phased:
 - **Phase 1** — CANopen CiA 301 (ported from BitConcepts/CANopenNode fork)
-- **Phase 2** — SAE J1939 (address claiming, PGN routing, TP/ETP)
+- **Phase 2** — SAE J1939 (address claiming, PGN routing, TP/ETP, diagnostics)
 - **Phase 3** — ISO 14229 / UDS (over Zephyr ISO-TP + issue #86025 patch)
 - **Phase 4** — SAE J1979 / OBD-II (over Zephyr ISO-TP)
 - **Phase 5** — CANopen FD CiA 1301 (extends Phase 1)
+- **Phase 6** — ISOBUS ISO 11783 (built on Phase 2 J1939; VT, TC, implement messaging)
 
 ## Components
 
@@ -181,6 +182,17 @@ Protocol implementation is phased:
 - Enforce a policy when OBD-II and UDS are both enabled: UDS holds exclusive ownership of CAN ID 0x7DF for functional addressing; OBD-II client shall use physical addressing (0x7E0-0x7E7) when UDS is co-active, or disable OBD-II functional broadcast
 - Provide a `docs/MULTIPROTOCOL.md` integration guide documenting supported combinations, CAN ID allocation maps, and Kconfig compatibility matrix for all 4-protocol combinations
 - Support cross-protocol error propagation: an `omnican_error_cb_t` global hook that receives errors from any enabled protocol with protocol ID, error code, and context
+
+### ISOBUS ISO 11783 (Phase 6 — CONFIG_OMNICAN_ISOBUS)
+- Build on OmniCAN's J1939 Phase 2 layer (address claiming, TP/ETP, PGN routing) as the ISO 11783 data-link foundation
+- Implement Working Set (WS) management: Working Set Master election, Working Set Member announcement per ISO 11783-5
+- Implement Virtual Terminal (VT) client per ISO 11783-6: object pool upload, soft-key handling, alarm messages, data mask navigation
+- Implement Task Controller (TC) client per ISO 11783-10: Device Descriptor Object Pool (DDOP), process data exchange, section control
+- Implement ISOBUS Shortcut Button (ISB) per ISO 11783-7 §B.5: single-button emergency stop broadcast
+- Support ISO 11783-7 Implement Messages: auxiliary valve commands, general-purpose valve commands, auxiliary valve estimated flow, guidance speed/direction
+- Reference implementation: AgIsoStack++ (github.com/Open-Agriculture/AgIsoStack-plus-plus, MIT). Port or wrap for Zephyr compatibility via `CONFIG_OMNICAN_ISOBUS_BACKEND` selecting native Zephyr or AgIsoStack++ bridge
+- Provide `omnican_isobus_vt_client_init()`, `omnican_isobus_tc_client_init()` APIs following the same `omnican_node` anchor pattern
+- Enable via `CONFIG_OMNICAN_ISOBUS=y`; requires `CONFIG_OMNICAN_J1939=y`
 
 ### ISOTP Patch
 - Implement a workaround for Zephyr issue #86025 using separate TX/RX socket contexts with a forwarding shim

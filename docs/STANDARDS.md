@@ -130,6 +130,7 @@ parts; only those directly implemented by OmniCAN are marked **normative**.
 | **SAE J1939/21 DEC2010** | Data Link Layer | DEC2010 | **Primary normative reference**. 29-bit extended CAN ID structure, PGN definition, TP (9–1785 bytes), ETP (>1785 bytes), RQST (0xEA00), ACKM (0xE800), broadcast/peer-to-peer addressing |
 | SAE J1939/31 APR2004 | Network Layer | APR2004 | Multi-segment network bridging (not in scope for v0.x) |
 | **SAE J1939/73 APR2011** | Application Layer — Diagnostics | APR2011 | **Normative**. DM1–DM35 diagnostic messages; SPN/FMI/OC/CM 4-byte DTC encoding; lamp status byte; FMI code table (32 codes); diagnostic readiness; freeze frame; memory access (DM14–16) |
+| **SAE J1939/73_202412** | Application Layer — Diagnostics (latest) | DEC2024 | Latest revision: adds CSERS PGs, SPN 3077 (Plug-in Hybrid), improved DM11/DM24/DM58, adds FMI 24. Supersedes APR2011. |
 | **SAE J1939/81 MAY2003** | Network Management | MAY2003 | **Normative**. Address claiming algorithm (J1939/81 §4.2), 64-bit NAME priority, 250 ms contention window |
 | SAE J1939/71 MAR2011 | Vehicle Application Layer | MAR2011 | PGN definitions for common vehicle signals (informative for OmniCAN routing) |
 | **SAE J1939DA DEC2024** | Digital Annex of Serial Control and Communications Heavy Duty Vehicle Network Data | DEC2024 | **Normative reference for DA**. 3,193 PGNs, ~8,000 SPNs, 426 SLOTs, 62 DM messages (DM1–DM60), 1,509 manufacturer IDs, industry group preferred addresses (B2–B7), NAME functions (B11/B12). See `docs/J1939DA_GAP.md` for full gap analysis. |
@@ -163,6 +164,34 @@ Bits: 28          26 25  24 23       16 15        8 7          0
 | T3 | 1250 ms | Max time to receive ACK after last data packet |
 | T4 | 1050 ms | Timeout waiting for next packet |
 | Tr | 200 ms | Max response time (CTS, ACK, Abort) |
+
+### 3.4 J1939/73 Alternate Open Sources
+
+Because J1939/73 is a paid SAE document, the following open-source and
+public references are used as complementary sources during OmniCAN development:
+
+| Source | URL | Coverage |
+|---|---|---|
+| **Open-SAE-J1939** (DanielMartensson) | github.com/DanielMartensson/Open-SAE-J1939 | MIT C. DM1, DM2, DM3, DM14/15/16, Address claiming, TP/ETP, ISO 11783-7 valve layer. ANSI C89, no dynamic allocation, MISRA-C compatible. Primary reference implementation. |
+| **python-can-j1939** (juergenH87) | github.com/juergenH87/python-can-j1939 | Python. Complete DTC encode/decode: `spn=((dtc&0xFFFF)|((dtc>>5)&0x70000))`, `fmi=(dtc>>16)&0x1F`, `oc=(dtc>>24)&0x7f`, `cm=(dtc>>31)&1`. DM1 lamp parser. Reference for bit layout validation. |
+| **CSS Electronics J1939-73 guide** | csselectronics.com/pages/j1939-73-dm1-diagnostic-message-dtc | Public technical guide. DM1 lamp byte, DTC encoding, FMI table, transmission rules (1 Hz + on-change), DBC file with 50+ DMs. |
+| **EmbeddedFlakes J1939 Diagnostics** | embeddedflakes.com/j1939-diagnostics-part-1/ | Full DM1–DM12 article. Byte maps per DM, FMI 32-code table (FMI 0–21 + 31). Lamp status encoding details. |
+| **SAE J1939/73_202412** | onlinestandart.com/en/standard/sae-j1939-73_202412/ | Latest Dec 2024 revision (purchasable). Definitive normative reference when protocol ambiguity arises. |
+
+### 3.5 Key DTC Encoding (from open sources, verified against J1939/73)
+
+A J1939 DTC is a 4-byte little-endian structure:
+
+```
+Byte 1 [7:0]:  SPN bits [7:0]
+Byte 2 [7:0]:  SPN bits [15:8]
+Byte 3 [7:5]:  SPN bits [18:16]
+Byte 3 [4:0]:  FMI (Failure Mode Identifier, 5-bit)
+Byte 4 [7]:    CM (Conversion Method: 0=J1939-73 method 4, 1=deprecated)
+Byte 4 [6:0]:  OC (Occurrence Count, 7-bit, 0-126)
+```
+
+C encode: `spn_low = spn & 0xFFFF; spn_high = (spn >> 13) & 0xE0; byte3 = spn_high | (fmi & 0x1F); byte4 = (cm << 7) | (oc & 0x7F);`
 
 ---
 
@@ -305,7 +334,43 @@ against the ISOTP patch applicability.
 
 ---
 
-## 8. Compliance and Safety Standards (Informative)
+## 8. ISO 11783 / ISOBUS (Phase 6)
+
+ISOBUS is the agricultural machinery networking standard (ISO 11783). It uses J1939
+29-bit CAN framing as its physical/data-link layer and adds a complete application
+layer for tractors and implements. **ISOBUS is NOT the same as ISO-TP (ISO 15765-2).**
+
+| Standard | Title | Edition | Key scope for OmniCAN Phase 6 |
+|---|---|---|---|
+| **ISO 11783-1:2017** | Tractors and machinery for agriculture and forestry — Serial control and communications data network — Part 1: General standard for mobile data communication | 2017 | Network architecture overview; uses J1939/21 TP and J1939/81 address claiming as base layers |
+| **ISO 11783-2:2019** | Physical layer | 2019 | 250 kbps twisted pair, same as J1939/11. OmniCAN inherits from J1939 Phase 2. |
+| **ISO 11783-3:2018** | Data link layer | 2018 | Based on J1939/21. TP and ETP identical. OmniCAN inherits. |
+| **ISO 11783-5:2019** | Network management | 2019 | Based on J1939/81 address claiming + Working Set Master election |
+| **ISO 11783-6:2018** | Virtual Terminal | 2018 | Display/UI protocol (VT client/server). Graphical object pool, soft-key events. |
+| **ISO 11783-7:2018** | Implement messages application layer | 2018 | Auxiliary valves, guidance, speed/hitch messaging. Partially in Open-SAE-J1939. |
+| **ISO 11783-10:2015** | Task Controller and Management Information System data interchange | 2015 | Task Controller (TC) client/server for precision agriculture data |
+| **ISO 11783-13:2009** | File Server | 2009 | Remote filesystem access on the ISOBUS |
+| **ISO 11783-14:2013** | Sequence Control | 2013 | Synchronized machine operations |
+
+### 8.1 ISOBUS vs ISO-TP
+
+| Attribute | ISOBUS (ISO 11783) | ISO-TP (ISO 15765-2) |
+|---|---|---|
+| Purpose | Agricultural machine networking | Transport segmentation for UDS/OBD-II |
+| CAN framing | 29-bit (J1939) | 11-bit standard |
+| Scope | Full application layer (VT, TC, FS) | Frame segmentation only |
+| Used in OmniCAN | Phase 6 | Phases 3 and 4 |
+
+### 8.2 Open Source Reference Implementation
+
+| Source | URL | License | Coverage |
+|---|---|---|---|
+| **AgIsoStack++** | github.com/Open-Agriculture/AgIsoStack-plus-plus | MIT | Complete ISO 11783 C++ library: VT client, TC client/server, ISB, NMEA2000 Fast Packet, address claiming, TP/ETP. CMake. 344 stars. Actively maintained. **Primary reference for OmniCAN Phase 6.** |
+| Open-SAE-J1939 | github.com/DanielMartensson/Open-SAE-J1939 | MIT | ISO 11783-7 Application Layer (auxiliary valves, general purpose valves). C/ANSI C89. Integrated with J1939/73 diagnostics. |
+
+---
+
+## 9. Compliance and Safety Standards (Informative)
 
 These standards are **not** normative for OmniCAN v0.x but are documented here
 for future safety-critical adoption planning.
@@ -319,7 +384,7 @@ for future safety-critical adoption planning.
 
 ---
 
-## 9. Change Log
+## 10. Change Log
 
 | Date | Change | Author |
 |---|---|---|

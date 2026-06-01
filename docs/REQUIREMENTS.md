@@ -1128,6 +1128,78 @@ Component codes: CORE, ROUTER, CO (CANopen), JNET (J1939), UDS, OBD (OBD-II), CO
 - **Platform**: embedded
 - **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
 
+### REQ-ISOBUS-001
+- **Title**: Build on OmniCAN's J1939 Phase 2 layer (address claiming, TP/ETP, PGN routing) a
+- **Status**: planned
+- **Description**: Build on OmniCAN's J1939 Phase 2 layer (address claiming, TP/ETP, PGN routing) as the ISO 11783 data-link foundation
+- **Source**: docs/ARCHITECTURE.md ## ISOBUS ISO 11783 (Phase 6 — CONFIG_OMNICAN_ISOBUS)
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-ISOBUS-002
+- **Title**: Implement Working Set (WS) management: Working Set Master election, Working Set 
+- **Status**: planned
+- **Description**: Implement Working Set (WS) management: Working Set Master election, Working Set Member announcement per ISO 11783-5
+- **Source**: docs/ARCHITECTURE.md ## ISOBUS ISO 11783 (Phase 6 — CONFIG_OMNICAN_ISOBUS)
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-ISOBUS-003
+- **Title**: Implement Virtual Terminal (VT) client per ISO 11783-6: object pool upload, soft
+- **Status**: planned
+- **Description**: Implement Virtual Terminal (VT) client per ISO 11783-6: object pool upload, soft-key handling, alarm messages, data mask navigation
+- **Source**: docs/ARCHITECTURE.md ## ISOBUS ISO 11783 (Phase 6 — CONFIG_OMNICAN_ISOBUS)
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-ISOBUS-004
+- **Title**: Implement Task Controller (TC) client per ISO 11783-10: Device Descriptor Object
+- **Status**: planned
+- **Description**: Implement Task Controller (TC) client per ISO 11783-10: Device Descriptor Object Pool (DDOP), process data exchange, section control
+- **Source**: docs/ARCHITECTURE.md ## ISOBUS ISO 11783 (Phase 6 — CONFIG_OMNICAN_ISOBUS)
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-ISOBUS-005
+- **Title**: Implement ISOBUS Shortcut Button (ISB) per ISO 11783-7 §B.5: single-button emerg
+- **Status**: planned
+- **Description**: Implement ISOBUS Shortcut Button (ISB) per ISO 11783-7 §B.5: single-button emergency stop broadcast
+- **Source**: docs/ARCHITECTURE.md ## ISOBUS ISO 11783 (Phase 6 — CONFIG_OMNICAN_ISOBUS)
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-ISOBUS-006
+- **Title**: Support ISO 11783-7 Implement Messages: auxiliary valve commands, general-purpos
+- **Status**: planned
+- **Description**: Support ISO 11783-7 Implement Messages: auxiliary valve commands, general-purpose valve commands, auxiliary valve estimated flow, guidance speed/direction
+- **Source**: docs/ARCHITECTURE.md ## ISOBUS ISO 11783 (Phase 6 — CONFIG_OMNICAN_ISOBUS)
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-ISOBUS-007
+- **Title**: Reference implementation: AgIsoStack++ (github.com/Open-Agriculture/AgIsoStack-p
+- **Status**: planned
+- **Description**: Reference implementation: AgIsoStack++ (github.com/Open-Agriculture/AgIsoStack-plus-plus, MIT). Port or wrap for Zephyr compatibility via `CONFIG_OMNICAN_ISOBUS_BACKEND` selecting native Zephyr or AgIsoStack++ bridge
+- **Source**: docs/ARCHITECTURE.md ## ISOBUS ISO 11783 (Phase 6 — CONFIG_OMNICAN_ISOBUS)
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-ISOBUS-008
+- **Title**: Provide `omnican_isobus_vt_client_init()`, `omnican_isobus_tc_client_init()` API
+- **Status**: planned
+- **Description**: Provide `omnican_isobus_vt_client_init()`, `omnican_isobus_tc_client_init()` APIs following the same `omnican_node` anchor pattern
+- **Source**: docs/ARCHITECTURE.md ## ISOBUS ISO 11783 (Phase 6 — CONFIG_OMNICAN_ISOBUS)
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
+### REQ-ISOBUS-009
+- **Title**: Enable via `CONFIG_OMNICAN_ISOBUS=y`; requires `CONFIG_OMNICAN_J1939=y`
+- **Status**: planned
+- **Description**: Enable via `CONFIG_OMNICAN_ISOBUS=y`; requires `CONFIG_OMNICAN_J1939=y`
+- **Source**: docs/ARCHITECTURE.md ## ISOBUS ISO 11783 (Phase 6 — CONFIG_OMNICAN_ISOBUS)
+- **Platform**: embedded
+- **Boundary**: Zephyr RTOS v3.7.0 — verified via ztest on native_sim
+
 ### REQ-ISOTP-001
 - **Title**: Implement a workaround for Zephyr issue #86025 using separate TX/RX socket conte
 - **Status**: planned

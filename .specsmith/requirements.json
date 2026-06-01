@@ -1112,6 +1112,78 @@
     "test_ids": []
   },
   {
+    "id": "REQ-ISOBUS-001",
+    "title": "REQ-ISOBUS-001",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-ISOBUS-002",
+    "title": "REQ-ISOBUS-002",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-ISOBUS-003",
+    "title": "REQ-ISOBUS-003",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-ISOBUS-004",
+    "title": "REQ-ISOBUS-004",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-ISOBUS-005",
+    "title": "REQ-ISOBUS-005",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-ISOBUS-006",
+    "title": "REQ-ISOBUS-006",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-ISOBUS-007",
+    "title": "REQ-ISOBUS-007",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-ISOBUS-008",
+    "title": "REQ-ISOBUS-008",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
+    "id": "REQ-ISOBUS-009",
+    "title": "REQ-ISOBUS-009",
+    "description": "",
+    "source": "docs/REQUIREMENTS.md",
+    "status": "defined",
+    "test_ids": []
+  },
+  {
     "id": "REQ-ISOTP-001",
     "title": "REQ-ISOTP-001",
     "description": "",

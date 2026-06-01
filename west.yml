@@ -32,3 +32,29 @@ manifest:
       path: modules/lib/canopennode
       groups:
         - optional
+
+    # Open-SAE-J1939 — MIT-licensed C J1939 reference implementation.
+    # Primary alternate source for J1939/73 DM1-DM16 implementation guidance
+    # and ISO 11783-7 auxiliary valve messaging. Not vendored directly;
+    # used as reference during OmniCAN src/j1939/ implementation.
+    - name: Open-SAE-J1939
+      remote: bitconcepts
+      url: https://github.com/DanielMartensson/Open-SAE-J1939
+      revision: main
+      path: modules/lib/open-sae-j1939
+      groups:
+        - optional
+        - j1939-ref
+
+    # AgIsoStack++ — MIT-licensed C++ ISOBUS (ISO 11783) reference library.
+    # Primary reference and integration point for OmniCAN Phase 6 (ISOBUS).
+    # Virtual Terminal, Task Controller, ISB, implement messaging, NMEA2000.
+    # Enable for Phase 6 development by adding the 'isobus' group.
+    - name: AgIsoStack
+      remote: bitconcepts
+      url: https://github.com/Open-Agriculture/AgIsoStack-plus-plus
+      revision: main
+      path: modules/lib/agisostack
+      groups:
+        - optional
+        - isobus

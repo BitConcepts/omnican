@@ -841,36 +841,90 @@
 - **Status**: Pending
 
 ### TEST-140
+- Covers: REQ-ISOBUS-001
+- **Type**: Unit
+- **Description**: Verify build on omnican's j1939 phase 2 layer (address claiming, tp/etp, pgn routing) as the iso 11783 data-link foundation
+- **Status**: Pending
+
+### TEST-141
+- Covers: REQ-ISOBUS-002
+- **Type**: Unit
+- **Description**: Verify implement working set (ws) management: working set master election, working set member announcement per iso 11783-5
+- **Status**: Pending
+
+### TEST-142
+- Covers: REQ-ISOBUS-003
+- **Type**: Unit
+- **Description**: Verify implement virtual terminal (vt) client per iso 11783-6: object pool upload, soft-key handling, alarm messages, data mask navigation
+- **Status**: Pending
+
+### TEST-143
+- Covers: REQ-ISOBUS-004
+- **Type**: Unit
+- **Description**: Verify implement task controller (tc) client per iso 11783-10: device descriptor object pool (ddop), process data exchange, section control
+- **Status**: Pending
+
+### TEST-144
+- Covers: REQ-ISOBUS-005
+- **Type**: Unit
+- **Description**: Verify implement isobus shortcut button (isb) per iso 11783-7 §b.5: single-button emergency stop broadcast
+- **Status**: Pending
+
+### TEST-145
+- Covers: REQ-ISOBUS-006
+- **Type**: Unit
+- **Description**: Verify support iso 11783-7 implement messages: auxiliary valve commands, general-purpose valve commands, auxiliary valve estimated flow, guidance speed/direction
+- **Status**: Pending
+
+### TEST-146
+- Covers: REQ-ISOBUS-007
+- **Type**: Unit
+- **Description**: Verify reference implementation: agisostack++ (github.com/open-agriculture/agisostack-plus-plus, mit). port or wrap for zephyr compatibility via `config_omnican_isobus_backend` selecting native zephyr or agisostack++ bridge
+- **Status**: Pending
+
+### TEST-147
+- Covers: REQ-ISOBUS-008
+- **Type**: Unit
+- **Description**: Verify provide `omnican_isobus_vt_client_init()`, `omnican_isobus_tc_client_init()` apis following the same `omnican_node` anchor pattern
+- **Status**: Pending
+
+### TEST-148
+- Covers: REQ-ISOBUS-009
+- **Type**: Unit
+- **Description**: Verify enable via `config_omnican_isobus=y`; requires `config_omnican_j1939=y`
+- **Status**: Pending
+
+### TEST-149
 - Covers: REQ-ISOTP-001
 - **Type**: Unit
 - **Description**: Verify implement a workaround for zephyr issue #86025 using separate tx/rx socket contexts with a forwarding shim
 - **Status**: Pending
 
-### TEST-141
+### TEST-150
 - Covers: REQ-ISOTP-002
 - **Type**: Unit
 - **Description**: Verify default config_omnican_isotp_patch to y when config_omnican_uds or config_omnican_obd2 is enabled
 - **Status**: Pending
 
-### TEST-142
+### TEST-151
 - Covers: REQ-MEM-001
 - **Type**: Unit
 - **Description**: Verify never use dynamic heap allocation (k_malloc, malloc); all state statically allocated or via net_buf pools
 - **Status**: Pending
 
-### TEST-143
+### TEST-152
 - Covers: REQ-MEM-002
 - **Type**: Unit
 - **Description**: Verify handle can frame data via zephyr net_buf from a pool sized by config_omnican_net_buf_count (default 16)
 - **Status**: Pending
 
-### TEST-144
+### TEST-153
 - Covers: REQ-MEM-003
 - **Type**: Unit
 - **Description**: Verify all protocol context structures shall be opaque to the caller but caller-allocated
 - **Status**: Pending
 
-### TEST-145
+### TEST-154
 - Covers: REQ-MEM-004
 - **Type**: Unit
 - **Description**: Verify all protocol handlers execute in a zephyr workqueue context, not the can isr

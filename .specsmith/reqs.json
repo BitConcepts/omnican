@@ -973,42 +973,105 @@
     "priority": "Medium"
   },
   {
-    "id": "ISOTP-PATCH-REQ-140",
+    "id": "ISOBUS-ISO-11783-(PHASE-6-\u2014-CONFIG_OMNICAN_ISOBUS)-REQ-140",
+    "component": "ISOBUS ISO 11783 (Phase 6 \u2014 CONFIG_OMNICAN_ISOBUS)",
+    "description": "Build on OmniCAN's J1939 Phase 2 layer (address claiming, TP/ETP, PGN routing) as the ISO 11783 data-link foundation",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "ISOBUS-ISO-11783-(PHASE-6-\u2014-CONFIG_OMNICAN_ISOBUS)-REQ-141",
+    "component": "ISOBUS ISO 11783 (Phase 6 \u2014 CONFIG_OMNICAN_ISOBUS)",
+    "description": "Implement Working Set (WS) management: Working Set Master election, Working Set Member announcement per ISO 11783-5",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "ISOBUS-ISO-11783-(PHASE-6-\u2014-CONFIG_OMNICAN_ISOBUS)-REQ-142",
+    "component": "ISOBUS ISO 11783 (Phase 6 \u2014 CONFIG_OMNICAN_ISOBUS)",
+    "description": "Implement Virtual Terminal (VT) client per ISO 11783-6: object pool upload, soft-key handling, alarm messages, data mask navigation",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "ISOBUS-ISO-11783-(PHASE-6-\u2014-CONFIG_OMNICAN_ISOBUS)-REQ-143",
+    "component": "ISOBUS ISO 11783 (Phase 6 \u2014 CONFIG_OMNICAN_ISOBUS)",
+    "description": "Implement Task Controller (TC) client per ISO 11783-10: Device Descriptor Object Pool (DDOP), process data exchange, section control",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "ISOBUS-ISO-11783-(PHASE-6-\u2014-CONFIG_OMNICAN_ISOBUS)-REQ-144",
+    "component": "ISOBUS ISO 11783 (Phase 6 \u2014 CONFIG_OMNICAN_ISOBUS)",
+    "description": "Implement ISOBUS Shortcut Button (ISB) per ISO 11783-7 \u00a7B.5: single-button emergency stop broadcast",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "ISOBUS-ISO-11783-(PHASE-6-\u2014-CONFIG_OMNICAN_ISOBUS)-REQ-145",
+    "component": "ISOBUS ISO 11783 (Phase 6 \u2014 CONFIG_OMNICAN_ISOBUS)",
+    "description": "Support ISO 11783-7 Implement Messages: auxiliary valve commands, general-purpose valve commands, auxiliary valve estimated flow, guidance speed/direction",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "ISOBUS-ISO-11783-(PHASE-6-\u2014-CONFIG_OMNICAN_ISOBUS)-REQ-146",
+    "component": "ISOBUS ISO 11783 (Phase 6 \u2014 CONFIG_OMNICAN_ISOBUS)",
+    "description": "Reference implementation: AgIsoStack++ (github.com/Open-Agriculture/AgIsoStack-plus-plus, MIT). Port or wrap for Zephyr compatibility via `CONFIG_OMNICAN_ISOBUS_BACKEND` selecting native Zephyr or AgIsoStack++ bridge",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "ISOBUS-ISO-11783-(PHASE-6-\u2014-CONFIG_OMNICAN_ISOBUS)-REQ-147",
+    "component": "ISOBUS ISO 11783 (Phase 6 \u2014 CONFIG_OMNICAN_ISOBUS)",
+    "description": "Provide `omnican_isobus_vt_client_init()`, `omnican_isobus_tc_client_init()` APIs following the same `omnican_node` anchor pattern",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "ISOBUS-ISO-11783-(PHASE-6-\u2014-CONFIG_OMNICAN_ISOBUS)-REQ-148",
+    "component": "ISOBUS ISO 11783 (Phase 6 \u2014 CONFIG_OMNICAN_ISOBUS)",
+    "description": "Enable via `CONFIG_OMNICAN_ISOBUS=y`; requires `CONFIG_OMNICAN_J1939=y`",
+    "status": "Draft",
+    "priority": "Medium"
+  },
+  {
+    "id": "ISOTP-PATCH-REQ-149",
     "component": "ISOTP Patch",
     "description": "Implement a workaround for Zephyr issue #86025 using separate TX/RX socket contexts with a forwarding shim",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "ISOTP-PATCH-REQ-141",
+    "id": "ISOTP-PATCH-REQ-150",
     "component": "ISOTP Patch",
     "description": "Default CONFIG_OMNICAN_ISOTP_PATCH to y when CONFIG_OMNICAN_UDS or CONFIG_OMNICAN_OBD2 is enabled",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "MEMORY-AND-THREADING-REQ-142",
+    "id": "MEMORY-AND-THREADING-REQ-151",
     "component": "Memory and Threading",
     "description": "Never use dynamic heap allocation (k_malloc, malloc); all state statically allocated or via net_buf pools",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "MEMORY-AND-THREADING-REQ-143",
+    "id": "MEMORY-AND-THREADING-REQ-152",
     "component": "Memory and Threading",
     "description": "Handle CAN frame data via Zephyr net_buf from a pool sized by CONFIG_OMNICAN_NET_BUF_COUNT (default 16)",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "MEMORY-AND-THREADING-REQ-144",
+    "id": "MEMORY-AND-THREADING-REQ-153",
     "component": "Memory and Threading",
     "description": "All protocol context structures shall be opaque to the caller but caller-allocated",
     "status": "Draft",
     "priority": "Medium"
   },
   {
-    "id": "MEMORY-AND-THREADING-REQ-145",
+    "id": "MEMORY-AND-THREADING-REQ-154",
     "component": "Memory and Threading",
     "description": "All protocol handlers execute in a Zephyr workqueue context, not the CAN ISR",
     "status": "Draft",

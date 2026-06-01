@@ -47,3 +47,9 @@
 - **Type**: task
 - **Status**: complete
 - **Chain hash**: `dca339275bf5fc26...`
+
+## 2026-06-01T06:49 — J1939/73 alternate sources resolved: Open-SAE-J1939 (MIT C, DM1-DM16 + ISO 11783-7), python-can-j1939 (DTC bit encoding), CSS Electronics guide (lamp bytes, FMI table), EmbeddedFlakes (DM1-DM12). DTC C encode formula documented in STANDARDS.md. ISOBUS ISO 11783 added as Phase 6: AgIsoStack++ (MIT C++, 344 stars) as primary reference + integration point. ISO 11783-1/2/3/5/6/7/10/13/14 standards registered. west.yml: Open-SAE-J1939 (j1939-ref group) + AgIsoStack++ (isobus group) added as optional modules. 154 REQs/154 tests, 29/30 audit.
+- **Author**: agent
+- **Type**: task
+- **Status**: complete
+- **Chain hash**: `b3bdfe017ecd294c...`
